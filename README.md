@@ -4,7 +4,7 @@
 
 Code release for the paper
 
-> A. Darwish and T. El-Shabrawy, "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation," submitted to *IEEE Internet of Things Journal*, 2026.
+> A. Darwish and T. Elshabrawy, "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation," submitted to *IEEE Internet of Things Journal*, 2026.
 
 Remote bearing monitoring over LoRaWAN has to work without fault labels and without sending raw vibration recordings. This repository contains a complete federated learning (FL) pipeline in which LoRaWAN microcontrollers train a shared anomaly detector on their own data. Each node extracts 22 features from raw vibration, standardises them locally and runs two full-batch gradient steps per round on a 562-parameter autoencoder. A Python server aggregates the updates with FedAdam over a fixed 12-round budget. Updates and global models travel as int8 codes with per-tensor scales, so at EU868 data rate DR5 every exchange fits in three LoRaWAN fragments per direction (598 B and 624 B), with application-layer fragment repair and Class C multicast for the downlink. A causal persistence rule turns reconstruction scores into alarms. The release contains the ESP32 firmware, the LoRaWAN multicast companion library, the server, the chronological simulation and hardware twin used for the evaluation, the hardware-versus-twin comparison tool, and the power-measurement tooling.
 
@@ -358,7 +358,7 @@ If you use this code, please cite the paper (see also `CITATION.cff`):
 
 ```bibtex
 @article{darwish2026ondevice,
-  author  = {Darwish, Abdelrahman and El-Shabrawy, Tallal},
+  author  = {Darwish, Abdelrahman and Elshabrawy, Tallal},
   title   = {On-Device Federated Learning for Label-Free Bearing Fault Detection Over {LoRaWAN}: Design and Hardware Evaluation},
   journal = {IEEE Internet of Things Journal},
   year    = {2026},
@@ -369,8 +369,8 @@ If you use this code, please cite the paper (see also `CITATION.cff`):
 ## Authors
 
 - **Abdelrahman Darwish**, Faculty of Information Engineering and Technology, German University in Cairo, Cairo, Egypt. ORCID [0009-0007-6179-4974](https://orcid.org/0009-0007-6179-4974)
-- **Tallal El-Shabrawy**, Faculty of Information Engineering and Technology, German University in Cairo, Cairo, Egypt. ORCID [0000-0003-2270-0713](https://orcid.org/0000-0003-2270-0713)
+- **Tallal Elshabrawy**, Faculty of Information Engineering and Technology, German University in Cairo, Cairo, Egypt. ORCID [0000-0003-2270-0713](https://orcid.org/0000-0003-2270-0713)
 
 ## License
 
-Released under the [MIT License](LICENSE). Copyright (c) 2026 Abdelrahman Darwish and Tallal El-Shabrawy. The public datasets and third-party libraries (MCCI LMIC, ESP32 Arduino core, SdFat, Adafruit libraries) keep their own licenses.
+Released under the [MIT License](LICENSE). Copyright (c) 2026 Abdelrahman Darwish and Tallal Elshabrawy. The public datasets and third-party libraries (MCCI LMIC, ESP32 Arduino core, SdFat, Adafruit libraries) keep their own licenses.

@@ -8,7 +8,7 @@ authors:
     given-names: Abdelrahman
     orcid: "https://orcid.org/0009-0007-6179-4974"
     affiliation: "German University in Cairo"
-  - family-names: El-Shabrawy
+  - family-names: Elshabrawy
     given-names: Tallal
     orcid: "https://orcid.org/0000-0003-2270-0713"
     affiliation: "German University in Cairo"
@@ -27,7 +27,7 @@ preferred-citation:
     - family-names: Darwish
       given-names: Abdelrahman
       orcid: "https://orcid.org/0009-0007-6179-4974"
-    - family-names: El-Shabrawy
+    - family-names: Elshabrawy
       given-names: Tallal
       orcid: "https://orcid.org/0000-0003-2270-0713"
   title: "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation"
