@@ -1,0 +1,166 @@
+{
+  "sources": {
+    "esp32_wait": "ESP32 datasheet, Modem-sleep 240 MHz dual-core, 30-68 mA",
+    "esp32_compute": "ESP32 datasheet, upper end of 240 MHz Modem-sleep range",
+    "sx1276_rx": "SX1276 datasheet, IDDR_L band 1, BW125, LnaBoost on",
+    "sx1276_tx": "SX1276 datasheet, IDDT: RFO +13 dBm 29 mA / PA_BOOST +17 dBm 87 mA",
+    "mpu6050_accel": "MPU-6050 PS Rev 3.4, accelerometer normal mode 500 uA",
+    "mpu6050_sleep": "MPU-6050 PS Rev 3.4, sleep 5 uA",
+    "oled_off": "SSD1306 datasheet, sleep mode <= 10 uA"
+  },
+  "measured": {
+    "round_s": 1131.0,
+    "tx_per_round": 20.291666666666668,
+    "machines": 2,
+    "train_s_per_machine": 0.1805,
+    "flash_read_s_per_machine": 0.0615,
+    "update_fragments": 3,
+    "ul_repair_ratio": 0.53
+  },
+  "sensing": {
+    "sense_s": 4.096,
+    "features_s": 0.05,
+    "score_s": 0.002
+  },
+  "acq_interval_s": 600.0,
+  "low": {
+    "bound": "low",
+    "currents_mA": {
+      "esp32_wait": 30.0,
+      "esp32_compute": 68.0,
+      "sx1276_rx": 11.5,
+      "sx1276_tx": 29.0,
+      "mpu6050_accel": 0.5,
+      "mpu6050_sleep": 0.005,
+      "oled_off": 0.01
+    },
+    "round_s": 1131.0,
+    "frames_per_round": {
+      "long": 9.18,
+      "short": 11.11,
+      "airtime_long_s": 0.3484,
+      "airtime_short_s": 0.0668
+    },
+    "acquisitions_per_round": 3.77,
+    "phases": {
+      "listen (Class C RX, CPU waiting)": {
+        "seconds_per_round": 1110.937,
+        "current_mA": 41.515,
+        "charge_mAs": 46120.56,
+        "energy_mJ_at_vbat": 170646.1,
+        "share": 0.96805
+      },
+      "tx (on air)": {
+        "seconds_per_round": 3.941,
+        "current_mA": 59.015,
+        "charge_mAs": 232.57,
+        "energy_mJ_at_vbat": 860.5,
+        "share": 0.00488
+      },
+      "train": {
+        "seconds_per_round": 0.361,
+        "current_mA": 79.515,
+        "charge_mAs": 28.7,
+        "energy_mJ_at_vbat": 106.2,
+        "share": 0.0006
+      },
+      "flash read (prepared rows)": {
+        "seconds_per_round": 0.123,
+        "current_mA": 79.515,
+        "charge_mAs": 9.78,
+        "energy_mJ_at_vbat": 36.2,
+        "share": 0.00021
+      },
+      "sense (MPU6050 1 kHz)": {
+        "seconds_per_round": 15.442,
+        "current_mA": 80.01,
+        "charge_mAs": 1235.51,
+        "energy_mJ_at_vbat": 4571.4,
+        "share": 0.02593
+      },
+      "features + score": {
+        "seconds_per_round": 0.196,
+        "current_mA": 79.515,
+        "charge_mAs": 15.59,
+        "energy_mJ_at_vbat": 57.7,
+        "share": 0.00033
+      }
+    },
+    "per_round_charge_mAh": 13.2341,
+    "per_round_energy_J_at_vbat": 176.28,
+    "average_current_mA": 42.12,
+    "battery_mAh": 700.0,
+    "usable_fraction": 0.85,
+    "battery_life_h": 14.1
+  },
+  "high": {
+    "bound": "high",
+    "currents_mA": {
+      "esp32_wait": 68.0,
+      "esp32_compute": 68.0,
+      "sx1276_rx": 11.5,
+      "sx1276_tx": 87.0,
+      "mpu6050_accel": 0.5,
+      "mpu6050_sleep": 0.005,
+      "oled_off": 0.01
+    },
+    "round_s": 1131.0,
+    "frames_per_round": {
+      "long": 9.18,
+      "short": 11.11,
+      "airtime_long_s": 0.3484,
+      "airtime_short_s": 0.0668
+    },
+    "acquisitions_per_round": 3.77,
+    "phases": {
+      "listen (Class C RX, CPU waiting)": {
+        "seconds_per_round": 1110.937,
+        "current_mA": 79.515,
+        "charge_mAs": 88336.17,
+        "energy_mJ_at_vbat": 326843.8,
+        "share": 0.97894
+      },
+      "tx (on air)": {
+        "seconds_per_round": 3.941,
+        "current_mA": 155.015,
+        "charge_mAs": 610.9,
+        "energy_mJ_at_vbat": 2260.3,
+        "share": 0.00677
+      },
+      "train": {
+        "seconds_per_round": 0.361,
+        "current_mA": 79.515,
+        "charge_mAs": 28.7,
+        "energy_mJ_at_vbat": 106.2,
+        "share": 0.00032
+      },
+      "flash read (prepared rows)": {
+        "seconds_per_round": 0.123,
+        "current_mA": 79.515,
+        "charge_mAs": 9.78,
+        "energy_mJ_at_vbat": 36.2,
+        "share": 0.00011
+      },
+      "sense (MPU6050 1 kHz)": {
+        "seconds_per_round": 15.442,
+        "current_mA": 80.01,
+        "charge_mAs": 1235.51,
+        "energy_mJ_at_vbat": 4571.4,
+        "share": 0.01369
+      },
+      "features + score": {
+        "seconds_per_round": 0.196,
+        "current_mA": 79.515,
+        "charge_mAs": 15.59,
+        "energy_mJ_at_vbat": 57.7,
+        "share": 0.00017
+      }
+    },
+    "per_round_charge_mAh": 25.0657,
+    "per_round_energy_J_at_vbat": 333.88,
+    "average_current_mA": 79.78,
+    "battery_mAh": 700.0,
+    "usable_fraction": 0.85,
+    "battery_life_h": 7.5
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "experiment": "V39 communication-constrained federated representation learning",
+  "schema_version": 1,
+  "status": "DRAFT; frozen byte-for-byte by the guarded launcher before execution",
+  "scientific_status": "retrospective paired source-device communication-feasibility experiment; not untouched prospective confirmation",
+  "primary_question": "Can bidirectionally compressed federated learning fit a declared LoRaWAN communication budget while remaining equivalent to the identical dense federated learner?",
+  "claim_boundary": "V39 tests simulated model-update communication and paired predictive retention. It does not claim a deployment-ready alarm, verified physical degradation onset, live-radio reliability, or federated superiority over local learning.",
+  "fixed_evidence": {
+    "source_stream_root": "results/raw_online_federated_v36_v36_source1",
+    "source_streams": "V36 causal device-local LOG_ENVELOPE_SHAPE_100 streams",
+    "training_choice": "V37 ADAM_LONG selected label-free from healthy reconstruction validation",
+    "historical_v4_role": "context only; V4 weights, split, detector and results are not dependencies",
+    "v38_role": "the failed calibration result remains a declared limitation and is not reused or rescued"
+  },
+  "hard_constraints": {
+    "one_physical_bearing_one_federated_client": true,
+    "source_clients": 40,
+    "one_equal_vote_per_client": true,
+    "sample_count_never_changes_server_weight": true,
+    "preprocessing_remains_on_each_device": true,
+    "server_receives_no_raw_signal": true,
+    "server_receives_no_feature_matrix": true,
+    "synthetic_nuisance_is_generated_and_consumed_locally": true,
+    "same_seed_optimizer_data_and_rounds_across_communication_arms": true,
+    "both_uplink_and_downlink_are_counted": true,
+    "source_outcomes_open_only_after_prediction_lock": true,
+    "degradation_onset_artifacts_forbidden": true,
+    "target_streams_forbidden": true,
+    "no_post_hoc_scheme_selection": true,
+    "existing_artifacts_never_overwritten": true
+  },
+  "cohort": {
+    "source_clients": 40,
+    "datasets": ["ferrara", "hit", "ims", "pronostia", "xjtu"],
+    "failed_devices_opened_only_at_scoring": 30,
+    "healthy_or_censored_controls_opened_only_at_scoring": 10,
+    "heldout_17": "not opened in V39",
+    "ldm_upb_b01_to_b17": "not opened in V39; a future separately frozen external confirmation"
+  },
+  "model": {
+    "architecture": [100, 32, 8, 32, 100],
+    "parameter_count": 6912,
+    "seeds": [11, 29, 47],
+    "rounds": 40,
+    "local_epochs": 2,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "weight_decay": 0.00001,
+    "initial_model_delivery": "pre-provisioned with firmware and excluded from recurring LoRaWAN round traffic",
+    "objective": "V37 device-local generalized empirical-nuisance denoising"
+  },
+  "communication_arms": [
+    {
+      "name": "DENSE_FLOAT32",
+      "uplink_codec": "dense_float32",
+      "downlink_codec": "dense_float32",
+      "error_feedback": false,
+      "role": "uncompressed reference"
+    },
+    {
+      "name": "INT8_ALL_BIDIRECTIONAL",
+      "uplink_codec": "int8_all",
+      "downlink_codec": "int8_all",
+      "error_feedback": false,
+      "role": "dense quantization comparator"
+    },
+    {
+      "name": "TOPK_FLOAT_K64_BIDIRECTIONAL",
+      "uplink_codec": "topk_float",
+      "downlink_codec": "topk_float",
+      "topk": 64,
+      "error_feedback": false,
+      "role": "sparsification comparator"
+    },
+    {
+      "name": "TOPK_INT8_K64_UPLINK_ONLY",
+      "uplink_codec": "topk_int8",
+      "downlink_codec": "dense_float32",
+      "topk": 64,
+      "error_feedback": false,
+      "role": "V4-like uplink-only diagnostic; cannot establish end-to-end feasibility"
+    },
+    {
+      "name": "TOPK_INT8_K64_BIDIRECTIONAL",
+      "uplink_codec": "topk_int8",
+      "downlink_codec": "topk_int8",
+      "topk": 64,
+      "error_feedback": true,
+      "role": "primary end-to-end compressed arm"
+    }
+  ],
+  "codec_wire_format": {
+    "dense_float32": "four bytes per parameter",
+    "int8_all": "one float32 scale plus one signed byte per parameter",
+    "topk_float": "one uint32/metadata word plus K uint16 indices and K float32 values",
+    "topk_int8": "one float32 scale plus K uint16 indices and K signed int8 values; K is fixed by protocol",
+    "fragment_header_bytes": 8,
+    "lorawan_minimum_phy_overhead_bytes": 13,
+    "initial_model_exclusion": "valid only when firmware provisioning is reported separately"
+  },
+  "lorawan": {
+    "region": "EU863-870",
+    "bandwidth_hz": 125000,
+    "coding_rate": "4/5",
+    "preamble_symbols": 8,
+    "data_rates": {
+      "DR0": {"spreading_factor": 12, "max_application_payload_bytes": 51},
+      "DR1": {"spreading_factor": 11, "max_application_payload_bytes": 51},
+      "DR2": {"spreading_factor": 10, "max_application_payload_bytes": 51},
+      "DR3": {"spreading_factor": 9, "max_application_payload_bytes": 115},
+      "DR4": {"spreading_factor": 8, "max_application_payload_bytes": 222},
+      "DR5": {"spreading_factor": 7, "max_application_payload_bytes": 222}
+    },
+    "private_network_scenarios": {
+      "conservative_gateway_duty_cycle": 0.01,
+      "rx2_subband_gateway_duty_cycle": 0.10,
+      "client_uplink_duty_cycle": 0.01
+    },
+    "ttn_community_policy": {
+      "uplink_airtime_seconds_per_device_per_day": 30.0,
+      "downlink_messages_per_device_per_day": 10,
+      "scope": "community-network policy only; not applied to a private network"
+    },
+    "class_a_unicast": true,
+    "gateway_downlink_accounting": "the common global update is transmitted separately to every participating Class A client",
+    "retransmission_sensitivity": [0.0, 0.05, 0.10, 0.20]
+  },
+  "raw_telemetry_model": {
+    "encoding": "declared 16-bit signed ADC sample, independent of the larger on-disk CSV/MAT representation",
+    "profiles": {
+      "ferrara": {"channels": 1, "samples_per_channel": 128000, "cadence_seconds": 300.0},
+      "xjtu": {"channels": 2, "samples_per_channel": 32768, "cadence_seconds": 60.0},
+      "pronostia": {"channels": 2, "samples_per_channel": 2560, "cadence_seconds": 10.0},
+      "ims_one_channel": {"channels": 1, "samples_per_channel": 20480, "cadence_seconds": 600.0},
+      "ims_two_channel": {"channels": 2, "samples_per_channel": 20480, "cadence_seconds": 600.0},
+      "hit": {"channels": 6, "samples_per_channel": 20480, "cadence_seconds": null}
+    },
+    "ferrara_e4_exception": "not in source cohort; first 453 acquisitions hourly then five-minute cadence",
+    "daily_bytes_rule": "channels times samples per channel times two bytes times 86400 divided by cadence",
+    "no_universal_byte_budget": true
+  },
+  "evaluation": {
+    "alarm": {"threshold_z": 4.0, "persistence_k": 3, "persistence_m": 5, "role": "unchanged diagnostic comparator"},
+    "pointwise_zones": "verified commissioning guard is negative; failed-device operation <=50% life is negative and >=90% is positive; middle life excluded",
+    "primary_performance_endpoint": "paired macro-device AUPRC difference, TOPK_INT8_K64_BIDIRECTIONAL minus DENSE_FLOAT32",
+    "secondary_performance_endpoints": ["accuracy", "balanced_accuracy", "precision", "recall", "specificity", "F1", "terminal detection and first-alarm timing"],
+    "bootstrap": "dataset-then-device paired bootstrap, 5000 repetitions",
+    "equivalence_margins": {"macro_device_auprc_absolute": 0.02, "macro_device_f1_absolute": 0.03},
+    "equivalence_rule": "the complete paired 95% interval must lie within both predeclared margins",
+    "communication_primary": "bidirectional application bytes, fragment count, LoRaWAN airtime, private-network rounds/day and TTN-community rounds/day",
+    "no_claim_if": "uplink-only compression is feasible but the bidirectional primary is not"
+  },
+  "phase_order": ["audit", "train", "predict-source", "lock", "score", "verify"],
+  "results_root_pattern": "results/raw_online_federated_v39_<run_id>/"
+}

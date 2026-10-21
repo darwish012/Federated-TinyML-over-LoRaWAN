@@ -1,0 +1,75 @@
+# ---------------------------------------------------------------- secrets
+# Never commit real keys, EUIs, credentials or per-deployment configuration.
+lab_credentials.h
+node_credentials.h
+config.toml
+config_*.toml
+!config.toml.example
+secrets*
+*.local.json
+secrets_v4.ps1
+enrolled_devices.json
+join_nonces.jsonl
+roster.json
+.env
+.env.*
+*.pem
+*.key
+
+# ---------------------------------------------------------------- python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+
+# ------------------------------------------------- arduino / host builds
+build/
+.arduino-cache/
+.arduino-temp/
+.board-build/
+.zig-cache/
+.zig-local-cache/
+*.dll
+*.lib
+*.pdb
+*.exe
+*.obj
+*.o
+*.exp
+*.ilk
+*.elf
+*.bin
+*.hex
+
+# ---------------------------------------------------- runs and outputs
+results/
+runs/
+output/
+tmp/
+*.log
+*.pkl
+*.npz
+*.npy
+
+# ------------------------------------------------- datasets and caches
+# The public datasets are not redistributed; keep local copies out of git.
+datasets/
+dataset_cache/
+cache/
+*.zip
+*.7z
+*.rar
+*.mat
+*.csv
+!power/**/*.csv
+
+# --------------------------------------------------------------- editors
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,46 @@
+{
+  "protocol_version": 1,
+  "status": "development_protocol_frozen_before_k003_k006_or_b07_scoring",
+  "purpose": "Test whether accumulated corroboration can recover B09 without weakening V57's premature-alarm or healthy-control gates.",
+  "development_devices": {
+    "historical_run_to_failure": 50,
+    "hit_verified_healthy": 2,
+    "ldm_upb_complete_lifecycles": ["B01", "B02", "B04", "B05", "B08", "B09", "B10", "B11", "B16", "B17"],
+    "total_reported_in_full_ledger": 62,
+    "all_are_burned_development_data_for_v62": true
+  },
+  "excluded_from_policy_selection": {
+    "hit_fixed_fault_files": ["data3", "data4", "data5"],
+    "reason": "fixed-fault diagnostics are not lifecycle early-warning devices"
+  },
+  "candidate_family": {
+    "normal_route": "byte-for-byte V57 final alarm",
+    "collapse_route": "V57 hard raw evidence OR causal accumulated moderate-impulse and AE evidence, then V57 6-of-7 latch",
+    "trend_thresholds": [0.1, 0.15, 0.2, 0.25, 0.3],
+    "histories": [7, 16, 32, 64, 96],
+    "impulse_hits": [1, 2, 4, 6, 8],
+    "ae_fractions": [0.5, 0.75, 0.9]
+  },
+  "selection_gates": {
+    "b09_must_be_valid": true,
+    "historical_valid_min": 25,
+    "historical_premature_max": 1,
+    "hit_healthy_alarms_max": 0,
+    "ldm_valid_min": 8,
+    "ldm_premature_max": 1
+  },
+  "held_out_healthy_snapshot_controls": {
+    "archive": "E:/masters/datasets/paderborn/archive.zip",
+    "bearings": ["K003", "K004", "K005", "K006"],
+    "acquisition_construction": "two non-overlapping halves from each of 80 four-second MAT recordings, deterministic lexical condition and numeric repetition order",
+    "expected_acquisitions_per_bearing": 160,
+    "claim_boundary": "healthy-snapshot operating-condition stress tests, not independent healthy machine-life experiments",
+    "open_only_after_candidate_passes_all_development_gates": true
+  },
+  "final_positive_validation": {
+    "machine": "B07",
+    "status": "sealed_and_not_downloaded",
+    "open_only_after_candidate_and_paderborn_gates_pass": true
+  },
+  "safety_stop": "If no candidate passes every selection gate, do not score K003-K006 and do not acquire or open B07. Report V62 as a negative development result."
+}

@@ -1,0 +1,71 @@
+{
+  "schema": "thesis_70_device_federated_protocol_v1",
+  "experiment": "THESIS-70-DEVICE-FEDADAM-TRIAL",
+  "status": "frozen_before_first_execution",
+  "classification": "retrospective_70_logical_client_participating_trial_not_independent_external_validation",
+  "cohort": {
+    "v67_devices": 66,
+    "added_ldm_devices": ["B06", "B13", "B14", "B15"],
+    "total_logical_clients": 70,
+    "excluded_incompatible_device": "B07",
+    "expected_feature_schema_width": 22,
+    "new_downloads": false
+  },
+  "partition": {
+    "known_onset_or_control": "chronological_60_percent_train_20_percent_calibration_20_percent_healthy_test",
+    "all_post_onset_windows": "test_only",
+    "unknown_onset_devices": "first_half_of_lifecycle_is_assumed_commissioning_60_20_20_then_remaining_windows_are_prediction_only_unscored",
+    "minimum_each_healthy_partition": 5,
+    "training_fault_windows_allowed": 0,
+    "calibration_fault_windows_allowed": 0
+  },
+  "model": {
+    "type": "tiny_tanh_autoencoder",
+    "input_features": 22,
+    "hidden_units": 4,
+    "trainable_parameters": 202,
+    "initialization_seed": 17070,
+    "local_epochs": 2,
+    "local_learning_rate": 0.03,
+    "l2": 0.0001,
+    "client_weighting": "equal_client",
+    "rounds": 12,
+    "optimizers": ["fedadam"],
+    "primary_optimizer": "fedadam",
+    "fedadam_server_learning_rate": 0.01,
+    "fedadam_beta1": 0.9,
+    "fedadam_beta2": 0.99,
+    "fedadam_tau": 0.001
+  },
+  "alarm": {
+    "score": "mean_squared_reconstruction_error",
+    "device_local_calibration": true,
+    "threshold_quantile": 0.995,
+    "persistence_required": 3,
+    "persistence_window": 5
+  },
+  "endpoints": {
+    "fault_detection_denominator": "known-onset fault lifecycles only",
+    "healthy_specificity_denominator": "known-onset lifecycles plus verified healthy controls",
+    "strict_machine_success": "known fault: no held-out-healthy alarm and persistent unhealthy alarm; healthy control: no held-out-healthy alarm",
+    "unknown_onset_handling": "predicted and reported but excluded from scored denominator",
+    "conservative_full_70_rate": "scored successes divided by all 70, treating five unscored lifecycles as non-successes"
+  },
+  "communication_screen": {
+    "fragment_data_bytes": 200,
+    "float32_parameter_bytes": 808,
+    "message_overhead_bytes": 16,
+    "fragments_per_update": 5,
+    "fragments_per_global_model": 5,
+    "rounds": 12,
+    "class_a": "strict_per_client_unicast_no_multicast",
+    "physical_lilygo_boards": 10,
+    "execution_interpretation": "70 logical clients multiplexed sequentially; not 70 simultaneous physical radios"
+  },
+  "claim_boundary": [
+    "This trial demonstrates a 70-logical-client federated execution over already opened machine lifecycles.",
+    "It is not independent validation and does not represent 70 physical LilyGO boards.",
+    "Five onset-unavailable run-to-failure devices cannot enter a scored accuracy denominator.",
+    "The result is fixed after this first complete execution; no threshold or partition tuning is permitted from its outcomes."
+  ]
+}

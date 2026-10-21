@@ -1,0 +1,155 @@
+{
+  "experiment": "V43 threshold grid, shared-model/local-calibration deployment configurations, and machine-life-experiment statistics",
+  "status": "frozen_before_execution",
+  "preregistration": "V43_PREREGISTRATION.md",
+  "no_retraining": true,
+  "reused_v42_module_sha256": {
+    "raw_online_federated_v42.py": "530A56D53BE40C778C9896B2F40BDB21EE3E4AF0FE04FD4E8CC8569A71064FCC",
+    "raw_online_federated_v42_calibration.py": "EB00F7CDE284A4BBFCA7C061DC59178C2274CD22A1294670DC8CBE9C4A42671F",
+    "raw_online_federated_v42_protocol.json": "D8FB7A53D54A8B4E203136B65A9C368B252B2513F7B414B9E5292CC4255BC251",
+    "raw_online_federated_v41.py": "378EB33DD6EFD8D8C3FBF0468044AA0BEF8805EBF1FFF5219DF1263267D5AEF7",
+    "raw_online_federated_v25_policy.py": "34D2756836544A388D4E288F96352C3F1C453D8E482FD0C5B79244D6D080504D",
+    "raw_online_federated_v29_models.py": "C9B7893111AAD2BCEB7E12DA02229039132C5171404DCD004273F0BE62690A1A"
+  },
+  "reused_v42_frozen2_root": "results/raw_online_federated_v42_frozen2",
+  "reused_v42_frozen2_sha256": {
+    "v42_audit_lock.json": "6664EA3092457E626A601733A4E1EB9B3B9343786E6F0130D302ACA234BC03B3",
+    "v42_source_predictions_summary.csv": "AA41999EE506D33554D86DCD732962123D9AE80F960E7442F97319242B457561",
+    "v42_final_metrics.json": "425CC5E2418CDE26EEA5C3A6E0A1D9C7597DE09EFA08C0F8AA2B2B0CD14CEA67",
+    "v42_gate.json": "24915087DDE3196A721E80249D0A33680F29A1E6223C63D3E4C8ABB58035C4B3"
+  },
+  "reused_v41r1_root": "results/raw_online_federated_v41r1_confirm1",
+  "source_evidence_csv": "results/bearing_eda_deep/tables/device_local_onset_estimates.csv",
+  "frozen_v29b_policy": {
+    "variant": "ROBUST_Z",
+    "moderate": 2.0,
+    "strong": 8.0,
+    "vote_fraction": 0.67,
+    "k": 4,
+    "m": 7,
+    "weights": {
+      "FED_AE_RECON": 0.3356872059084347,
+      "FED_PCA16": 0.3102479436514914,
+      "FED_DEEP_SVDD": 0.354064850440074
+    },
+    "origin": "frozen V29b source policy, unchanged since V41/V42; strong and vote_fraction are never adjusted by V43, only the moderate/nominal-z lever is swept (SS2.1) and, for arms with EPC on, bootstrap-adjusted (SS3, carried from V42)"
+  },
+  "local_model": {
+    "kind": "LOCAL_PCA16",
+    "components": 16,
+    "note": "SPEC-AMBIGUITY (see raw_online_federated_v43_grid.py module docstring): V43_PREREGISTRATION.md SS2.2 does not specify what a 'purely local model' consists of. The most literal reading that requires NO retraining is V41/V42's own already-computed per-device local-PCA comparator (models.fit_pca on that device's own 12-point FIT window, a closed-form per-device fit that was already part of the frozen scoring pipeline, not a newly trained model). Used as a single-branch ensemble (weight 1.0) through the same calib.ensemble_decision/latch machinery as the federated arms."
+  },
+  "persistence": {"k": 4, "m": 7, "note": "4-of-7 latch throughout, delegated to raw_online_federated_v25_policy.latch_stream, unchanged from V41R1/V42"},
+  "epc": {
+    "B": 2000,
+    "p": 0.10,
+    "seed": 20260804,
+    "note": "identical B/p/seed to V42 so that the seed-derivation function raw_online_federated_v42._seed_for(seed, client_id, branch, m) reproduces V42's own bootstrap draws bit-for-bit at m=64, nominal z=2.0 -- required for gate G1"
+  },
+  "commissioning": {
+    "input_calibration": 8,
+    "local_healthy_fitting": 12,
+    "heldout_guard": 4,
+    "fit_end_index": 20,
+    "rationale": "input_calibration and local_healthy_fitting stay fixed; only the score-calibration window m varies. Geometry constants are imported from raw_online_federated_v42_calibration (FIT_END, GUARD_SIZE), not redefined."
+  },
+  "threshold_grid": {
+    "nominal_z": [2.00, 2.25, 2.50, 2.75, 3.00],
+    "epc_variants": [false, true],
+    "primary_calibration_points": 64,
+    "note": "SS2.1: the FULL trade curve is the deliverable. No point on this grid may be nominated as a winner; the grid is reported in ascending z order."
+  },
+  "m_sensitivity": {
+    "grid": [64, 128, 256],
+    "fixed_nominal_z": 2.0,
+    "epc": true,
+    "config": "F-L",
+    "note": "SS2.3, secondary only. Fixed on the common cohort eligible at all three sizes so changing eligibility cannot distort the comparison. SPEC-AMBIGUITY: SS2.3 does not name a threshold for this leg; the frozen V29b nominal moderate (2.0) is used, matching the F-L definition (device-local EPC threshold) and V42's own primary comparison point, so only m varies."
+  },
+  "deployment_configurations": {
+    "F-G": {"model": "federated_triad", "threshold": "global", "epc": false, "swept_over_grid": true, "comparison_group": "deployment (confounded)"},
+    "F-L": {"model": "federated_triad", "threshold": "device_local_epc", "epc": true, "swept_over_grid": true, "comparison_group": "deployment (confounded)"},
+    "L-L": {"model": "local_pca16", "threshold": "device_local_epc", "epc": true, "swept_over_grid": true, "comparison_group": "deployment (confounded)"},
+    "note": "F-G vs F-L isolates the calibration problem, a clean contrast (same model, threshold style only). F-L vs L-L is RETAINED as the deployment comparison (best shared configuration vs best local configuration) but is CONFOUNDED as an isolation of federated representation learning -- see matched_algorithm_pair below (SS2.2.1, added after review) for the actual isolation. F-L is the intended deployment (SS2.2). The (local_pca16, global-threshold, no-EPC) combination is not one of the three named configurations and is not computed (task-scope instruction: do not add mechanisms the preregistration does not describe)."
+  },
+  "matched_algorithm_pair": {
+    "F-L(PCA)": {"model": "federated_pca16_branch_alone", "threshold": "device_local_epc", "epc": true, "swept_over_grid": true, "comparison_group": "matched pair (isolates federated representation learning)"},
+    "L-L(PCA)": {"model": "local_pca16", "threshold": "device_local_epc", "epc": true, "swept_over_grid": true, "comparison_group": "matched pair (isolates federated representation learning)"},
+    "note": "SS2.2.1 (added after review, MANDATORY): F-L uses the three-branch V29b triad while the only available local comparator is single-branch local PCA-16, so F-L vs L-L varies training locality AND branch count at once and cannot by itself isolate the value of federated representation learning. FED_PCA16 is already computed as a separate branch (raw_online_federated_v42_calibration.BRANCHES), so this matched pair costs nothing: F-L(PCA) is the FED_PCA16 branch ALONE with a device-local EPC threshold (reuses F-L's own per-branch EPC-adjusted threshold, no new bootstrap draw); L-L(PCA) is local PCA-16 with a device-local EPC threshold, numerically IDENTICAL to L-L (the chosen local model already is local PCA-16) but reported under its own config label. Same algorithm, same branch count, same threshold style -- only training locality differs. This pair, not F-L vs L-L, is the isolation of federated representation learning, reported with a matched-pair confidence interval on the F-L(PCA) minus L-L(PCA) difference, clustered on machine-life experiment (raw_online_federated_v43_stats.matched_pair_bootstrap). Context: memory.txt Appendix 2026-08-01 records federated PCA-16 as the one arm that improved first-alarm timing on the fresh cohort (26/35 valid, fewest premature)."
+  },
+  "onset_tolerance": {
+    "tau_fractions_of_remaining_life": [0.0, 0.05, 0.10, 0.20],
+    "note": "SS3.2: an alarm within tau of remaining life before the annotated onset still counts as valid at that tolerance. Reported as a four-point band, secondary/proxy-dependent."
+  },
+  "bootstrap": {
+    "draws": 10000,
+    "seed": 20260805,
+    "cluster_unit": "machine_life_experiment",
+    "ci": [0.025, 0.975],
+    "note": "SS3.4: resampling occurs at experiment level -- an IMS experiment enters or leaves a resample with all of its bearings together. Unit-tested (raw_online_federated_v43_stats_tests.py) that no resample ever contains a partial experiment."
+  },
+  "cohort": {
+    "historical_streams": {"ferrara": 6, "xjtu": 15, "pronostia": 17, "ims": 12, "hit": 5, "ldm_upb": 2},
+    "historical_experiments": {"ferrara": 6, "xjtu": 15, "pronostia": 17, "ims": 3, "hit": 5, "ldm_upb": 2},
+    "historical_total_streams": 57,
+    "historical_total_experiments": 48,
+    "note": "SS1.2/1.3, verified 2026-08-05 (memory.txt Appendix 2026-08-05). IMS's 12 streams are 3 simultaneous-recording experiments (4 bearings per shaft/housing under one radial load); every other historical dataset here records one bearing per independent machine-life experiment."
+  },
+  "communication": {
+    "lorawan": {
+      "region": "EU863-870",
+      "bandwidth_hz": 125000,
+      "coding_rate": "4/5",
+      "preamble_symbols": 8,
+      "max_application_payload_bytes": 51,
+      "fragment_header_bytes": 8,
+      "lorawan_phy_overhead_bytes": 13,
+      "spreading_factors": [7, 8, 9, 10, 11, 12],
+      "conservative_gateway_duty_cycle": 0.01,
+      "client_uplink_duty_cycle": 0.01,
+      "ttn_uplink_airtime_seconds_per_device_per_day": 30.0,
+      "ttn_downlink_messages_per_device_per_day": 10,
+      "seconds_per_day": 86400.0,
+      "source": "constants carried unchanged from raw_online_federated_v39_protocol.DRAFT.json 'lorawan' block; airtime formula reused from raw_online_federated_v39_comm.py (not reimplemented)"
+    },
+    "radio_energy_assumption": {
+      "supply_volts": 3.3,
+      "tx_current_amps": 0.044,
+      "rx_current_amps": 0.0105,
+      "note": "ESTIMATED, not measured on real hardware -- published typical SX1276-class transceiver current at +14 dBm TX / continuous RX (datasheet order-of-magnitude figures). memory.txt already records measured on-hardware latency/RAM/flash/energy as UNADDRESSED; this Leg 4 accounting is a declared estimate, consistent with V39/V40's prior communication-accounting exercises, and must be reported as such."
+    },
+    "model": {
+      "training_rounds": 12,
+      "federated_models_source": "raw_online_federated_v41_protocol.DRAFT.json federated_models.rounds, frozen, no retraining",
+      "codec": "dense_float32",
+      "note": "V43 performs no gradient compression (that is V39/V40's scope); the shared triad model (PCA-16 + AE + Deep-SVDD, 12,080 float32 parameters = 48,320 bytes, computed from the frozen all_source.npz bundle) is transmitted uncompressed in both directions each round."
+    },
+    "scenarios": {
+      "physical_node": "one machine or test assembly is one federated node; multiple bearings on one shaft/housing (IMS) are local sensor channels on that one node's radio",
+      "bearing_client": "one bearing stream is one logical federated client (matches how the historical 40-source triad was actually trained); valid only as a simulation assumption or where hardware genuinely gives each bearing its own processor and radio",
+      "note": "SS4: communication cost follows the physical endpoint (node count from the physical_node scenario where stated); statistical intervals and effective sample size always follow the machine-life experiment (raw_online_federated_v43_stats.py). These two counts are never the same for IMS and must never be interchanged."
+    }
+  },
+  "gate": {
+    "kind": "integrity_and_reporting_only",
+    "note": "SS5: there is no single-operating-point performance pass/fail gate on the threshold grid -- nominating a winner post hoc is exactly what SS2.1 forbids.",
+    "G1": "arm reproducing V42's m=64/z=2.0/EPC configuration (F-L, calibration_points=64, nominal_z=2.00, epc=true) matches V42 frozen2's C_EPC_ADJUSTED/64 arm exactly on every shared device (first_alarm)",
+    "G2": "no bearings from one simultaneous experiment split across a partition or bootstrap resample -- verified structurally for every one of the 10,000 resamples, not sampled",
+    "G3": "every reported table states both the stream count and the machine-life-experiment count denominators",
+    "G4": "specificity (P1) computed over verified-healthy devices only; censored/confounded devices reported in a clearly separated INCONCLUSIVE panel, never pooled into a specificity rate",
+    "G5": "no onset artifact read before the prediction lock; no target (DLR) data ever opened",
+    "failure_action": "write the complete report, all tables, and all figures, then exit 2",
+    "carried_from": "V25/V31/V38/V42, non-negotiable"
+  },
+  "secondary_endpoint_caveat": "premature/valid/late/missed against the analytical onset reference is proxy-dependent; the premature fraction moves from 23% to 97% purely with the commissioning rule (memory.txt Appendix 2026-07-27B) and every table carrying these labels must repeat this caveat, alongside the four-point onset-tolerance band (tau in {0,5%,10%,20%})",
+  "hard_constraints": {
+    "no_retraining": true,
+    "no_modification_of_prior_version_results": true,
+    "onset_forbidden_before_score_source_phase": true,
+    "target_data_never_opened": true,
+    "write_report_before_gate_evaluation": true,
+    "no_post_hoc_threshold_winner": true,
+    "specificity_verified_healthy_only": true,
+    "communication_and_statistical_denominators_never_mixed": true
+  }
+}

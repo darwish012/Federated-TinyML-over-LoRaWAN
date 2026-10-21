@@ -1,0 +1,51 @@
+{
+  "study": "Hardware twin and machine-count scaling sweep (4, 8, 12, ... 54 machines) for the 10-LilyGO LoRaWAN deployment",
+  "date": "2026-09-29",
+  "status": "Predeclared before running. Simulation half now; the hardware half reuses this file unchanged and is compared against the twin.",
+  "why": "The user requires the machine-count sweep to be run both in simulation and on 10 LilyGO boards + a Kerlink gateway, with nearly identical results. A float64 simulation cannot be compared number-for-number with float32 firmware, so the reference is a twin that computes exactly what the firmware computes.",
+
+  "cohort": "LDM-free 54 clients (9 datasets), 49 scored, as research/healthy_only_causal_no_ldm_20260922/run_study.py",
+  "machine_order": {
+    "rule": "one fixed order of the 54 machines, so every level is a prefix of it (nested: the 8 machines of level 8 include the 4 of level 4)",
+    "construction": "rng = numpy default_rng(20260929); shuffle machines within each dataset with rng (datasets in sorted name order, machines sorted by machine_id before shuffling); then interleave round-robin over datasets in sorted name order, skipping exhausted datasets",
+    "requirement": "report, for every level, the number of scored machines, faults and healthy controls it contains"
+  },
+  "levels": [4, 8, 12, 16, 20, 24, 28, 32, 36, 40, 44, 48, 52, 54],
+  "board_assignment": "machine at position k (0-based) in machine_order runs on board (k mod 10) + 1, for every level. A machine never changes board, so each SD card is written once with every machine that board will ever host (5 or 6). Level N activates the first N machines; boards used = min(N, 10).",
+
+  "on_device_pipeline": {
+    "sd_card_content": "per machine: the raw per-stream 22 features (data_cache.streams then FEATURE_INDICES, before any transform) for all acquisitions, the partition index ranges, machine_id; float32 little-endian binary plus a small header. No precomputed standardisation.",
+    "standardisation": "on device, per stream, from the machine's train rows only: centre = median, scale = max(1.4826*MAD, population std), 1.0 if that is <= 1e-8; x = |asinh((v - centre)/scale)|; elementwise max over streams. Median of an even count = mean of the two middle values.",
+    "model": "H12 [22,12,22] tanh AE, fl.init(layers, seed) weights, float32 arithmetic everywhere on the device",
+    "local_training": "fl.local_train semantics (2 full-batch epochs, lr 0.03, L2 1e-4) in float32",
+    "scoring_and_alarm": "fl.score in float32; cadence.dense_flags(scores, train_idx, calib_idx, 21, 13, 2.0); strict evaluation as run_study.evaluate",
+    "quantisation": "Q_DYN_TENSOR from research/simulation_completion_20260929/int8.json: per tensor scale = max|x|/127 (floor 1e-7), C roundf, clip [-127,127]. Downlink = absolute global weights. Uplink = delta vs the dequantised global the machine received."
+  },
+
+  "uplink_modes": {
+    "PER_MACHINE": "every active machine sends its own quantised delta (3 fragments) tagged with its machine index; the server averages all received machine deltas with equal weight. Faithful to one-node-per-machine deployment; uplink airtime grows with N.",
+    "PER_BOARD": "each board averages the float32 deltas of its active machines, quantises that mean once and sends it with the machine count; the server takes the count-weighted mean. Uplink airtime grows with boards (max 10), not machines.",
+    "note": "Both are simulated at every level. Which one the hardware runs is the user's decision (hardware time); the twin for the hardware comparison uses the mode the hardware ran."
+  },
+  "server": "float64 FedAdam exactly as fl.Server (ETA 0.01, B1 0.9, B2 0.99, TAU 0.001), equal machine weighting, 12 rounds. The twin's server code MUST be the same Python module the hardware server imports, so the server side is identical by construction.",
+  "downlink": "one Class C multicast of the quantised global per round to all boards",
+  "delivery_mask": "the twin accepts a per-round per-machine (or per-board) uplink/downlink delivery mask; default all delivered. For the hardware comparison the mask is the one logged by the hardware server. Loss semantics as research/fl_algorithm_comparison_20260929/dropout.json.",
+
+  "seeds": [17070, 17071, 17072],
+
+  "simulation_report": "for every level x uplink mode x seed: strict / scored, faults detected, healthy-alarm devices, controls; plus the float64 un-quantised reference (fl.Server on the same N machines) for the same level and seed. Per level: uplink fragments, downlink fragments per round and per run for each mode (578-byte int8 message, 221-byte application payload -> 3 fragments; 7-byte fragment header as experiment_protocol.h), and the 11-fragment float32 V91 message for comparison.",
+
+  "criteria_fixed_now": {
+    "twin_vs_float64": "at every level and seed, twin strict >= float64 strict - 1 (one-sided), in both uplink modes; at level 54 the float64 reference must reproduce 45/44/44 (abort otherwise)",
+    "hardware_vs_twin (applied later, same file)": {
+      "global_model": "after every round, >= 99% of the 562 int8 weight codes of the hardware global identical to the twin's, and every differing code within +-1",
+      "per_machine_outcome": "strict outcome identical for all scored machines at the level, except at most 1 machine per level",
+      "alarm_timing": "first-alarm acquisition index within +-1 of the twin for >= 95% of machines that alarm in both",
+      "completion": "all 12 rounds complete at every level run on hardware"
+    }
+  },
+
+  "golden_reference_export": "for each board: the SD card files; for each level x mode x seed: expected per-round int8 global codes, per-machine standardisation parameters, per-machine score vectors (float32), alarm flags and first-alarm index, strict outcome. These are what the firmware and the hardware run are checked against.",
+
+  "expectation_stated_in_advance": "twin within 1 device of float64 everywhere; strict proportion roughly flat across levels (detection is carried by the device-local decision layer, see results/simulation_completion_20260929/int8/ADDENDUM_untrained_baseline.md); PER_MACHINE uplink fragments grow linearly (3N per round) while downlink stays 3 per round; PER_BOARD uplink saturates at 30 per round from N >= 10."
+}

@@ -1,0 +1,107 @@
+{
+  "experiment": "V42 premature-alarm repair by calibration sample size and EPC-adjusted limits",
+  "status": "frozen_before_execution",
+  "preregistration": "V42_PREREGISTRATION.md",
+  "no_retraining": true,
+  "reused_v41r1_root": "results/raw_online_federated_v41r1_confirm1",
+  "reused_v41r1_locks_sha256": {
+    "v41_audit_lock.json": "7DF6CF40CEFDB1BC9A5AF472AB79D045857CD3BF4F6718A17E6BBF7169F69F0D",
+    "v41_model_lock.json": "9B84E41ADADCDF66D52B0BAFD0CC0389F27A9E001F438B5ED9724C0777466595",
+    "v41_source_prediction_lock.json": "402690D4643720C25E0885DA1FFD4EC78EA267FA89635DE2083D481B27A43477",
+    "v41_source_gate.json": "D034281EDE854E8A49033F973C1627D2BDCAA20A861BEA0A3309955F1F8EB097",
+    "v41_source_per_device.csv": "75F9E9F31F3AD6C08D05D10B05AF9C6336FDDEFF26F97304E05D056BB1508A1C",
+    "training_trace.json": "B1FCA22331318FBF7AC5D474C2C310168BA800D9DEF5FBD15F3BB5C3757454D0"
+  },
+  "reused_v41r1_model_sha256": {
+    "all_source.npz": "44B073386A22E2935C0FD3FCE1D05BAC3F31F618B878EDFFB3F2D7ED715FF982",
+    "fold_without_ferrara.npz": "38DC167C032E4FDCE2506528103EC8AFB59EC44AE5C91E6ED19631DE91F9A3AF",
+    "fold_without_hit.npz": "2CE7837E1D85A537E721D9CF92D3FBCC236C2A4CAC830DF6181201BE3CDE19DF",
+    "fold_without_ims.npz": "7230191EC20404DDFCE3159BC23BC91A12928579732ABB9BA3EA9FE9FB180B08",
+    "fold_without_pronostia.npz": "B808405E6DF3A268EE5AA666B18311CFDBC59E18B742003133228ABCF75B63CD",
+    "fold_without_xjtu.npz": "A729B610D2437A9DC33F441D4E40893BD990B6C0A9FDF9D1FE7EA652C8E041C5"
+  },
+  "source_evidence_csv": "results/bearing_eda_deep/tables/device_local_onset_estimates.csv",
+  "commissioning": {
+    "input_calibration": 8,
+    "local_healthy_fitting": 12,
+    "score_calibration_grid": [8, 16, 32, 64, 128],
+    "heldout_guard": 4,
+    "rationale": "input_calibration and local_healthy_fitting stay fixed for every arm; only the score-calibration window (and, for arm D, the absence of any fixed window) varies"
+  },
+  "arms": [
+    "A_V41R1_BASELINE",
+    "B_CALIB_SWEEP",
+    "C_EPC_ADJUSTED",
+    "D_SELF_STARTING"
+  ],
+  "persistence": {"k": 4, "m": 7, "note": "4-of-7 latch throughout, delegated to raw_online_federated_v25_policy.latch_stream"},
+  "frozen_v29b_policy": {
+    "variant": "ROBUST_Z",
+    "moderate": 2.0,
+    "strong": 8.0,
+    "vote_fraction": 0.67,
+    "k": 4,
+    "m": 7,
+    "weights": {
+      "FED_AE_RECON": 0.3356872059084347,
+      "FED_PCA16": 0.3102479436514914,
+      "FED_DEEP_SVDD": 0.354064850440074
+    },
+    "origin": "frozen V29b source policy, copied verbatim from raw_online_federated_v41_protocol.DRAFT.json; strong stays fixed for every V42 arm, only moderate is bootstrap-adjusted by arm C"
+  },
+  "epc": {
+    "B": 2000,
+    "p": 0.10,
+    "device_level_false_alarm_probability_target_max": 0.05,
+    "adjusts": "per-branch moderate limit only; strong is never adjusted",
+    "seed": 20260804
+  },
+  "self_starting": {
+    "history_start_index": 20,
+    "minimum_history": 2,
+    "guard_slice": [20, 24],
+    "operation_start": 24
+  },
+  "design": {
+    "calibration_points_grid": [8, 16, 32, 64, 128],
+    "threshold_grid": [2.0, 3.0, 4.0, 5.0, 6.0],
+    "horizon": 300,
+    "n_devices": 200000,
+    "seed": 20260804
+  },
+  "eligibility": {
+    "rule": "stream length must exceed (input_calibration + local_healthy_fitting + calibration_points + heldout_guard) so at least one post-commissioning operational acquisition exists; self_starting uses (local_healthy_fitting_end + heldout_guard) in place of calibration_points",
+    "onset_or_status_used": false
+  },
+  "gate": {
+    "primary_operating_point": {"arm": "C_EPC_ADJUSTED", "calibration_points": 32, "p": 0.10},
+    "G1_healthy_control_alarm_rate_max": 0.0,
+    "G2_guard_per_acquisition_exceedance_rate_max": 0.05,
+    "G3_preterminal_detection_rate_min": 0.90,
+    "G4_device_level_false_alarm_probability_max_on_controls": 0.05,
+    "G5_arm_a_must_reproduce_v41r1_exactly": true,
+    "failure_action": "write the complete report, all tables, and all figures, then exit 2",
+    "G2_erratum": {
+      "note": "G2 was originally defined as a LATCH-based guard false-alarm rate. That definition is withdrawn: guard_length=4 < persistence_window=7 means the 4-of-7 condition can never be evaluated within the guard at all, so a latch-based guard rate is arithmetically forced to 0% for every arm and calibration size, not measured. V41R1's own 'guard was already clean' finding (and V19's XJTU 0-guard/10-of-12 split) were the same vacuous arithmetic, not validated safety. G2 is redefined as the per-acquisition exceedance rate within the guard (fraction of guard acquisitions where the pre-persistence ensemble condition is met), which CAN vary with calibration size and limit rule. The latch-based figure is still computed and reported, explicitly labelled structurally zero with the window arithmetic shown, so it is never again cited as evidence. G4 (device-level false-alarm rate on full control records) is therefore the load-bearing specificity gate, not G2.",
+      "structural_check": "audit phase asserts guard_length >= persistence_window and records latch_based_guard_metrics_vacuous in v42_audit_lock.json; fails loudly (prints a warning) rather than silently emitting a zero rate",
+      "v42_geometry": {"guard_length": 4, "persistence_window": 7, "complete_windows": -2, "latch_based_guard_metrics_vacuous": true}
+    },
+    "baseline_v41r1_for_comparison": {
+      "healthy_control_alarm_rate": 1.0,
+      "guard_latch_false_alarm_rate": 0.0,
+      "guard_latch_false_alarm_rate_is_vacuous": true,
+      "preterminal_detection_rate": 1.0,
+      "device_level_false_alarm_rate_censored": 1.0,
+      "specificity": 0.5146,
+      "premature_fraction_of_onset_covered_failed": 0.88
+    }
+  },
+  "secondary_endpoint_caveat": "premature/valid/late/missed against the analytical onset reference is proxy-dependent; the premature fraction moves from 23% to 97% purely with the commissioning rule (memory.txt Appendix 2026-07-27B) and every table carrying these labels must repeat this caveat",
+  "hard_constraints": {
+    "no_retraining": true,
+    "no_modification_of_prior_version_results": true,
+    "onset_forbidden_before_score_source_phase": true,
+    "target_data_never_opened": true,
+    "write_report_before_gate_evaluation": true
+  }
+}

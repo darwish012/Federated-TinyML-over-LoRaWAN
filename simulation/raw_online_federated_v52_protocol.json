@@ -1,0 +1,82 @@
+{
+  "experiment": "V52 frozen V51 fresh-machine external validation on unused LDM-UPB runs",
+  "status": "frozen_before_candidate_archive_download_or_vibration_access",
+  "frozen_at_local": "2026-08-09",
+  "classification": "one-shot fresh-machine external validation within a previously represented dataset family; not a fresh-dataset validation",
+  "source_record": {
+    "title": "Run-to-failure data set of ball bearings subjected to time-varying load and speed conditions",
+    "zenodo_record": 10868257,
+    "doi": "10.5281/zenodo.10868257",
+    "license": "CC-BY-4.0"
+  },
+  "selection": {
+    "rule": "the four smallest unused single-ZIP bearing archives in the authoritative Zenodo record",
+    "rationale": "label-free selection that maximizes the number of fresh machine experiments under an approximately 8 GB acquisition budget",
+    "excluded_as_previously_used": ["B03", "B12"],
+    "selected_in_frozen_order": ["B01", "B02", "B04", "B05"]
+  },
+  "archives": {
+    "B01": {"file": "B01.zip", "bytes": 965866495, "md5": "5e82d9d98f21e4a03a06c43b87858c6b"},
+    "B02": {"file": "B02.zip", "bytes": 2725517006, "md5": "a75354d8e41eee9b6adf55f0f6c532a8"},
+    "B04": {"file": "B04.zip", "bytes": 2844244761, "md5": "9d7c11dc6a83424b440ae6d184064dcb"},
+    "B05": {"file": "B05.zip", "bytes": 1243922707, "md5": "2aa8a2e21af0b66ee357fc9ec8c33933"}
+  },
+  "scientific_unit": {
+    "unit": "one run-to-failure bearing experiment",
+    "same_machine_bearings": "channels belonging to the same physical bearing are aggregated into one 100-dimensional acquisition vector and are never counted as independent machines",
+    "fresh_machine_experiments": 4
+  },
+  "frozen_detector": {
+    "model": "V41R1 all_source federated dense autoencoder",
+    "training": "none in V52",
+    "input_features": "V12 causal 100-dimensional all-vibration-channel transform",
+    "input_normalization": "device-local robust center and scale on acquisitions [0,8)",
+    "score_calibration": "device-local robust z score on acquisitions [20,84), m=64, with V43 EPC bootstrap correction",
+    "guard": "acquisitions [84,88)",
+    "operation_start_zero_based": 88,
+    "v51_policy": {"score": "AE continuous score", "threshold": 1.05, "holdoff": 8, "persistence_k": 6, "persistence_window": 7},
+    "v48_reference": {"branches": ["FED_AE_RECON", "FED_PCA16", "FED_DEEP_SVDD"], "persistence_k": 4, "persistence_window": 7},
+    "retraining": false,
+    "threshold_tuning": false,
+    "target_adaptation": false
+  },
+  "adapter_lock": {
+    "mat_channels_in_order": ["accHorizFrontal_C", "accHorizRear_A"],
+    "archive_member_regex": "/vibrationData/data_{bearing}_M[0-9]+.mat$",
+    "chronology": "numeric M index ascending",
+    "required_parity": "exact bitwise reproduction of all 767 frozen B12 V19 feature vectors before candidate download"
+  },
+  "acquisition_transport": {
+    "amendment": "V52_ACQUISITION_AMENDMENT.md",
+    "method": "official Zenodo ZIP-container member endpoint",
+    "transport_record": 10805043,
+    "transport_record_equivalence": "earlier immutable version containing B01/B02/B04/B05 with byte-identical published archive sizes and MD5 checksums",
+    "logical_input_integrity": "complete ordered vibration-member inventory; every MAT member must match Zenodo-published uncompressed byte count and CRC32",
+    "archive_md5_role": "provenance only; monolithic ZIP bytes are not required after the transport amendment"
+  },
+  "outcome_blindness": {
+    "physical_onset_available_to_detector": false,
+    "archive_values_opened_before_protocol_lock": false,
+    "candidate_predictions_locked_before_timing_classification": true,
+    "timing_proxy": {"premature": "first alarm before 60% of stored life", "valid": "first alarm at or after 60% and before 90%", "late": "first alarm at or after 90%", "missed": "no alarm"},
+    "warning": "the 60/90 percent boundaries are normalized-life evaluation proxies, not verified physical degradation onset"
+  },
+  "primary_gate": {
+    "integrity_all_source_members_size_and_crc_match": true,
+    "adapter_b12_exact_parity": true,
+    "v51_premature_machines_max": 1,
+    "v51_valid_machines_min": 3,
+    "v51_preterminal_machines_min": 3,
+    "v51_early_operation_machines_max": 1,
+    "v51_premature_not_more_than_v48": true,
+    "v51_valid_not_less_than_v48": true,
+    "v51_preterminal_not_less_than_v48": true,
+    "at_least_one_strict_timing_improvement_over_v48": true
+  },
+  "claim_limits": [
+    "A pass supports fresh-machine transfer within LDM-UPB only.",
+    "Four machines are too few for a strong generalization or specificity claim.",
+    "No fully healthy run is present, so healthy-machine specificity is not estimated by V52.",
+    "A failure is retained and reported; V52 may not be rescued by moving the threshold or changing persistence."
+  ]
+}

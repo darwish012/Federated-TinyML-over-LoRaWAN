@@ -1,0 +1,1 @@
+-DARDUINO_LMIC_PROJECT_CONFIG_H_SUPPRESS -DCFG_eu868=1 -DCFG_sx1276_radio=1 -DLMIC_ENABLE_class_c=1 -DLMIC_ENABLE_long_messages=1 -DDISABLE_BEACONS=1 -DDISABLE_PING=1 -DLMIC_ENABLE_DeviceTimeReq=0 -DLMIC_ENABLE_event_logging=1 -DARDUINO_LOOP_STACK_SIZE=16384 -ffp-contract=off -fno-fast-math -Wno-int-conversion

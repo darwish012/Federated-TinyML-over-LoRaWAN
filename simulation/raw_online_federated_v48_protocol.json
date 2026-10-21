@@ -1,0 +1,71 @@
+{
+  "experiment": "V48 machine-aware complete branch-subset ablation",
+  "status": "frozen_before_execution",
+  "classification": "retrospective cross-fitted ablation; no prospective claim",
+  "representation": {
+    "frozen_models": "V41/V29b fold bundles",
+    "retraining": false,
+    "ae_empirical_normal_nuisance_was_training_only": true,
+    "branches": ["FED_AE_RECON", "FED_PCA16", "FED_DEEP_SVDD"]
+  },
+  "subsets": {
+    "AE": ["FED_AE_RECON"],
+    "PCA": ["FED_PCA16"],
+    "SVDD": ["FED_DEEP_SVDD"],
+    "AE_PCA": ["FED_AE_RECON", "FED_PCA16"],
+    "AE_SVDD": ["FED_AE_RECON", "FED_DEEP_SVDD"],
+    "PCA_SVDD": ["FED_PCA16", "FED_DEEP_SVDD"],
+    "AE_PCA_SVDD": ["FED_AE_RECON", "FED_PCA16", "FED_DEEP_SVDD"]
+  },
+  "reference_subset": "AE_PCA_SVDD",
+  "base_weights": {
+    "FED_AE_RECON": 0.3356872059084347,
+    "FED_PCA16": 0.3102479436514914,
+    "FED_DEEP_SVDD": 0.354064850440074
+  },
+  "subset_weight_rule": "retain base weights for included branches and renormalize to sum one",
+  "decision": {
+    "nominal_z": 2.0,
+    "strong_z": 8.0,
+    "vote_fraction": 0.67,
+    "persistence_k": 4,
+    "persistence_window": 7,
+    "machine_fusion": "bearing_latch_then_any"
+  },
+  "calibration": {
+    "primary_m": 64,
+    "epc_draws": 2000,
+    "epc_p": 0.10,
+    "adaptive_secondary_only": true
+  },
+  "cohort": {
+    "streams": 96,
+    "machine_life_experiments": 80,
+    "machine_is_statistical_unit": true,
+    "same_machine_bearings_are_not_independent": true
+  },
+  "selection": {
+    "method": "leave-one-entire-dataset-out",
+    "onset_used": false,
+    "healthy_alarms_not_greater_than_reference": true,
+    "preterminal_noninferiority_margin": -0.05,
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20260808,
+    "tie_break": ["fewest early-operation alarms", "smallest model payload", "highest preterminal detection", "frozen subset order"],
+    "full_triad_is_mandatory_fallback": true
+  },
+  "performance_success": {
+    "healthy_alarms_not_greater_than_reference": true,
+    "paired_preterminal_lower_ci_at_least": -0.05,
+    "strict_premature_not_greater_than_reference": true,
+    "strict_valid_not_less_than_reference": true
+  },
+  "early_operation_fraction": 0.10,
+  "communication": {
+    "reference_training_rounds": 12,
+    "machine_clients": 57,
+    "energy_is_estimated_not_measured": true
+  },
+  "full_statistics_required_for_all_seven_subsets": true,
+  "gate_conditions": ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9"]
+}

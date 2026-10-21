@@ -1,0 +1,67 @@
+{
+  "experiment": "V51 AE continuous-score threshold and persistence discovery replay",
+  "status": "frozen_after_posthoc_discovery_before_locked_replay",
+  "classification": "retrospective posthoc hypothesis-generation with outer-dataset cross-fitted sensitivity; not independent validation",
+  "reference": "reference_epc_triad_4of7",
+  "discovery_primary": "ae_q1.05_6of7_h8",
+  "cohort": {
+    "streams": 96,
+    "machine_life_experiments": 80,
+    "machine_is_statistical_unit": true,
+    "same_machine_bearings_are_not_independent": true,
+    "primary_calibration_m": 64
+  },
+  "score": {
+    "source": "V48 frozen primary_m64 AE continuous ensemble score",
+    "retraining": false,
+    "raw_data_reextraction": false,
+    "definition": "max across bearings after V48 device-local AE scoring; thresholded only after the machine score is formed"
+  },
+  "candidates": {
+    "reference_epc_triad_4of7": {"kind": "frozen_v48_reference"},
+    "ae_q0.95_6of7_h0": {"threshold": 0.95, "k": 6, "window": 7, "holdoff": 0},
+    "ae_q0.95_6of7_h8": {"threshold": 0.95, "k": 6, "window": 7, "holdoff": 8},
+    "ae_q0.95_7of11_h0": {"threshold": 0.95, "k": 7, "window": 11, "holdoff": 0},
+    "ae_q0.95_7of11_h8": {"threshold": 0.95, "k": 7, "window": 11, "holdoff": 8},
+    "ae_q1.00_6of7_h0": {"threshold": 1.00, "k": 6, "window": 7, "holdoff": 0},
+    "ae_q1.00_6of7_h8": {"threshold": 1.00, "k": 6, "window": 7, "holdoff": 8},
+    "ae_q1.00_7of11_h0": {"threshold": 1.00, "k": 7, "window": 11, "holdoff": 0},
+    "ae_q1.00_7of11_h8": {"threshold": 1.00, "k": 7, "window": 11, "holdoff": 8},
+    "ae_q1.05_6of7_h0": {"threshold": 1.05, "k": 6, "window": 7, "holdoff": 0},
+    "ae_q1.05_6of7_h8": {"threshold": 1.05, "k": 6, "window": 7, "holdoff": 8},
+    "ae_q1.05_7of11_h0": {"threshold": 1.05, "k": 7, "window": 11, "holdoff": 0},
+    "ae_q1.05_7of11_h8": {"threshold": 1.05, "k": 7, "window": 11, "holdoff": 8}
+  },
+  "candidate_order": [
+    "reference_epc_triad_4of7",
+    "ae_q0.95_6of7_h0", "ae_q0.95_6of7_h8", "ae_q0.95_7of11_h0", "ae_q0.95_7of11_h8",
+    "ae_q1.00_6of7_h0", "ae_q1.00_6of7_h8", "ae_q1.00_7of11_h0", "ae_q1.00_7of11_h8",
+    "ae_q1.05_6of7_h0", "ae_q1.05_6of7_h8", "ae_q1.05_7of11_h0", "ae_q1.05_7of11_h8"
+  ],
+  "outer_selection": {
+    "method": "leave-one-entire-dataset-out",
+    "heldout_onset_forbidden_until_selection_lock": true,
+    "qualification": ["healthy alarms not greater than reference", "no development preterminal loss versus reference", "strict valid not lower", "strict premature not greater"],
+    "tie_break": ["most strict valid", "fewest strict premature", "fewest early-operation alarms", "most preterminal detections", "shortest holdoff", "frozen order"],
+    "reference_mandatory_fallback": true
+  },
+  "exploratory_success": {
+    "fixed_primary_healthy_alarms_not_greater": true,
+    "fixed_primary_preterminal_is_superset": true,
+    "fixed_primary_strict_valid_gain_at_least": 3,
+    "fixed_primary_strict_premature_reduction_at_least": 3,
+    "fixed_primary_early_operation_not_greater": true,
+    "every_dataset_jackknife_valid_gain_positive": true,
+    "every_dataset_jackknife_premature_change_negative": true,
+    "crossfit_strict_valid_gain_at_least": 2,
+    "crossfit_strict_premature_reduction_at_least": 2,
+    "crossfit_preterminal_not_lower": true,
+    "crossfit_healthy_alarms_not_greater": true
+  },
+  "reporting": {
+    "posthoc_discovery_warning_required": true,
+    "independent_fresh_validation_required": true,
+    "full_statistics_every_candidate": true,
+    "two_healthy_machines_are_inadequate_for_specificity_claim": true
+  }
+}

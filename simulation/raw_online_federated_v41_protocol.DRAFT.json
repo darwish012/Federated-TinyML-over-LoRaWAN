@@ -1,0 +1,104 @@
+{
+  "experiment": "V41 prospective fresh-DLR confirmation of the V29b federated triad",
+  "status": "frozen_before_opening_DLR_Tests_2_3_5_sensor_values",
+  "classification": "prospective relative to six previously unopened physical bearings; source development is retrospective",
+  "official_dataset": {
+    "name": "DLR Bearing Dataset",
+    "doi": "10.5281/zenodo.20742913",
+    "fresh_tests": [2, 3, 5],
+    "fresh_clients": [
+      "dlr::Test_2_B1", "dlr::Test_2_B2",
+      "dlr::Test_3_B1", "dlr::Test_3_B2",
+      "dlr::Test_5_B1", "dlr::Test_5_B2"
+    ],
+    "previously_used_tests_excluded": [1, 4, 6, 7, 8],
+    "expected_archives_md5": {
+      "Test_2.zip": "93c6bfb195cbe36bcb1b8b7c66474e1c",
+      "Test_3_Data_1_to_1000.zip": "e23d5af8ee7fcd04f1a84dc7f2feca77",
+      "Test_3_Data_1001_to_2000.zip": "49c9f4e1b47980048d26898645e245fb",
+      "Test_3_Data_2001_to_3000.zip": "d5d89177e4e14ad6c68b2dc17486c631",
+      "Test_3_Data_3001_to_4000.zip": "622e4ec6bb48ca6e420c08ea942c3f36",
+      "Test_3_Data_4001_to_4951.zip": "83ac016ce5c526db4d3097bfb320a59c",
+      "Test_5.zip": "b79aeeeb191cef63c3a6de037fef5a84"
+    }
+  },
+  "simulation_contract": {
+    "one_physical_bearing_one_federated_client": true,
+    "node_reads_one_acquisition_at_a_time": true,
+    "node_preprocessing_uses_current_acquisition_only": true,
+    "server_receives_raw_vibration": false,
+    "server_receives_failure_labels": false,
+    "federated_aggregation": "equal client weight independent of dataset and acquisition count",
+    "target_data_used_for_training_or_policy_selection": false,
+    "target_rescue_or_rerun": false
+  },
+  "source_development": {
+    "clients": 40,
+    "datasets": ["ferrara", "hit", "ims", "pronostia", "xjtu"],
+    "validation": "five leave-one-entire-dataset-out folds",
+    "feature_streams": "immutable V19 causal 100-D streams",
+    "future_onset_used_for_training": false
+  },
+  "fixed_commissioning": {
+    "total": 32,
+    "input_calibration": [0, 8],
+    "local_healthy_fitting": [8, 20],
+    "posttraining_score_calibration": [20, 28],
+    "heldout_guard": [28, 32],
+    "operation_start": 32,
+    "rationale": "fixed acquisition counts are independent of total life and onset; no future-life information is used"
+  },
+  "federated_models": {
+    "members": ["FED_AE_RECON", "FED_PCA16", "FED_DEEP_SVDD"],
+    "pca_components": 16,
+    "ae_dims": [100, 32, 8, 32, 100],
+    "svdd_dims": [100, 32, 8],
+    "rounds": 12,
+    "local_epochs": 2,
+    "batch_size": 128,
+    "learning_rate": 0.001,
+    "weight_decay": 0.00001,
+    "seed": 20260729,
+    "svdd_minimum_latent_variance": 1e-8,
+    "synthetic_faults_in_primary": false
+  },
+  "frozen_v29b_policy": {
+    "variant": "ROBUST_Z",
+    "moderate": 2.0,
+    "strong": 8.0,
+    "vote_fraction": 0.67,
+    "k": 4,
+    "m": 7,
+    "weights": {
+      "FED_AE_RECON": 0.3356872059084347,
+      "FED_PCA16": 0.3102479436514914,
+      "FED_DEEP_SVDD": 0.354064850440074
+    },
+    "origin": "frozen V29b source policy; copied without target revision"
+  },
+  "comparators": {
+    "LOCAL_PCA16": "fit only on each device local-fitting slice",
+    "RANDOM_AE_MEDIAN": "five frozen random initializations, no training",
+    "INPUT_PROFILE_RULE": "robust distance in the 100-D input feature space",
+    "RMS_KURTOSIS_CREST_RULE": "fixed nine-coordinate robust input rule",
+    "common_alarm": "ROBUST_Z moderate 2 strong 8 and 4-of-7 persistence"
+  },
+  "source_release_gate": {
+    "pointwise_F1_minimum": 0.75,
+    "preterminal_detection_rate_minimum": 0.9,
+    "interval_consistent_detection_rate_minimum": 0.6,
+    "documented_healthy_control_alarm_rate_maximum": 0.1,
+    "mean_guard_false_alarm_rate_maximum": 0.1,
+    "failure_action": "stop before reading fresh target sensor values"
+  },
+  "fresh_target_evaluation": {
+    "primary_unit": "physical bearing with pair-level experiment sensitivity also reported",
+    "pointwise_metrics": ["accuracy", "balanced_accuracy", "specificity", "precision", "recall", "F1", "AUPRC"],
+    "event_metrics": ["guard_clean", "interval_consistent_detection", "preterminal_detection", "missed", "first_alarm", "lead_time"],
+    "onset_reference": "post-lock analytical consensus interval from an independent input-health trajectory; exploratory proxy, not physical ground truth",
+    "onset_methods": ["sustained_robust_shift", "causal_EWMA", "two_window_effect_shift", "offline_change_point"],
+    "terminal_start_fraction": 0.9,
+    "detection_tolerance": "max(5 acquisitions, 5 percent of the post-onset record)",
+    "uncertainty": "device-cluster bootstrap 95 percent confidence intervals"
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "amendment": 2,
+  "date": "2026-09-29",
+  "status": "POST-HOC, written after amendment 1. Fixes rule definitions and constants BEFORE they are evaluated.",
+  "problem": "Amendment 1 found a fixed 4-round budget preserves detection on this cohort. That is a cohort-specific setting, not a generalised stopping rule. A new fleet with different data could need a different number of rounds. The primary study also showed reconstruction loss is misaligned with detection (loss keeps falling while detection degrades), so the rule must track what the DETECTOR uses, not the loss.",
+
+  "requirements_for_a_generalised_rule": [
+    "label-free: no fault label, onset, or test row",
+    "computable from each client's commissioning rows (train + calibration) only",
+    "dimensionless, so one constant transfers across sensors and datasets",
+    "detector-aligned: measures change in what the alarm layer consumes",
+    "constant fixed a priori; generalisation shown by leave-one-dataset-out, not asserted"
+  ],
+
+  "cohort": "LDM-free 54 clients, 49 scored, identical loading to the primary study",
+  "arms": ["h12 fedadam", "h12 fedavg"],
+  "seeds": [17070, 17071, 17072],
+  "max_rounds": 15,
+  "why_15": "Upper end of what is feasible on LoRaWAN within a commissioning period; also the range amendment 1 covered.",
+
+  "part_C_per_dataset_sensitivity": {
+    "what": "For every round 1..15, the strict outcome of every device. Report per-dataset strict counts at every round.",
+    "question": "Is detection flat in round count on EVERY dataset, or only in aggregate? If flat per dataset over a range, any rule landing in that range generalises; if not, the aggregate flatness hid dataset-level sensitivity."
+  },
+
+  "part_D_candidate_rules": {
+    "common": "Evaluated after each round t on the new global model. A criterion must hold at two consecutive rounds (t-1 and t); stop at t. Earliest possible stop t=3. If never met, stop at 15 ('cap'). All inputs are commissioning rows only.",
+    "reference_definition": "ref(client, t) = the exact alarm reference that cadence.dense_flags computes: max finite value of the trailing 13-of-21 order statistic over the commissioning history, with dense_flags' own fallback when none is finite. Must be computed by the same logic and verified equal.",
+    "D1_rank_stability": {
+      "signal": "rho_t = unweighted mean over clients of the Spearman rank correlation between the client's commissioning-row scores at round t and at round t-1",
+      "criterion": "rho_t >= rho_star",
+      "primary_rho_star": 0.995,
+      "sensitivity": [0.99, 0.999],
+      "rationale": "The alarm layer is a threshold on an order statistic relative to the device's own history, so it depends on the ORDERING of scores far more than their scale. When the ordering stops changing, further rounds mainly rescale."
+    },
+    "D2_headroom_stability": {
+      "signal": "h(client,t) = ref(client,t) / median(score(client,t) over calibration rows). delta_t = median over clients of |h(t) - h(t-1)| / h(t-1)",
+      "criterion": "delta_t < epsilon",
+      "primary_epsilon": 0.02,
+      "sensitivity": [0.01, 0.05],
+      "rationale": "h is the detector's headroom: how far above typical healthy behaviour the reference sits. The primary study's mechanism for degradation was the reference tightening relative to healthy variation. Stop when that quantity has stopped moving."
+    },
+    "D3_parameter_change": {
+      "signal": "||w_t - w_{t-1}||_2 / ||w_{t-1}||_2 over all parameters flattened",
+      "criterion": "below epsilon",
+      "primary_epsilon": 0.02,
+      "sensitivity": [0.01, 0.05],
+      "rationale": "Generic, model-agnostic, not detector-aligned. Included as the conventional baseline."
+    }
+  },
+
+  "part_E_leave_one_dataset_out": {
+    "what": "For each rule family and each held-out dataset d among the 9: choose the constant from {primary} + sensitivity by maximising total strict successes over the 3 seeds on devices NOT in d (ties: fewer mean rounds, then the primary constant). Apply that constant; record strict on d's devices. Sum over held-out datasets.",
+    "reference_points": "Same pooled held-out accounting for fixed budgets 4 and 12 (which need no tuning).",
+    "interpretation_fixed_now": "A rule 'generalises' if its PRIMARY constant (no tuning) reaches a pooled strict within 1 device per seed of fixed-12 on every seed, AND stops in <= 12 rounds on every seed. LODO-tuned results are reported to show whether tuning the constant helps at all; this project has found before that LODO selection underperforms a fixed a-priori configuration.",
+    "no_winner_selection_across_families": "If more than one family generalises, prefer D2, then D1, then D3, in that pre-stated order (detector-aligned first, generic last)."
+  },
+
+  "outputs": "per round x device x seed x arm outcomes; per-rule stop rounds and strict (overall + per dataset); LODO table; fragments per client (24 per round for h12)."
+}

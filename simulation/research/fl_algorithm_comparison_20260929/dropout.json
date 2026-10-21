@@ -1,0 +1,35 @@
+{
+  "study": "Client dropout / packet-loss robustness of the headline configuration",
+  "date": "2026-09-29",
+  "status": "Predeclared before running. Development-cohort robustness test, not validation.",
+  "why": "The simulation assumed every client delivers every update and receives every global model. The LoRaWAN hardware runs show real delivery failures (incomplete runs, repair traffic, worst-node effects). This tests whether detection survives realistic loss.",
+
+  "cohort": "LDM-free 54 clients, 49 scored (43 faults, 6 controls), loaded exactly as run_study.py",
+  "model": "h12 [22,12,22]",
+  "algorithms": ["fedadam (headline)", "fedavg (comparison)"],
+  "rounds": 12,
+  "training_seeds": [17070, 17071, 17072],
+  "dropout_repetitions_per_seed": 5,
+  "dropout_rng": "numpy default_rng(1000*training_seed + 100*scenario_index + repetition); independent of the training seed's initialisation draws",
+
+  "failure_semantics": {
+    "uplink_loss": "the client trains locally but its update never reaches the server this round",
+    "downlink_loss": "the client does not receive this round's global model; it keeps its last received copy, trains from that stale copy next round, and is finally SCORED with its last received copy",
+    "aggregation": "server delta = unweighted mean over clients whose uplink arrived of (client_model - current_server_global); FedAdam/FedAvg step applied to that delta exactly as fl.Server does",
+    "empty_round": "if no uplink arrives the server model is unchanged and the round still counts (and FedAdam's step counter still advances? NO - skip the optimiser step entirely, counter unchanged)",
+    "initial_model": "every client starts with the server's initial model (round 0 delivery assumed)"
+  },
+
+  "scenarios": {
+    "S0_no_loss": "q = 0 through the dropout code path. MUST reproduce fl.Server bit-exactly and 45/44/44 (fedadam), 46/44/43 (fedavg). Abort otherwise.",
+    "S1_uplink_iid": "each client, each round, independently loses its uplink with probability q in {0.1, 0.2, 0.3, 0.5}",
+    "S2_both_directions_iid": "each client, each round, independently loses uplink with probability q AND independently loses downlink with probability q, q in {0.1, 0.2, 0.3, 0.5}",
+    "S3_persistent_nonparticipation": "a fixed random fraction f in {0.1, 0.2, 0.3} of clients NEVER delivers an uplink (chosen once per repetition, stratified so every dataset is represented proportionally where possible); they still receive every global model. Models the worst-RSSI node. Report strict separately for participating and never-participating devices."
+  },
+
+  "report": "for every scenario x level x algorithm: strict/49 per training seed (mean, min, max over 5 repetitions), faults detected, healthy-alarm devices, controls, mean effective updates received per round, and for S2 the number of devices scored with a stale model.",
+
+  "robustness_criterion_fixed_now": "A loss level is 'tolerated' if, on every training seed, the mean strict over repetitions is within 1 device of S0 and the worst repetition is within 2 devices of S0. For S3, additionally the never-participating devices' strict rate must be within 10 percentage points of the participating devices' rate, pooled over seeds and repetitions.",
+
+  "expectation_stated_in_advance": "Tolerated for S1 and S2 up to q=0.3, because detection was flat from round 3 to 15 (fewer effective updates behave like fewer rounds). S3 tolerated because standardisation is device-local and the global model generalises across devices. q=0.5 with stale downlinks is the case most likely to fail."
+}

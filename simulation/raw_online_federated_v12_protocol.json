@@ -1,0 +1,96 @@
+{
+  "experiment": "V12 raw-online equal-device federated multi-dataset holdout",
+  "status": "split_and_protocol_frozen_before_v12_source_training_or_v12_target_scoring",
+  "frozen_at_local": "2026-07-22",
+  "provenance": {
+    "classification": "retrospective multi-dataset held-out-bearing experiment",
+    "not_prospective_reason": "PRONOSTIA and other dataset outcomes were examined in earlier experiments before this V12 split was designed.",
+    "claim_boundary": "This is not untouched prospective confirmation and must not be described as such. HIT is fixed-fault transfer, not run-to-failure early warning."
+  },
+  "data_root": "E:\\masters\\datasets",
+  "client_definition": "one physical bearing or documented recording unit equals exactly one federated client",
+  "counts": {
+    "all_clients": 57,
+    "source_train_clients": 40,
+    "held_out_test_clients": 17
+  },
+  "test_split_rationale": "Three held-out units per dataset, except LDM-UPB where both available units are held out. XJTU and PRONOSTIA contribute one unit per operating-condition family; IMS contributes one known failing bearing per run. HIT contributes its three fixed-fault files and is evaluated separately.",
+  "test_clients": {
+    "ferrara": ["E2", "E4", "E6"],
+    "xjtu": ["Bearing1_2", "Bearing2_5", "Bearing3_5"],
+    "pronostia": ["Bearing1_7", "Bearing2_7", "Bearing3_3"],
+    "ims": ["R1_B3", "R2_B1", "R3_B3"],
+    "hit": ["data3", "data4", "data5"],
+    "ldm_upb": ["B03", "B12"]
+  },
+  "train_clients": {
+    "ferrara": ["E1", "E3", "E5"],
+    "xjtu": [
+      "Bearing1_1", "Bearing1_3", "Bearing1_4", "Bearing1_5",
+      "Bearing2_1", "Bearing2_2", "Bearing2_3", "Bearing2_4",
+      "Bearing3_1", "Bearing3_2", "Bearing3_3", "Bearing3_4"
+    ],
+    "pronostia": [
+      "Bearing1_1", "Bearing1_2", "Bearing1_3", "Bearing1_4", "Bearing1_5", "Bearing1_6",
+      "Bearing2_1", "Bearing2_2", "Bearing2_3", "Bearing2_4", "Bearing2_5", "Bearing2_6",
+      "Bearing3_1", "Bearing3_2"
+    ],
+    "ims": ["R1_B1", "R1_B2", "R1_B4", "R2_B2", "R2_B3", "R2_B4", "R3_B1", "R3_B2", "R3_B4"],
+    "hit": ["data1", "data2"],
+    "ldm_upb": []
+  },
+  "known_source_status": {
+    "ims_failed": ["R1_B3", "R1_B4", "R2_B1", "R3_B3"],
+    "ims_censored_or_nonfailed": ["R1_B1", "R1_B2", "R2_B2", "R2_B3", "R2_B4", "R3_B1", "R3_B2", "R3_B4"],
+    "hit_healthy": ["data1", "data2"],
+    "hit_fixed_fault": ["data3", "data4", "data5"]
+  },
+  "raw_online_contract": {
+    "server_receives_raw": false,
+    "server_computes_features": false,
+    "node_reads_one_acquisition_at_a_time": true,
+    "node_may_access_future_acquisitions": false,
+    "node_preprocessing_scope": "current raw acquisition only",
+    "node_history_scope": "past local feature vectors and model state only",
+    "commissioning_acquisitions": 20,
+    "normalizer": "local median/MAD fit after the first 20 observed acquisitions and then frozen",
+    "federated_weighting": "exactly 1/40 per source device per server round, independent of sample count and dataset",
+    "test_release": "held-out raw streams are not opened until the source model and alarm policy lock exists"
+  },
+  "local_feature_schema": {
+    "feature_dim": 100,
+    "per_channel": "12 signed-log time features plus 16 normalized-frequency log-power bands and four spectral-shape features",
+    "channel_aggregation": "32 channel means, 32 channel standard deviations, 32 channel extrema by absolute magnitude, plus four cross-channel descriptors",
+    "sampling_rate_dependency": "frequency bins are normalized to Nyquist, so no target sampling rate is supplied to the model",
+    "raw_axes": "all available vibration axes for the physical bearing; metadata and labels are excluded"
+  },
+  "federated_training": {
+    "model": "dense autoencoder 100-32-8-32-100",
+    "initialization_seed": 20260722,
+    "rounds": 30,
+    "local_epochs": 2,
+    "learning_rate": 0.0005,
+    "training_data": "each source node's first 20 locally normalized commissioning observations only",
+    "aggregation": "equal-client FedAvg",
+    "policy_development": "source-client histories only; held-out labels and streams forbidden"
+  },
+  "evaluation_proxies": {
+    "run_to_failure_premature_end_fraction": 0.60,
+    "run_to_failure_terminal_start_fraction": 0.90,
+    "valid_early_window": "at or after 60% and before 90% of the stored run",
+    "warning_positive_start_fraction": 0.60,
+    "note": "Normalized-life zones are evaluation proxies, not verified physical degradation-onset labels.",
+    "hit": "Report fixed-fault discrimination separately; no warning lead-time or premature-alarm claim."
+  },
+  "primary_reporting": {
+    "pointwise": ["precision", "recall", "F1", "AUPRC"],
+    "eventwise": ["clean_before_premature_proxy", "valid_early_detection", "terminal_recall", "missed"],
+    "separate_tables": ["14 genuine run-to-failure held-out units", "3 HIT fixed-fault transfer units", "all 17 requested units with task caveat"],
+    "success_thresholds_are_goals_not_guarantees": {
+      "F1": 0.90,
+      "terminal_recall": 1.0,
+      "valid_early_detection": 1.0,
+      "premature_alarm_rate": 0.0
+    }
+  }
+}

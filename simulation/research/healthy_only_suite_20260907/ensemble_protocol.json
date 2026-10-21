@@ -1,0 +1,16 @@
+{
+  "study": "User-requested multi-method extension after healthy-only suite",
+  "classification": "Fixed new exploratory combination rules on already opened cohort; not independent validation",
+  "models": ["global_ae", "ae_svdd", "local_pca"],
+  "seeds": [17070, 17071, 17072],
+  "training": "Reuse frozen 12-round FedAdam model states and exact local training PCA; no new fitting settings or retraining",
+  "calibration": "Each component uses its unchanged local0.995 calibration threshold and continuous3of5 persistence",
+  "rules": ["pca_ae_and", "pca_svdd_and", "ae_svdd_and", "two_of_three", "all_three", "pca_ae_corroboration5", "any_of_three"],
+  "primary": "pca_ae_and",
+  "corroboration5": "At least one component fires now and each of PCA and AE has fired within the current and previous four acquisitions. Causal trailing window only.",
+  "control": "any_of_three is an explicit sensitivity-oriented comparator, not presumed an improvement",
+  "dependence": "AE and AE+SVDD are closely related; three votes are not three statistically independent measurements. PCA also uses the same physical input features.",
+  "evaluation": "Same70 identities;65scored59faults6controls5unknown; no heldouthealthy alarm plus detection required for strict success",
+  "advancement_gate": "All three seeds must exceed30/65 strict (local PCA), detect at least58/59 faults (local PCA), and retain0/6control alarms. This is an empirical development gate, not a proof of generalization.",
+  "stop": "Complete all21fixed configurations; preserve every failure; no outcome-driven adjustment of agreement window or quorum"
+}

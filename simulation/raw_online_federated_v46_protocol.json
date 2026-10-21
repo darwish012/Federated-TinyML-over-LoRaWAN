@@ -1,0 +1,81 @@
+{
+  "experiment": "V46 machine-aware hierarchical federated learning over all available datasets",
+  "status": "frozen_before_execution",
+  "classification": "retrospective development; no prospective claim",
+  "preregistration": "V46_PREREGISTRATION.md",
+  "reused_reference": {
+    "v45_protocol_sha256": "e83953923324195d4c379eaa8e264e2385816fec56e9fc42dca848e52e73002b",
+    "v45_frozen3_gate_sha256": "cd296a3b6bcbaa6c0f8114bbce56790ffc38322c79df672038fb017e88e92964"
+  },
+  "cohort": {
+    "streams": 96,
+    "machine_life_experiments": 80,
+    "run_to_failure_streams": 71,
+    "run_to_failure_experiments": 55,
+    "verified_healthy_streams": 2,
+    "verified_healthy_experiments": 2,
+    "fixed_fault_diagnostic_streams": 3,
+    "staged_state_diagnostic_streams": 20
+  },
+  "machine_client": {
+    "federated_client_id": "machine_life_experiment",
+    "bearing_normalisation": "device_local_first_8",
+    "bearing_fit_slice": [8, 20],
+    "within_machine_aggregation": "equal_bearing_weight",
+    "server_aggregation": "equal_machine_weight",
+    "simultaneous_datasets": ["ims", "dlr"]
+  },
+  "hierarchical_finetune": {
+    "initialisation": "matching frozen V41/V29b fold bundle",
+    "rounds": 3,
+    "local_epochs": 1,
+    "batch_size": 128,
+    "learning_rate": 0.0002,
+    "weight_decay": 0.00001,
+    "seed": 20260806,
+    "pca_components": 16,
+    "svdd_minimum_latent_variance": 1e-8
+  },
+  "training_augmentation": {
+    "ae_empirical_normal_nuisance": true,
+    "target_is_uncorrupted_normal_prefix": true,
+    "augmentation_applied_to_calibration_or_evaluation": false,
+    "synthetic_faults_in_primary_svdd_or_alarm": false
+  },
+  "alarm": {
+    "branches": ["FED_AE_RECON", "FED_PCA16", "FED_DEEP_SVDD"],
+    "weights": {
+      "FED_AE_RECON": 0.3356872059084347,
+      "FED_PCA16": 0.3102479436514914,
+      "FED_DEEP_SVDD": 0.354064850440074
+    },
+    "nominal_z": 2.0,
+    "strong": 8.0,
+    "vote_fraction": 0.67,
+    "epc_draws": 2000,
+    "epc_p": 0.10,
+    "persistence_k": 4,
+    "persistence_window": 7,
+    "primary_calibration_m": 64,
+    "adaptive_calibration_grid": [64, 32, 16, 8]
+  },
+  "fusion_candidates": [
+    "bearing_latch_then_any",
+    "any_then_machine_latch",
+    "corroborated_then_machine_latch"
+  ],
+  "reference": {
+    "representation": "unchanged frozen V41/V29b fold bundle",
+    "fusion": "bearing_latch_then_any"
+  },
+  "selection": {
+    "onset_used": false,
+    "p1_challenger_alarms_not_greater_than_reference": true,
+    "p3_noninferiority_margin": -0.05,
+    "bootstrap_draws": 10000,
+    "bootstrap_seed": 20260806,
+    "empty_feasible_set_policy": "select nothing and report"
+  },
+  "full_statistics_required": true,
+  "gate_conditions": ["G1", "G2", "G3", "G4", "G5", "G6", "G7", "G8", "G9"]
+}

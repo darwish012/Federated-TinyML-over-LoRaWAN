@@ -1,0 +1,219 @@
+[tts]
+# The local Open Source TTS deployment exposes plaintext MQTT on port 1883.
+host = "127.0.0.1"
+port = 1883
+application_id = "tinyfl-v91-hw"
+tenant_id = ""
+username = "tinyfl-v91-hw"
+api_key_env = "TTS_MQTT_API_KEY"
+client_id = "tinyfl-v91-hardware-server"
+keepalive_seconds = 60
+tls = false
+tls_insecure = false
+ca_certs = ""
+# HTTP API of the same stack. Used by fix_multicast_rx2.py and, for protocol v3,
+# by automatic device enrollment (event stream and end-device registration).
+console_url = "http://localhost:1885"
+
+[experiment]
+# v2 only (tts_class_c_server.py). tts_v3_server.py ignores device_ids and
+# round_id: its boards are enrolled and announced by BOARD_HELLO.
+device_ids = ["eui-0000000000000b02", "eui-0000000000000b01"]
+round_id = 1
+class_c_guard_seconds = 8.0
+retry_guard_seconds = 8.0
+max_downlink_attempts = 3
+max_repair_rounds = 4
+# Empty = unicast: the aggregate is sent once per node. v2 only.
+# Set to the TTS multicast group's device id to transmit it ONCE for everyone.
+# The group's DevAddr/NwkSKey/AppSKey must also be in firmware lab_credentials.h.
+# Protocol v3 (tts_v3_server.py) REQUIRES multicast: this must be set.
+multicast_device_id = ""
+# REQUIRED whenever multicast_device_id is set. A multicast group never
+# sends an uplink, so the network server has no gateway to derive a
+# downlink path from and rejects every frame with "no_downlink_path".
+# Naming the gateway here supplies that path explicitly.
+multicast_gateway_ids = []
+# How long to let boards report after a multicast burst before deciding what to
+# repair. Must exceed the boards' Class C idle timeout (120 s).
+multicast_report_window_seconds = 180.0
+run_timeout_minutes = 45
+
+# ---------------------------------------------------------------------------
+# Protocol v3: real federated learning over LoRaWAN (tts_v3_server.py)
+# ---------------------------------------------------------------------------
+[v3]
+# Hardware levels to run, a subset of 4, 8, ..., 28 in increasing order. At level N
+# the active machines are positions 0..N-1; 12 FedAdam rounds per level.
+levels = [4, 8, 12, 16, 20, 24, 28]
+# fl.init(layers, seed) initial model of every level.
+seed = 17070
+# The sweep starts when this many boards have sent BOARD_HELLO.
+expected_boards = 10
+# Folder that holds the simulation research code (twin_server.py, fl.py, machine_order_v2.py,
+# imported from there, unchanged). In this repository that is ../simulation/research relative
+# to this file's folder (server/); a relative path is resolved against server/. Leaving it
+# empty falls back to a hard-coded location that only exists in the authors' working tree.
+research_root = "../simulation/research"
+# A round closes when every active position has delivered or been abandoned after
+# max_repair_rounds, or after this long, whichever comes first.
+round_timeout_seconds = 900.0
+# After the last upload, how long to wait for every board to announce Class C
+# readiness before multicasting the next GLOBAL anyway.
+ready_wait_seconds = 240.0
+max_global_repair_rounds = 4
+# After the final level the boards replay their history and send ALARM and
+# SELF_CHECK messages; the server keeps listening this long (Ctrl-C also ends it).
+post_run_collect_seconds = 1800.0
+run_timeout_minutes = 900
+
+# ---------------------------------------------------------------------------
+# Protocol v4: any number of boards, planned or elastic runs (tts_v4_server.py,
+# run_server_v4.ps1). PROTOCOL_V4.md is the contract. The v4 server also reads
+# [tts], [experiment] (multicast_device_id, multicast_gateway_ids and the downlink
+# timings class_c_guard_seconds, retry_guard_seconds, max_downlink_attempts,
+# max_repair_rounds, multicast_report_window_seconds) and [enrollment] below.
+# Every key here is validated at start-up and unknown keys are an error (typos).
+# ---------------------------------------------------------------------------
+[v4]
+# "planned": a fixed list of phases (the thesis sweep). "elastic": phases of R rounds
+# whose participants are whoever is ACTIVE.
+mode = "planned"
+# fl.init(layers, seed): the initial model of EVERY phase.
+seed = 17070
+# Rounds per phase (planned phases may override it individually).
+rounds = 12
+# planned: one entry per phase. An integer N = "the first N positions" (position p is
+# machine p of machine_order_v2). A table gives { first = N } or { positions = [..] },
+# optionally with rounds = R and name = "...".  The thesis sweep (7 phases):
+phases = [4, 8, 12, 16, 20, 24, 28]
+# elastic: number of phases (each of `rounds` rounds, each from fl.init(seed)).
+elastic_phases = 1
+# Folder that holds the simulation research code (twin_server.py, fl.py, machine_order_v2.py,
+# imported from there, unchanged). In this repository that is ../simulation/research relative
+# to this file's folder (server/); a relative path is resolved against server/. Leaving it
+# empty falls back to a hard-coded location that only exists in the authors' working tree.
+research_root = "../simulation/research"
+
+# --- start rules ---
+# The run starts when this many boards are BOUND with HELLO bits 0 and 1 (or bit 2) ...
+min_boards = 1
+# ... or this many seconds after the server started, if at least one board is BOUND
+# (0 = no timer).
+start_after_seconds = 0
+# planned only: wait until every planned position has a bound board. false = absent
+# positions are logged as never participating and the run does not wait for them.
+require_all_positions = false
+# Upper bound on positions per board accepted in BOARD_HELLO (the protocol limit is 8).
+max_machines_per_board = 8
+
+# --- membership: rounds without a delivered UPDATE ---
+suspect_after_rounds = 2
+depart_after_rounds = 4
+
+# --- radio guard and the end of a run (rev 4.3) ---
+# A board misses any multicast while it transmits or is inside its RX1/RX2 windows (about 2 s
+# after an uplink). No multicast starts sooner than this after the last uplink of any board that
+# must hear it: the first multicast of a round, a prompt GLOBAL repair (after the uplink that
+# asked for it) and END.
+downlink_guard_seconds = 4
+# A board that reports a GLOBAL it missed (CLASS_C_READY or GLOBAL_STATUS with missing bits) gets a
+# prompt re-multicast, but at most one per board per this many seconds; prompt repairs count toward
+# max_global_repair_rounds and never postpone the periodic repair timer (a STATUS storm used to starve it).
+prompt_repair_min_gap_seconds = 30
+# END has no acknowledgement. It is multicast once the guard has passed, and again after any later
+# uplink of a board of the run, at most once per this many seconds. (end_repeats = copies per send.)
+end_repeat_seconds = 30
+# The run is DONE after this long with no uplink since the last END (> 2 x the boards' 180 s idle
+# READY period), or at end_linger_seconds after ENDING began; boards still talking then are listed
+# as end_unconfirmed in summary.json.
+end_quiet_seconds = 420
+end_linger_seconds = 1800
+# Boards that completed an earlier run are silent in Class C and only answer RUN_CONTROL ADOPT (with
+# a HELLO). The server multicasts ADOPT as soon as the run is created and then every this many
+# seconds while WAITING_START (never after the start), and once per this many seconds, in any
+# stage, after an uplink from a rostered DevEUI that is not bound (its HELLO was lost).
+adopt_period_seconds = 120
+
+# --- liveness ---
+# A board is LIVE if any valid uplink (HELLO, READY, STATUS, UPDATE, ALARM, ...) arrived within
+# this many seconds. Only LIVE boards gate a GLOBAL delivery, are repaired during it, and are
+# waited for in a round; a silent board still receives the multicast, can deliver UPDATEs and
+# is waited for again as soon as it speaks. Silence for more than twice this long makes an ACTIVE
+# board SUSPECT. Set it well above the time between two uplinks of a healthy board (a slow
+# round on a busy gateway can be many minutes).
+liveness_seconds = 600
+
+# --- timeouts (seconds) ---
+# A round closes when every participant position delivered or was abandoned after
+# experiment.max_repair_rounds, or after this long.
+round_timeout_seconds = 900
+# Before multicasting a GLOBAL, how long to wait for the gating boards to announce
+# Class C readiness (the multicast starts anyway after this).
+ready_wait_seconds = 240
+max_global_repair_rounds = 4
+inflight_downlink_timeout_seconds = 45
+# A phase with no participant pauses; after this long it is aborted and the run moves on.
+idle_phase_timeout_seconds = 3600
+idle_retry_seconds = 120
+# After the last phase: RUN_CONTROL REPLAY is repeated every replay_repeat_seconds until
+# every expected (position, phase) sent REPLAY_DONE or post_run_collect_seconds elapsed;
+# then RUN_CONTROL END is sent end_repeats times.
+post_run_collect_seconds = 1800
+replay_repeat_seconds = 300
+end_repeats = 2
+# After --resume: when to ask the boards to resend UPDATEs lost with the old process.
+resume_repair_delay_seconds = 20
+# Overall safety limit of one server session.
+run_timeout_minutes = 900
+# Console status line period (0 = off).
+status_line_seconds = 30
+
+# --- roster (provision_board.py appends to it; the server only reads it) ---
+roster_path = "roster.json"
+# true: only rostered DevEUIs can become members or be registered in TTS. false is for
+# bench tests without provisioned boards.
+require_roster = true
+
+# ---------------------------------------------------------------------------
+# Automatic enrollment: no board is registered by hand in The Things Stack.
+# Open a window with:  .\run_server_v4.ps1 -EnrollMinutes 10   (or `enroll` on the console)
+# Secrets are read from environment variables ONLY; nothing here is a key.
+#
+# v4: every board has its OWN AppKey = AES-128-ECB(master key, DevEUI || 0x00 x 8),
+# written to the board by provision_board.py. The server registers a DevEUI only if it
+# is in roster.json (the roster, not a quota, is the authorisation) and its JoinRequest
+# MIC verifies under that derived key.
+# ---------------------------------------------------------------------------
+[enrollment]
+# The operator's master key (32 hex digits). Never leaves the PC.
+master_key_env = "TINYFL_MASTER_KEY"
+# Persisted (DevEUI, DevNonce) pairs: a replayed join request is rejected, also after a restart.
+nonce_store_path = "join_nonces.jsonl"
+# At most one log line per device per this many seconds for bad-MIC / not-rostered /
+# replayed joins (the count of suppressed events is logged with the next line).
+bad_mic_log_interval_seconds = 60
+# API key with RIGHT_GATEWAY_TRAFFIC_READ ("Read gateway traffic" in the console)
+# on the gateway(s): the GATEWAY event stream. An application key is not enough.
+gateway_api_key_env = "TTS_GATEWAY_API_KEY"
+# API key that may create end devices in the application and write their keys.
+device_api_key_env = "TTS_DEVICE_API_KEY"
+# v3 only (tts_v3_server.py): the shared AppKey every board joins with (32 hex digits).
+app_key_env = "TINYFL_APP_KEY"
+# JoinEUI exactly as The Things Stack shows it (most significant byte first).
+# v4: provision_board.py sends it to the board (TFPROV KEYS) and the server checks it in
+# every JoinRequest. v3: in firmware/tinyfl_node/lab_credentials.h it is stored LSB first.
+join_eui = "0000000000000000"
+# Gateways whose traffic is watched. Empty = experiment.multicast_gateway_ids.
+gateway_ids = []
+# v3 only: registrations allowed per window (v4 ignores it: the roster authorises).
+quota = 10
+# How long an enrollment window stays open by default.
+window_seconds = 600
+# Where the small JSON registry of enrolled devices is kept (gitignored).
+registry_path = "enrolled_devices.json"
+# TTS end-device settings applied to every enrolled board.
+frequency_plan_id = "EU_863_870_TTN"
+# The address the stack calls itself. Leave empty to derive it from console_url;
+# set it if registration fails with network_server_address_mismatch.
+cluster_address = ""

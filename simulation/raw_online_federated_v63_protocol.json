@@ -1,0 +1,42 @@
+{
+  "protocol_version": 1,
+  "status": "frozen_before_paderborn_k003_k006_scoring",
+  "purpose": "Test adaptive commissioning plus confidence-gated accumulated rescue after the V62 negative result.",
+  "development_universe": "the same 62 burned devices reported by V62",
+  "candidate_family": {
+    "rescue_clip_min": [0.2, 0.25, 0.3],
+    "adaptive_calibration_start": 143,
+    "adaptive_calibration_lengths": [24, 32, 48],
+    "adaptive_quantiles": [0.9, 0.95, 1.0],
+    "adaptive_margins": [0.05, 0.075, 0.1],
+    "threshold_floors": [0.15, 0.2],
+    "accumulation_shapes": [[32, 1, 24], [64, 1, 48], [64, 2, 48], [64, 4, 48], [64, 1, 58]],
+    "candidate_count": 810,
+    "normal_route": "unchanged V57",
+    "non_rescued_collapse_route": "unchanged V57"
+  },
+  "development_gates": {
+    "b09_must_be_valid": true,
+    "historical_valid_min": 25,
+    "historical_premature_max": 1,
+    "hit_healthy_alarms_max": 0,
+    "ldm_valid_min": 9,
+    "ldm_premature_max": 1,
+    "ldm_missed_max": 0
+  },
+  "selection_tiebreak": "maximise LDM valid and historical valid, then choose the most conservative rescue by higher clip threshold, floor, margin, quantile, impulse hits, AE fraction, and calibration length",
+  "paderborn_gate": {
+    "archive": "E:/masters/datasets/paderborn/archive.zip",
+    "bearings": ["K003", "K004", "K005", "K006"],
+    "expected_mat_files_per_bearing": 80,
+    "acquisitions_per_mat": 2,
+    "expected_acquisitions_per_bearing": 160,
+    "maximum_bearing_alarms": 0,
+    "claim_boundary": "held-out healthy-snapshot stress tests, not healthy machine-life experiments"
+  },
+  "b07_gate": {
+    "machine": "B07",
+    "status": "sealed_not_downloaded",
+    "open_only_if_development_and_paderborn_gates_pass": true
+  }
+}

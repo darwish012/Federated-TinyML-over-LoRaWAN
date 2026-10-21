@@ -1,0 +1,36 @@
+{
+  "amendment": 1,
+  "date": "2026-09-29",
+  "status": "POST-HOC. Written after the primary study's results were seen. It does NOT replace the primary study, whose outcome (loss-plateau rule never fired; no optimiser distinguishable; depth rejected on the LDM-free cohort) stands as reported.",
+  "why": [
+    "The predeclared stopping rule (0.5%) reached the 60-round cap in 25/27 arms. 60 rounds is not feasible on LoRaWAN. A diagnostic over the saved curves showed epsilon=1% changes nothing for FedAvg (60/60/60) and even epsilon=5% needs 21-29 rounds. A loss-plateau rule therefore cannot reach a LoRaWAN-feasible round count on this problem.",
+    "The primary study also found detection DEGRADES with more training. So the practically relevant question is: what is the smallest round budget that keeps detection?",
+    "The user hypothesises that a larger model may help on ldm_upb, the dataset excluded from the primary cohort. The primary study could not test this because ldm_upb was excluded."
+  ],
+
+  "part_A_round_budget": {
+    "cohort": "LDM-free 54 clients (49 scored), identical to the primary study",
+    "arms": ["h12 fedavg", "h12 fedadam", "deep fedavg", "deep fedadam"],
+    "fedprox_omitted": "FedProx was identical to FedAvg for every mu in the primary study; it is not re-run.",
+    "fixed_budgets_rounds": [4, 6, 8, 10, 12, 15],
+    "capped_loss_rules": "epsilon in {0.01, 0.02, 0.05}, patience 3, hard cap 15 rounds; stop = min(rule round, 15)",
+    "report": "strict/49, faults detected/43, healthy-alarm devices, controls/6, fragments per client (2 * fragments * rounds), for every cell and seed. No cell is selected as a winner.",
+    "descriptive_question": "For each arm, the smallest budget whose strict count is within one device of that arm's round-12 count on every seed. Reported as descriptive, labelled post-hoc."
+  },
+
+  "part_B_depth_on_ldm": {
+    "cohort": "Full 70-client development cohort INCLUDING ldm_upb (65 scored: 59 faults, 6 controls; ldm_upb 16 scored). This is the original 2026-09-08 cohort; results are labelled as such and never mixed with LDM-free numbers.",
+    "arms": ["h12 fedavg", "h12 fedadam", "deep fedavg", "deep fedadam"],
+    "rounds": 12,
+    "replication_gate": "BEFORE any new outcome: fedadam h12 @ round 12 on the 70 clients must reproduce results/healthy_only_causal_20260908/global_h12_seed{17070,17071,17072}.pkl weights to within 1e-10 AND reproduce strict 52/65, 51/65, 51/65 with ldm_upb 7/16 on every seed. Failure aborts Part B with nothing written but the failure.",
+    "report": "overall strict/65, ldm_upb strict/16, non-LDM strict/49, faults detected, healthy-alarm devices, controls, per seed. Also ldm_upb per-device outcome (strict success, healthy alarm, detected) for h12 vs deep under each optimiser.",
+    "decision_rule_fixed_now": "Depth 'helps on ldm_upb' only if deep's ldm_upb strict count is >= h12's on all three seeds under the same optimiser and strictly greater on at least two, AND deep does not lose more than one device on the non-LDM 49 on any seed.",
+    "prior_expectation_stated_in_advance": "ldm_upb fails for three documented reasons: time-varying load and speed, unverified onset labels, and the longest streams. Capacity plausibly addresses only the first, and only if later operating conditions appear somewhere in the federated training rows. Expected result: no material gain."
+  },
+
+  "shared": {
+    "seeds": [17070, 17071, 17072],
+    "alarm_layer": "unchanged: dense 13-of-21, history-max x2, single global route",
+    "code_reuse": "fl.py (generic AE and optimisers) unchanged; evaluation via the LDM-free study's evaluate/summarize and cadence.dense_flags"
+  }
+}

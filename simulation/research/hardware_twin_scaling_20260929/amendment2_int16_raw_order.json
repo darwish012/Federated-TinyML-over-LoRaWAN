@@ -1,0 +1,33 @@
+{
+  "amends": "protocol.json and amendment_hardware_scope.json (same directory). Written before any hardware run and before the twin is re-run under it.",
+  "date": "2026-09-29",
+  "decided_by": "user (512 MB cards only; no card swapping or multi-phase schedule; raw data must be injected as int16 to match a real 16-bit IMU)",
+
+  "sd_content": {
+    "representation": "raw vibration samples as int16, one float32 scale per (acquisition, channel) = max|x|/32767 (1.0 if max|x| == 0), q = roundf(x/scale) (half away from zero), clip [-32767, 32767]. Every acquisition of every hardware machine (train, calibration, healthy test, unhealthy test, unscored) is stored raw; nothing precomputed is used by the board for detection.",
+    "on_device": "streaming float32 feature extraction (research/hardware_twin_scaling_20260929/raw_features_f32.py is the reference), per-stream standardisation, H12 training, int8 exchange, scoring, 13-of-21, alarms",
+    "self_check_file": "each card also carries the twin's float32 22-D raw (pre-standardisation) features for that machine's train + calibration rows, used only to report the on-device extractor's max deviation; the board must not use them in the pipeline"
+  },
+
+  "hardware_eligibility": {
+    "rule": "a machine is hardware-eligible iff its full int16 raw size (all rows, streams, channels; from results/hardware_twin_scaling_20260929/raw/inventory.csv sd_bytes_float32 / 2) <= 496 MB / 3 = 165.33 MB, so any 3 eligible machines fit one 512 MB card (496 MB usable)",
+    "eligible_41": ["dlr::Test_4", "dlr::Test_6", "dlr::Test_8", "ferrara::E6", "hit::data1", "hit::data2", "ims::R2", "kaist::Bearing_1", "paderborn::K003", "paderborn::K004", "paderborn::K005", "paderborn::K006", "pronostia::Bearing1_1", "pronostia::Bearing1_2", "pronostia::Bearing1_3", "pronostia::Bearing1_4", "pronostia::Bearing1_5", "pronostia::Bearing1_6", "pronostia::Bearing1_7", "pronostia::Bearing2_1", "pronostia::Bearing2_2", "pronostia::Bearing2_3", "pronostia::Bearing2_4", "pronostia::Bearing2_5", "pronostia::Bearing2_6", "pronostia::Bearing2_7", "pronostia::Bearing3_1", "pronostia::Bearing3_2", "pronostia::Bearing3_3", "unsw::Test_2", "unsw::Test_4", "xjtu::Bearing1_1", "xjtu::Bearing1_2", "xjtu::Bearing1_3", "xjtu::Bearing1_4", "xjtu::Bearing2_1", "xjtu::Bearing2_2", "xjtu::Bearing2_3", "xjtu::Bearing2_5", "xjtu::Bearing3_3", "xjtu::Bearing3_5"],
+    "ineligible_13": ["dlr::Test_1", "dlr::Test_2", "dlr::Test_5", "ferrara::E1", "ferrara::E2", "ferrara::E3", "ferrara::E4", "ferrara::E5", "ims::R1", "ims::R3", "xjtu::Bearing3_1", "xjtu::Bearing3_2", "xjtu::Bearing3_4"],
+    "disclosure": "The hardware set excludes the 13 longest recordings for storage reasons. This is a selection on recording length, stated as such in the thesis; the simulation covers all 54."
+  },
+
+  "machine_order_v2": {
+    "construction": "apply protocol.json machine_order.construction (rng default_rng(20260929), datasets in sorted name order, machines sorted by machine_id then shuffled within dataset, round-robin interleave) to the 41 eligible machines -> positions 0-40; then apply the same construction with a fresh default_rng(20260929) to the 13 ineligible machines -> positions 41-53",
+    "board_assignment": "unchanged rule: board = (position mod 10) + 1",
+    "levels": "unchanged: 4, 8, ... 52, 54. Hardware levels 4-28 (all eligible, <= 3 per board). Levels >= 32 simulation-only."
+  },
+
+  "twin": "re-run run_twin under machine_order_v2 for every level x mode x seed. The twin's x for every machine is computed from the int16-quantised raw with the streaming float32 extractor, so the twin reads the same bytes as the boards. The float64 fl.Server reference on the committed cache x is reported alongside at every level.",
+
+  "gates_before_cards_are_written": {
+    "G1_int16_accuracy": "on the level-28 v2 set and the full 54, with the float64 model trained on the committed cache: int16-derived x gives strict >= committed-x strict - 1 on every seed, and at most 1 scored machine changes outcome per seed",
+    "G2_twin_v2": "twin (int16 x) strict >= float64 (committed x) strict - 1 at every level and seed, both modes",
+    "G3_fit": "every card's total bytes (raw + scales + headers + self-check file + manifest) <= 496 MB"
+  },
+  "criteria_hardware_vs_twin": "unchanged from protocol.json"
+}

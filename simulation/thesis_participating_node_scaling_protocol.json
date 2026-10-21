@@ -1,0 +1,93 @@
+{
+  "schema": "thesis_participating_node_scaling_protocol_v1",
+  "experiment": "THESIS-PARTICIPATING-NODE-SCALING-14",
+  "status": "frozen_before_first_execution",
+  "classification": "retrospective_participating_client_node_scaling_not_independent_external_validation",
+  "objective": "Measure how healthy-only federated anomaly detection changes as the number of training devices increases while the evaluation cohort remains fixed at all 14 available device sites.",
+  "cohort": {
+    "loader": "realtime_federated_simulation.load_device_study",
+    "expected_devices": 14,
+    "base_sites": 10,
+    "ldm_participating_sites": ["B06", "B13", "B14", "B15"],
+    "ldm_split_strategy": "stratified_healthy_v5_condition_aware",
+    "node_ladder": [2, 4, 6, 8, 10, 12, 14],
+    "evaluation_devices_at_every_point": 14,
+    "new_downloads": false
+  },
+  "subset_design": {
+    "two_devices": "exhaustive_all_unordered_pairs",
+    "expected_two_device_combinations": 91,
+    "intermediate_devices": "two deterministic cyclic balanced blocks, 28 subsets per node count",
+    "all_devices": "single complete 14-device subset",
+    "design_seed": 20260906,
+    "selection_uses_features_or_outcomes": false
+  },
+  "partition": {
+    "unit": "window_id_within_device",
+    "healthy_calibration_fraction": 0.20,
+    "healthy_test_fraction": 0.20,
+    "healthy_training_fraction": 0.60,
+    "assignment": "sha256_rank_with_fixed_salt_then_exact_counts",
+    "split_salt": "thesis-participating-node-scaling-v1",
+    "all_unhealthy_windows": "test_only",
+    "calibration_train_test_overlap_allowed": false,
+    "minimum_calibration_windows": 20,
+    "minimum_healthy_test_windows": 20
+  },
+  "model": {
+    "type": "tiny_tanh_autoencoder",
+    "input_features": 12,
+    "hidden_units": 4,
+    "trainable_parameters": 112,
+    "initialization_seed": 11017,
+    "local_epochs": 2,
+    "local_learning_rate": 0.03,
+    "l2": 0.0001,
+    "client_weighting": "equal_client",
+    "rounds": 12,
+    "optimizers": ["fedadam", "fedavg"],
+    "primary_optimizer": "fedadam",
+    "fedadam_server_learning_rate": 0.01,
+    "fedadam_beta1": 0.9,
+    "fedadam_beta2": 0.99,
+    "fedadam_tau": 0.001
+  },
+  "alarm": {
+    "calibration_source": "device_local_healthy_calibration_only",
+    "score": "mean_squared_reconstruction_error",
+    "threshold_quantile": 0.995,
+    "persistence_required": 3,
+    "persistence_window": 5,
+    "persistence_scope": "reset_between_independent_base_source_files_but_preserve_each_ldm_bearing_as_one_chronological_lifecycle"
+  },
+  "endpoints": {
+    "primary": "mean 14-device machine-success rate across configurations at each node count",
+    "machine_success": "no alarm on held-out healthy windows and at least one alarm on unhealthy windows",
+    "secondary": [
+      "machine fault-detection rate",
+      "machine healthy-specificity rate",
+      "window balanced accuracy",
+      "window F1",
+      "first persistent-alarm delay within unhealthy windows",
+      "configuration minimum, median, maximum and standard deviation"
+    ],
+    "combination_interpretation": "Different client subsets are sensitivity analyses, not additional independent machines."
+  },
+  "communication_screen": {
+    "fragment_data_bytes": 200,
+    "parameter_encoding": "float32",
+    "serialized_parameter_bytes": 448,
+    "message_overhead_bytes": 16,
+    "fragments_per_update": 3,
+    "fragments_per_global_model": 3,
+    "class_a": "strict_per_client_unicast_no_multicast",
+    "physical_lilygo_boards": 10,
+    "sites_above_ten": "virtual_logical_clients_not_simultaneous_radios"
+  },
+  "claim_boundary": [
+    "All fourteen sites have previously been opened and the four LDM outcomes are known.",
+    "This is a valid retrospective participating-client engineering benchmark for the thesis.",
+    "It must not be described as independent external validation or evidence from fourteen new machines.",
+    "Testing every client subset does not increase the independent machine denominator beyond fourteen."
+  ]
+}

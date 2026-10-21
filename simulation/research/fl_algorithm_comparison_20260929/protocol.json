@@ -1,0 +1,63 @@
+{
+  "study": "Federated optimiser comparison (FedAvg / FedAdam / FedProx) with a predeclared label-free stopping rule, plus a model-depth arm, 2026-09-29",
+  "classification": "Exploratory healthy-only development on the previously opened LDM-free 54-client cohort. Not independent validation.",
+  "questions": [
+    "Q1 (primary): does the federated optimiser change strict device-level detection when each is stopped by the same label-free rule?",
+    "Q2: how many communication rounds does each optimiser need under that rule, and what does that cost in LoRaWAN fragments?",
+    "Q3 (secondary): does a deeper autoencoder (22-16-8-16-22) change detection relative to H12 (22-12-22)?"
+  ],
+  "cohort": {"total": 54, "scored": 49, "faults": 43, "controls": 6, "unknown": 5, "excluded_dataset": "ldm_upb", "exclusion": "manifest filtered by dataset before any cache load, identical to healthy_only_causal_no_ldm_20260922"},
+  "data": "Existing healthy_only_suite_20260907 cache and partitions; no new data, no downloads.",
+  "seeds": [17070, 17071, 17072],
+
+  "architectures": {
+    "h12": {"layers": [22, 12, 22], "parameters": 562},
+    "deep": {"layers": [22, 16, 8, 16, 22], "parameters": 1022}
+  },
+  "activation": "tanh on every hidden layer, linear output",
+  "initialisation": "per layer normal(0, sqrt(2/(fan_in+fan_out))), zero biases, drawn sequentially from one seeded generator; identical to wider_models for h12",
+  "local_training": "full-batch gradient descent on the client's TRAINING rows only; loss = mean squared reconstruction error + 0.5*L2*sum(W^2); lr 0.03; L2 1e-4; 2 local epochs per round; identical for every algorithm",
+  "client_weighting": "equal (unweighted mean over clients) for every algorithm, matching the reported configuration",
+
+  "algorithms": {
+    "fedavg": "server model = old + mean(client_model - old), i.e. the unweighted mean of client models (McMahan et al. 2017)",
+    "fedadam": "server-side Adam on the mean client delta with bias correction: eta 0.01, beta1 0.9, beta2 0.99, tau 0.001 (Reddi et al. 2021); identical to wider_models",
+    "fedprox": "FedAvg aggregation; each client adds (mu/2)*||w - w_global||^2 to its local loss (Li et al. 2020). PRIMARY mu = 0.01. Sensitivity mu in {0.001, 0.1, 1.0} is reported for h12 only and is never used to pick a winner."
+  },
+
+  "stopping_rule": {
+    "signal": "healthy validation loss = unweighted mean over clients of each client's reconstruction MSE on its own CALIBRATION rows. Calibration rows are healthy commissioning data; no fault label, onset or test row is used. In deployment each client would report this as one scalar alongside its update.",
+    "rule": "Let B_t be the best (minimum) validation loss observed up to and including round t. Stop at the first round t >= P+1 for which (B_{t-P} - B_t) / B_{t-P} < epsilon. The model deployed is the model at round t (not the best-so-far), because a node cannot hold a history of models.",
+    "epsilon": 0.005,
+    "patience_P": 3,
+    "max_rounds": 60,
+    "if_never_triggered": "stop at max_rounds and report the stop as 'cap'",
+    "causality": "Training always continues to max_rounds so curves can be reported, but the stop decision at round t uses only B_1..B_t. Continuing past the stop cannot influence which model is evaluated."
+  },
+
+  "evaluation": {
+    "score": "per-acquisition reconstruction MSE of the global model on the device-local standardised 22 features",
+    "alarm_layer": "unchanged frozen layer: dense cadence, causal 13-of-21 trailing order statistic, reference = max over training+calibration history, multiplier 2.0, suppressed through end of calibration",
+    "route": "single global-model route only; no PCA conjunction, so the comparison isolates the optimiser",
+    "strict_success": "scored device with no alarm in the healthy test period AND an alarm in the fault period; a control succeeds by never alarming",
+    "checkpoints_reported": ["at the stopping round (PRIMARY)", "at round 12 (comparability with the reported configuration)", "at round 60 (near-converged reference)"]
+  },
+
+  "communication_accounting": "per client per round = uplink + downlink fragments, each ceil((4*parameters + 16) / 200) at float32. h12: 12 + 12 = 24 fragments per round. deep: 21 + 21 = 42 fragments per round.",
+
+  "replication_gate": "BEFORE any new outcome is computed: fedadam on h12 at round 12 must reproduce the saved LDM-free global_h12 weights for every seed to within 1e-10, and its evaluation must reproduce 45/49, 44/49, 44/49. Failure aborts the study with nothing written except the failure.",
+
+  "decision_rules_fixed_in_advance": {
+    "detection": "One optimiser is 'better for detection' only if its strict count at the stopping round is >= the other's on all three seeds and strictly greater on at least two. Otherwise they are reported as not distinguishable.",
+    "communication": "One optimiser is 'cheaper' only if it stops in fewer rounds on all three seeds.",
+    "recommendation": "Prefer the cheaper optimiser unless another is better for detection under the rule above.",
+    "depth": "The deeper model is 'better' only if, under the same optimiser, its strict count is >= h12's on all three seeds and strictly greater on at least two. A deeper model that is not better is rejected on communication cost."
+  },
+
+  "known_limitations": [
+    "Relative-improvement stopping can stop a slow optimiser early. The round-60 checkpoint is reported so a premature stop is visible.",
+    "Stopping and threshold calibration both use calibration rows. Both are healthy data and label-free, but it is a double use of one partition and is stated as such.",
+    "With only 2 full-batch local epochs, client drift is small, so FedProx is expected to behave close to FedAvg. That is a property of the configuration, not evidence against FedProx in general.",
+    "Three seeds. A one-device difference is inside seed spread and is not a finding."
+  ]
+}
