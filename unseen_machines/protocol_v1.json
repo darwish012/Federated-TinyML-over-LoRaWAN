@@ -1,0 +1,1949 @@
+{
+  "schema": "unseen_machine_preregistration_v1",
+  "protocol_id": "SND_HSS_FROZEN_H12_20261026",
+  "status": "FROZEN_BEFORE_TARGET_SAMPLE_ANALYSIS_STAGE1_RUNNER_NOT_EXECUTED",
+  "created_utc": "2026-10-26T13:51:13.511762+00:00",
+  "intended_root": "D:\\external_unseen",
+  "output_root": "D:\\external_unseen\\results",
+  "source_pipeline_root": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation",
+  "seeds": [
+    17070,
+    17071,
+    17072
+  ],
+  "models": [
+    {
+      "seed": 17070,
+      "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17070.pkl",
+      "sha256": "28e697d32045c36d0497d5c967490f61d96cbe61bb38bed9ca0a77aa02896521",
+      "frozen_relative_path": "frozen/models/global_h12_seed17070.pkl",
+      "clients": 54,
+      "global_array_dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "checkpoint_relative_path": "frozen/models/global_h12_seed17070_checkpoint.json",
+      "checkpoint_sha256": "3eba133b28ca720fc60d246a0845bfcec0d3732dfd981817cdcf31c5e01f41f0"
+    },
+    {
+      "seed": 17071,
+      "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17071.pkl",
+      "sha256": "43078d1006a30d157e165017f166059a305640680e78607fd6cfe0fc66cc8298",
+      "frozen_relative_path": "frozen/models/global_h12_seed17071.pkl",
+      "clients": 54,
+      "global_array_dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "checkpoint_relative_path": "frozen/models/global_h12_seed17071_checkpoint.json",
+      "checkpoint_sha256": "a024bc8e9283a3b8fbf5e345dc408bf7e9c51d8a28d56564c78ece57e0808099"
+    },
+    {
+      "seed": 17072,
+      "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17072.pkl",
+      "sha256": "5edf39760ec8c077a9b5aa59539dac3c645b8170d3f81a95b135ea4d9c123dac",
+      "frozen_relative_path": "frozen/models/global_h12_seed17072.pkl",
+      "clients": 54,
+      "global_array_dtypes": [
+        "float64",
+        "float64",
+        "float64",
+        "float64"
+      ],
+      "checkpoint_relative_path": "frozen/models/global_h12_seed17072_checkpoint.json",
+      "checkpoint_sha256": "3a181f75eb5c6358dff0fc5a3965146c9bcfdeba7c44dcf9f27fa6707b33a8b1"
+    }
+  ],
+  "frozen_files_sha256": {
+    "frozen/pipeline/external_dual_axis_timing.py": "e4eeb64d4ccb27b03b07b825857ed9a5087e98b60d99af01f4ca2f7b91fef0d3",
+    "frozen/pipeline/frozen_v19_analytic_onset.py": "49f623d7dcde108f24eca1adc3eb4f7f756f5909e3c655a899517515868b52b0",
+    "frozen/pipeline/frozen_v19_eda_features.py": "29e825031c5f951ad8a6fd0a5c826aeed12a6fc28cd6c8cddeb1ddff592e844d",
+    "frozen/pipeline/improved_comprehensive_experiment.py": "1f3ee1ccc0c56dc7e3e3b134798a74232900c09e3babf9654d9852d3fb9fa106",
+    "frozen/pipeline/ldm_reserved_cohort_external.py": "f42438a400c35ca9e5ace8e614e9e3cad6c0ba104c6d4f21bff8c7df7c7c419b",
+    "frozen/pipeline/learning_failure_experiments.py": "2fc74e05ae951495cf4d88983c2063b7340e89307515ec7e69a0863ab0c7890c",
+    "frozen/pipeline/raw_online_federated_v12.py": "0e29e7109daaa12e59996526799901d3ed94661f4f9034b64012d4a85c6a0af6",
+    "frozen/pipeline/raw_online_federated_v25_policy.py": "34d2756836544a388d4e288f96352c3f1c453d8e482fd0c5b79244d6d080504d",
+    "frozen/pipeline/raw_online_federated_v27_detector.py": "aa92cd574ad89dd95337f5c93be8937c5378f485874de2f56760d77800753b30",
+    "frozen/pipeline/raw_online_federated_v29_models.py": "c9b7893111aad2bceb7e12da02229039132c5171404dcd004273f0be62690a1a",
+    "frozen/pipeline/raw_online_federated_v30_data.py": "96d739aaf9c2e8fa4e6cc16d0534c237326c98dfd998fe86f6be499258617bac",
+    "frozen/pipeline/raw_online_federated_v39_comm.py": "775c6859b87f9243fd2a69a9241cb1a038b484b3db73d5bbfd261917c105e8af",
+    "frozen/pipeline/raw_online_federated_v41.py": "378eb33dd6efd8d8c3fbf0468044aa0bef8805ebf1fff5219df1263267d5aef7",
+    "frozen/pipeline/raw_online_federated_v41_data.py": "2c5307d7064e23e440e5c10636c710eb3209fcd63fb9ff2d95c8f6d4f95d0fe5",
+    "frozen/pipeline/raw_online_federated_v41r1_data.py": "0257c7a75af4942bd9bc724d5f4fae38f59abde83e118629e396cb3fca38a83e",
+    "frozen/pipeline/raw_online_federated_v42.py": "530a56d53be40c778c9896b2f40bdb21ee3e4af0fe04fd4e8cc8569a71064fcc",
+    "frozen/pipeline/raw_online_federated_v42_calibration.py": "eb00f7cde284a4bbfca7c061dc59178c2274cd22a1294670dc8cbe9c4a42671f",
+    "frozen/pipeline/raw_online_federated_v42_design.py": "63e97bc4333e2d64b059a6c749d0525c20a3f756eefcaea7cb0946f7fc9cc641",
+    "frozen/pipeline/raw_online_federated_v42_score.py": "f53e7e2219735b6a9d25928bc20f5c60669f051cbb6c19c031c8c645ba6cace3",
+    "frozen/pipeline/raw_online_federated_v43.py": "abf7f82334f5e80f0b62738a19cc0f941452503ef7ced44938ebf267e455ac45",
+    "frozen/pipeline/raw_online_federated_v43_cohort.py": "d534f80554fbb20be4bc2c6d31a8625a3ffe510cc585ec5e13fae04a82878e82",
+    "frozen/pipeline/raw_online_federated_v43_comms.py": "16fdf2ba3d07e4ad5af92dca3408973bc20aa5011ef85d0ce33accc8e25ceb7a",
+    "frozen/pipeline/raw_online_federated_v43_grid.py": "cae79693cad38f092bcc7eb66199b0b2270583daa5402555e33c13b861dcef6e",
+    "frozen/pipeline/raw_online_federated_v43_stats.py": "9e0e8467434db7c57ad6089403c96cc545c203bf52ebca04a0bab1142c6bb7a1",
+    "frozen/pipeline/raw_online_federated_v45_cohort.py": "a7bf514102fd19ac56898612bfe55c535d508ccb1c599faa5faafa6a51dc80bb",
+    "frozen/pipeline/raw_online_federated_v45_grid.py": "714c9b50ab3dcbcfb86be268b1da527eb4f6f26561a8a8ffd3dfecbdaf9efb34",
+    "frozen/pipeline/raw_online_federated_v46_machine.py": "d269d9ea58f155294ad27ecd7bd8383efc2658e1ba1a5282578256364a9edb55",
+    "frozen/pipeline/raw_online_federated_v46_stats.py": "d89ae9c14ff5392c0133b2d4ad43071310c83b323d002ada09c592859d1f5e21",
+    "frozen/pipeline/raw_online_federated_v48_ablation.py": "f9fa8adacc655ee1247439af0db73adde22d656469e7ef7d05762e36c32c6fa7",
+    "frozen/pipeline/raw_online_federated_v51_policy.py": "735a234bb96ea737569584e9d7d274a7d5ddf819a08acedc1e5617a03db7e3ac",
+    "frozen/pipeline/raw_online_federated_v52.py": "9fe70a115b2fc182a122483e32bf42add2c7c5c387d404363025be00014ce12f",
+    "frozen/pipeline/raw_online_federated_v57_policy.py": "0353c28ce873ac0d2a7d0991fde84c2881499d359418b37b0445c2bb8d7f650e",
+    "frozen/pipeline/raw_online_federated_v60_analysis.py": "ec5b112529443cf9da24c8614b9dfc037ccb53cd79e1c12dcaf6f05e3293e3cf",
+    "frozen/pipeline/raw_online_federated_v62.py": "b278e56f1e381b42390f62fbdb93fc3edf2131be99a51a64e1af6c43f85df303",
+    "frozen/pipeline/raw_online_federated_v62_policy.py": "a07ff84dbf8445a30e38a0ca9df534ff3182b431fb5d909f29f43a0e8bdfcb34",
+    "frozen/pipeline/raw_online_federated_v63_policy.py": "26f3536b7ae4f25146e1daaa6990bdaecd263a424163c95fd2622efd8ffe0efc",
+    "frozen/pipeline/raw_online_federated_v64_baselines.py": "656f7fdf8469ca84595ae956283f524aa413dae8dafc00f62395e8a6fd2e9c6d",
+    "frozen/pipeline/raw_online_federated_v64_policy.py": "f67bc17688572d0cf3b3423806c936fc4600b5316789322885732d128b64dce2",
+    "frozen/pipeline/raw_online_federated_v65.py": "75b1b13b9c2b5f6194fa0485d23dfd91ec84ebb1510850c13f4a77cf3cd70446",
+    "frozen/pipeline/raw_online_federated_v65_policy.py": "356cb29d33c638e813dfc379ea41a2fe39442da0cc76e3a02e660a621d78eb40",
+    "frozen/pipeline/raw_online_federated_v67.py": "16ae41d36394ed3a8e57ffaea3edd3964e4a415423bdf7916b23dff3124acbbe",
+    "frozen/pipeline/raw_online_federated_v67_policy.py": "24e380d00b19110757187b7e99cb4ff46745128577ff3e22268e940e43b0a0c1",
+    "frozen/pipeline/raw_online_federated_v92.py": "dd159a71a56fb25c44be3a1893f2786cf3371432ae8b10515a74c8daa8e15b06",
+    "frozen/pipeline/realtime_federated_simulation.py": "08ba76298c939635e63eb57d9e1f186b001aa42dfbe0e1c7a69b6cafeaea2fc5",
+    "frozen/pipeline/research/healthy_only_causal_20260908/cadence.py": "ad3d1147af81daf0d17d588296998c8846836ba83e0ffd60a0c2086045c1ba2f",
+    "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811",
+    "frozen/pipeline/research/healthy_only_suite_20260907/data_cache.py": "f0af03289aa0a4918c03c6780df9c79380f22fd9a17fad83538c373b36819ec4",
+    "frozen/pipeline/run_full_simulation.py": "27a898f8be637178bdad1bfecec0992880e65dac6d147f3410f74da9fb9afee3",
+    "frozen/pipeline/thesis_70_device_federated.py": "e4a2e7f726af18bb741c8b92301f185b8111f685432a811866a2e056ec96360e",
+    "frozen/pipeline/thesis_70_improvement.py": "e771a0a50a953d8ea7ad111151011c7a87d3c0c6f3b719620d7982aa35cfd388",
+    "frozen/pipeline/thesis_70_improvement_protocol.json": "4274f8f5aee2fc67aea1adf432d693a9d80447eb0e7a966d34b91fea745f7f67",
+    "frozen/pipeline/thesis_70_node_scaling.py": "e76676caa269cdb5008465c8d097429c59f3a5bea15ffc4bc11860520f233f60",
+    "frozen/pipeline/thesis_participating_node_scaling.py": "d28d238e2624c788948283db8957e3bac10d448dde38bde2797f2ad8be9aad0e",
+    "frozen/python_tools/compare_architectures.py": "ef29093bc36ee38403b2882db84e27920965a77afecf8adf6318829b7100655f",
+    "frozen/python_tools/cwru_eval.py": "7f3e799c1f306a8cedb879d3dfa9d6cf32e9901116b555f3bdc8d5b1c02a3865",
+    "frozen/python_tools/tiny_ae.py": "70fe8fb17d8ffe7ae79ede06fba1663e23917931059e870ce78c87e2b0b45790",
+    "frozen/evidence/paper__main.tex": "14e9911322c5911a8b638d32026571afe1ab509d8f71ae6dad29e205d256f024",
+    "frozen/evidence/paper__supplement.tex": "55852a05758f89e913cb5796f50c7f1927c72f011448b9d5965d0f4d8189971f",
+    "frozen/evidence/paper__RESULTS_TRACEABILITY.md": "e830fc95226e6f27f4b72d3ccf55342fd29fcde2e433a2a9f0f89610a4dc1b97",
+    "frozen/evidence/external_dtu_fe8_20260922__frozen_config.json": "d4eaf5a3118b74cdba261c9dac860f5043bc7099dc225031bea26acff30c8ced",
+    "frozen/evidence/external_dtu_fe8_20260922__seal.json": "8e2a771bc83c56acd289c03c699d3efe059fec89f9d90d09598c51e7a85cf61b",
+    "frozen/evidence/healthy_only_causal_no_ldm_20260922__run_study.py": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc",
+    "frozen/evidence/healthy_only_causal_no_ldm_20260922__protocol.json": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd",
+    "frozen/models/global_h12_seed17070.pkl": "28e697d32045c36d0497d5c967490f61d96cbe61bb38bed9ca0a77aa02896521",
+    "frozen/models/global_h12_seed17070_checkpoint.json": "3eba133b28ca720fc60d246a0845bfcec0d3732dfd981817cdcf31c5e01f41f0",
+    "frozen/models/global_h12_seed17071.pkl": "43078d1006a30d157e165017f166059a305640680e78607fd6cfe0fc66cc8298",
+    "frozen/models/global_h12_seed17071_checkpoint.json": "a024bc8e9283a3b8fbf5e345dc408bf7e9c51d8a28d56564c78ece57e0808099",
+    "frozen/models/global_h12_seed17072.pkl": "5edf39760ec8c077a9b5aa59539dac3c645b8170d3f81a95b135ea4d9c123dac",
+    "frozen/models/global_h12_seed17072_checkpoint.json": "3a181f75eb5c6358dff0fc5a3965146c9bcfdeba7c44dcf9f27fa6707b33a8b1",
+    "source_snapshot_manifest.json": "43c28fe638f90fa995538b4f9dbea8d10985a395a94d6af20fbc7f579acd3799",
+    "run_unseen.py": "7c2bd1fffde464726697aee5ee7ac779cef46f75c58e85e13cbaf9ca3464c667",
+    "STAGE1_VALIDATION.md": "c18c51102d1fd472d66251b2f5f3610029006d8dd9c589110c486e922c549d89",
+    "DELIVER_TO_D.ps1": "1079d6e6ee8b082eb87e29d4b10d5dd9d3181adfe14bae9b0d2e729bdb0ec2dd"
+  },
+  "download_manifest_sha256": "2c80404315306411ace3b87f5b9a7f596b1f2a826d27c62007ac36452641c846",
+  "target_files": [
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET02.csv",
+      "sha256": "cfaac3ebfe5665bfdacac9d4e6846afd57400f4367fe749c2b431dffa3954b8e"
+    },
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET03.csv",
+      "sha256": "1c1c4c4b066adcb7c15fdca3ce70773d1c0918e6c4bbc57e5b59afd2fab488dc"
+    },
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET04.csv",
+      "sha256": "ae47985afd8d06b0ed38a1f62c50b5129a360833af7c96654bec17cba23f5fe6"
+    },
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET05.csv",
+      "sha256": "147a4012a6186f4986f49c05734ef3d99fef33f60521d5371ec4e0c14980a943"
+    },
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET06.csv",
+      "sha256": "ec03d488542fbe6cc5abf1e0165c3b0fbf39e4607955ebfff0a531b809b5ef05"
+    },
+    {
+      "path": "D:\\external_unseen\\snd_windfarm\\DATASET07.csv",
+      "sha256": "e3453ac2b3b3e15e23ca042ac527dc42a09ef65c003ec2d7e5b50bfeeeb72eb4"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130307T015746Z.mat",
+      "sha256": "9c4ed496f61a8229201a434fb69763516ba5888a752c6398aac559f7f8a3e113"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130308T023421Z.mat",
+      "sha256": "ac125309e105b4fe9198c4a52b12bbf959a1045558698d80e9d2e2b8e607424c"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130309T023343Z.mat",
+      "sha256": "9ac256af224846cbd5fff3aee0d39682d91e82d4d08725e7821d3f182a517212"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130310T030102Z.mat",
+      "sha256": "0d264720d04059a1022c026d28a86904430fbf7f2d63865362d6e7edf5e8c5da"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130311T030024Z.mat",
+      "sha256": "1b4c96033a21e02b92c3b2672b5757ba8943abfb383eaac0c364988e5e549ad3"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130312T061710Z.mat",
+      "sha256": "1e7a336dbd68ac202c696d84bf105c5edfd431f7f7804d1f6f0778dbf17aab07"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130313T063404Z.mat",
+      "sha256": "93f0cdec7fda21aec2933ec1f483ab0697e35529b75318fa1ca28ef7933cdcb4"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130314T065041Z.mat",
+      "sha256": "6bf9d61e5a0dfb24188898b66f8bff6ffce2103515cc118d4120c8fb6fa64c25"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130315T065003Z.mat",
+      "sha256": "a493bf0af02e49ba24c321d448d446127eeb3642d28f4571f18c13692c8fb76f"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130316T065643Z.mat",
+      "sha256": "60a0321ec9a326d27b167db2f3278bd53cd123965853e7ea2a214e0892307279"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130317T065604Z.mat",
+      "sha256": "0d284a9474d98af4122b98c9842a2cdcd23bd11494468ce19e6eff7fce152caf"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130317T184756Z.mat",
+      "sha256": "1d8448a580cc225e569fcdb06024b76b35e34b09102b9e97a45c7cc159cc1cd0"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130318T184715Z.mat",
+      "sha256": "21707521a97c53ef8f4209ef1d1ffa1c60eb5441fbd88e1460fd6b2b4332ab23"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130320T003354Z.mat",
+      "sha256": "929aafffbe0718a4a515b2c1818c6024722a02e53bc9153e5955ab813d5a61d0"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130321T003314Z.mat",
+      "sha256": "cc651cd3079265a04a57018de73194d8b67dbdee3adc2486b67921ad5387416f"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130322T003950Z.mat",
+      "sha256": "c40fd41b86d1bc90e7729b489f543035d966c02fe50014c3c76e758d20f1f923"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130323T003911Z.mat",
+      "sha256": "9e481925471876536ee8f8b683ee4e0a2bfc3136afee7ad7e1c61b4f5ba32880"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130324T004549Z.mat",
+      "sha256": "a4cf5c0fd0060fbed49251a205c9c935aa96a5c2f2756bf3949f3ef8b307dd14"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130325T004512Z.mat",
+      "sha256": "00962c2835c5ea3ebf846d380343982ec5521777e93bf8cb42cbb3569fa1288c"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130326T014150Z.mat",
+      "sha256": "5515bcd076494a1a7505f206e7cb528038d1cad898429ea0846d08ea52446f7a"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130327T035827Z.mat",
+      "sha256": "d1488c32934719f11d2fe33d9cd0b2f040213a50a4c5d355d4a2de533dcfb6ec"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130328T095531Z.mat",
+      "sha256": "113ff0fce359d27b571747e7b322a0945c3b658e7948cdcd93bc059540fcdf1e"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130329T095505Z.mat",
+      "sha256": "88226ce32665d567c586b35c16a38ed246a1eaa844c9bd5ea1cdca3d3f1cd86d"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130330T100142Z.mat",
+      "sha256": "6739d7f49d2ce95b908d78f1f430b1aa0eee3cf78f29d7fed46617b5d821c77e"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130331T193818Z.mat",
+      "sha256": "a44c660f1890bdfb700fa7a44851a0639876de78632a6daac413a31664b90ac9"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130401T193739Z.mat",
+      "sha256": "54153a2ecd26a50ffaa6bfda5dcfdfb3977d0c4cf123720eb2fbf8d7f2f97df5"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130402T194415Z.mat",
+      "sha256": "c6abc3027052c7152b816f7da64524a15cf9240ffbf00d6e539f822930d4f26a"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130403T212942Z.mat",
+      "sha256": "bdcceb2737d3189e6fdb9086ae8ed79bee7acdc86ee0fc3f2fb8920bdc7df677"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130404T212901Z.mat",
+      "sha256": "21c5a1240e559241725160a8acb446f5392e579661f13c5f0eed892221c54c47"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130405T213537Z.mat",
+      "sha256": "b354ca14d696c18fa4dbdf2743f1a93d4ac182a86414c3f52dbb91cc79570837"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130406T221209Z.mat",
+      "sha256": "0a0883f5b85ca793d21c7741d618e6ddbede916f3c2ffbb17774c2b82e02890f"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130407T221131Z.mat",
+      "sha256": "74763b52dde6bd966f046f52a93c6c1a400b7e661ebeb20f29398093ff3f48fe"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130408T221809Z.mat",
+      "sha256": "b0c90115e132279a7aadfb244855422af75eb904dca5d76093d2aebe15174675"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130409T231445Z.mat",
+      "sha256": "5beb1fcedb77c8d92e01a03ac1a36fba1214aed5872b086d02fbd059a35c7578"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130410T231407Z.mat",
+      "sha256": "37964fb5e1d715864a7215c18d84c4f5f32e0a1d1200f3f6cf062fb1df7739af"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130411T231358Z.mat",
+      "sha256": "9294d1e4642c15b6e4aa229f8ae804a0b6a2fb299a15af26233a8f1a82f34946"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130412T170231Z.mat",
+      "sha256": "3683ea67ede4398e6ca6eeab8a027b34b36c9ace2fcbcdb5172059c63c536e7f"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130413T170210Z.mat",
+      "sha256": "0949ccd5b3a32673c5088f89b828fe63cb582cf8bac777302ab65e1b9b532e36"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130414T170847Z.mat",
+      "sha256": "9ffc8b3f7eb0ccd833250c21be52d61f206926f1ee520ecb0424667f77293736"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130415T225524Z.mat",
+      "sha256": "019cf57bac71e289e07f3521827366a19e153bc69914399aae65077b492df9a1"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130416T230159Z.mat",
+      "sha256": "04391a2f01701bf8342ea8f54f18b84f20a67502e13bca046a431c350bb9ebb9"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130417T230120Z.mat",
+      "sha256": "7e8131b35d199210e27a8af756a16d00d41e66bb91731619b0aa0879ea14ce8b"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130418T230803Z.mat",
+      "sha256": "da382568b056413b5cb06dd034e8a450546d06ea491311b48b5c9d1d9e58c23b"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130419T230747Z.mat",
+      "sha256": "8b341177f58ea672c9e110f53296fd5fdf0977d147be90f1845ff4ccbfe7ea33"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130420T151307Z.mat",
+      "sha256": "d6fb7d73a1b6c775d89bc06c1c14b43d37f2f6713ceca45d56b00bd215b947c9"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130421T151231Z.mat",
+      "sha256": "3c33455badada7a9dc6e8ccc7ee5cd62370ccce17cd253adf1b39434db29a145"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130422T151908Z.mat",
+      "sha256": "52d6910c2ab6055d28ea783c6ad95ef306601667c19e4b0d5b3ae3b31d2d1542"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130423T151830Z.mat",
+      "sha256": "3fb4931d204a717b868e8438b07613b74f27c4fa157c41135859e5490e8c7283"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130424T215514Z.mat",
+      "sha256": "e0d0b6b0c1eaba06d8fc38706dfd3806b886550786f186e3c468c68041d47679"
+    },
+    {
+      "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130425T232202Z.mat",
+      "sha256": "4efb9be8e3c50e52cb4594ae928202e756701ca35bbaaa3c7c3417f9c1513d2d"
+    },
+    {
+      "path": "D:\\external_unseen\\WindTurbineHighSpeedBearingPrognosis-Data-main.zip",
+      "sha256": "f662e951bb7de500ffaded14556907066d8310c039342850080e63bb55d2c9bd"
+    }
+  ],
+  "training": {
+    "unseen_units_join_federation": false,
+    "adapt_model_weights": false,
+    "original_total_clients": 54,
+    "datasets": [
+      "dlr",
+      "ferrara",
+      "hit",
+      "ims",
+      "kaist",
+      "paderborn",
+      "pronostia",
+      "unsw",
+      "xjtu"
+    ],
+    "architecture": [
+      22,
+      12,
+      22
+    ],
+    "hidden_activation": "tanh",
+    "output_activation": "linear",
+    "parameters": 562,
+    "rounds": 12,
+    "local_full_batch_steps": 2,
+    "client_weighting": "equal_client",
+    "local_lr": 0.03,
+    "weight_matrix_l2": 0.0001,
+    "server_lr": 0.01,
+    "betas": [
+      0.9,
+      0.99
+    ],
+    "tau": 0.001,
+    "dtype": "Use the original checkpoint arrays and NumPy float64 scoring; do not quantize/cast weights. Paper's 2248-byte float32 storage accounting is not the saved software arithmetic."
+  },
+  "features": {
+    "indices22": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      28,
+      29,
+      30,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      92,
+      93,
+      94
+    ],
+    "extractor": "raw_online_federated_v12.local_preprocess_current_acquisition",
+    "normalizer": "data_cache.physical_matrix([features100], train_indices)",
+    "fitting_rows": "training only, never calibration/test/fault rows",
+    "scale": "max(1.4826*MAD, population std); if <=1e-8 replace with 1; median center; abs(asinh((v-center)/scale))",
+    "channels": "one axial vibration channel, mean and signed-extreme summaries coincide; tach/speed unused",
+    "segment": "one full source record is one acquisition; no window subdivision or extra averaging",
+    "rates_hz": {
+      "SND": 12800,
+      "HSS": 97656
+    },
+    "fft_max_samples": 16384,
+    "long_record_spectrum": "native V12 x[::ceil(n/16384)][:16384], then center, Hann, rFFT, omit DC; normalized bins. Full record for time features. No extra filters/resampling."
+  },
+  "alarm": {
+    "function": "cadence.dense_flags",
+    "m": 21,
+    "k": 13,
+    "alpha": 2.0,
+    "reference": "max finite 13th-largest score in full 21-score windows of concatenated training+calibration history",
+    "fallback_quantile": 0.995,
+    "fallback_rows": "calibration only, linear NumPy quantile interpolation",
+    "comparison": "strict > threshold",
+    "commissioning_suppression": true,
+    "state": "trailing full 21 scores; continuous through commissioning, healthy/fault boundary and calendar gaps; no reset or latch; no alarm until full window"
+  },
+  "snd": {
+    "doi": "10.5878/bcmv-wq08",
+    "dataset": "SND 2024-248",
+    "units": [
+      {
+        "turbine": 1,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET02.csv",
+        "expected": "healthy_control",
+        "sha256": "cfaac3ebfe5665bfdacac9d4e6846afd57400f4367fe749c2b431dffa3954b8e"
+      },
+      {
+        "turbine": 2,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET03.csv",
+        "expected": "healthy_control",
+        "sha256": "1c1c4c4b066adcb7c15fdca3ce70773d1c0918e6c4bbc57e5b59afd2fab488dc"
+      },
+      {
+        "turbine": 3,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET04.csv",
+        "expected": "healthy_control",
+        "sha256": "ae47985afd8d06b0ed38a1f62c50b5129a360833af7c96654bec17cba23f5fe6"
+      },
+      {
+        "turbine": 4,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET05.csv",
+        "expected": "healthy_control",
+        "sha256": "147a4012a6186f4986f49c05734ef3d99fef33f60521d5371ec4e0c14980a943"
+      },
+      {
+        "turbine": 5,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET06.csv",
+        "expected": "fault",
+        "sha256": "ec03d488542fbe6cc5abf1e0165c3b0fbf39e4607955ebfff0a531b809b5ef05"
+      },
+      {
+        "turbine": 6,
+        "file": "D:\\external_unseen\\snd_windfarm\\DATASET07.csv",
+        "expected": "healthy_control",
+        "sha256": "e3453ac2b3b3e15e23ca042ac527dc42a09ef65c003ec2d7e5b50bfeeeb72eb4"
+      }
+    ],
+    "mapping": "ASSUMED DATASET02..07 = Turbine1..6; Turbine5 = DATASET06; time-only check cannot positively verify identity",
+    "columns": 16386,
+    "time_column_1based": 1,
+    "speed_column_1based": 2,
+    "vibration_columns_1based": [
+      3,
+      16386
+    ],
+    "bearing_replacement_years": 1.2,
+    "gearbox_replacement_years_for_identity_only": 2.0,
+    "replacement_rule": "Turbine5 retain time <1.2 years; exclude time >=1.2 before vibration parsing; never infer a new cutoff from gaps",
+    "rms_gate_g": 0.5,
+    "rms_definition": "uncentered sqrt(mean(raw_float64_vibration**2)) over all 16384 samples, strict >0.5g, before float32 V12 cast",
+    "arms": [
+      "authors_rms_gt_0p5g",
+      "no_operating_filter"
+    ],
+    "sensitivity": "Rerun identical fixed pipeline on all eligible records; independently re-estimate own onset, chronological partitions, scaling and threshold on that arm. No common t* selected by outcome.",
+    "turbine2_sensor_issue": "Retain early documented electrical sensor issue; no censoring or repair; report explicitly.",
+    "identity_gate": {
+      "columns_used": [
+        1
+      ],
+      "event_years": [
+        1.2,
+        2.0
+      ],
+      "event_tolerance_years": 0.1,
+      "gap_min_years": 0.019164955509924708,
+      "gap_median_multiplier": 10,
+      "stop": "invalid/nonfinite/duplicate/reversed time, fewer than 2 rows, failure to bracket both events, or event gaps near both events only in alternative turbine(s) and none in assumed Turbine5; no remapping",
+      "gap_interpretation": "A gap is strictly greater than max(7/365.25 years,10*median positive time step); event match if gap interval intersects event +/-0.1 years. Thresholds are blind safeguards, not publisher facts or identity proof. No gaps or ambiguous common gaps retain mapping as an unverified assumption."
+    }
+  },
+  "onset": {
+    "function": "frozen_v19_analytic_onset.estimate",
+    "features_function": "frozen_v19_eda_features.acquisition_features",
+    "unit": "Turbine5 only, its arm-specific included record before 1.2 years, never other turbines or HSS",
+    "five_features": [
+      "rms_mean",
+      "kurtosis_mean",
+      "crest_factor_mean",
+      "spectral_entropy_mean",
+      "band_4_relative_power_mean"
+    ],
+    "fit_count": 40,
+    "reference_count": 100,
+    "minimum_required": 105,
+    "scale_fallbacks": [
+      "1.4826*MAD",
+      "IQR/1.349",
+      "population std",
+      "one"
+    ],
+    "clip_z": [
+      -20,
+      20
+    ],
+    "departure": "root mean square of five standardized descriptors",
+    "smoother": "trailing median, w=clip(ceil(n*0.01),3,21), min_periods=1",
+    "reference": "max(q0.99(first100 smoothed),median+6*max(scaledMAD,1e-12))",
+    "confirmation": "first 3-of-5 exceedance with window end index >=100; backdate to first exceedance in that five-record window (zero-based indices)",
+    "no_onset": "STOP and report not evaluable; no documented onset-substitution fallback found. Strongest-change diagnostic is not a substitute. No 50%, 1-year, or best-alarm boundary.",
+    "limitations": "retrospective feature-departure proxy, shared descriptor families with detector, unknown physical damage onset; no claim of prospective onset estimation"
+  },
+  "partitions": {
+    "function": "thesis_70_device_federated._three_way",
+    "minimum_each_healthy_partition": 5,
+    "rule": "healthy sequence length h>=15; train_end=max(5,floor(.60*h)); cal_end=min(max(train_end+5,floor(.80*h)),h-5); remainder healthy test",
+    "fault": "Turbine5 rows [0,t*) assumed healthy; [t*,replacement) fault test",
+    "controls": "full record after arm inclusion split 60/20/20; last20% healthy test only; commissioning is train+cal, not scored test"
+  },
+  "hss": {
+    "source": "https://github.com/mathworks/WindTurbineHighSpeedBearingPrognosis-Data",
+    "documentation": "https://www.mathworks.com/help/predmaint/ug/wind-turbine-high-speed-bearing-prognosis.html",
+    "owner": "Eric Bechhoefer",
+    "license": "CC BY-NC-SA 4.0",
+    "variable": "vibration",
+    "tachometer_used": false,
+    "records": [
+      {
+        "record_day_1based": 1,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130307T015746Z.mat",
+        "timestamp_utc": "2013-03-07T01:57:46Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2446,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "9c4ed496f61a8229201a434fb69763516ba5888a752c6398aac559f7f8a3e113"
+      },
+      {
+        "record_day_1based": 2,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130308T023421Z.mat",
+        "timestamp_utc": "2013-03-08T02:34:21Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2411,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "ac125309e105b4fe9198c4a52b12bbf959a1045558698d80e9d2e2b8e607424c"
+      },
+      {
+        "record_day_1based": 3,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130309T023343Z.mat",
+        "timestamp_utc": "2013-03-09T02:33:43Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2465,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "9ac256af224846cbd5fff3aee0d39682d91e82d4d08725e7821d3f182a517212"
+      },
+      {
+        "record_day_1based": 4,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130310T030102Z.mat",
+        "timestamp_utc": "2013-03-10T03:01:02Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2461,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "0d264720d04059a1022c026d28a86904430fbf7f2d63865362d6e7edf5e8c5da"
+      },
+      {
+        "record_day_1based": 5,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130311T030024Z.mat",
+        "timestamp_utc": "2013-03-11T03:00:24Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2506,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "1b4c96033a21e02b92c3b2672b5757ba8943abfb383eaac0c364988e5e549ad3"
+      },
+      {
+        "record_day_1based": 6,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130312T061710Z.mat",
+        "timestamp_utc": "2013-03-12T06:17:10Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2447,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "1e7a336dbd68ac202c696d84bf105c5edfd431f7f7804d1f6f0778dbf17aab07"
+      },
+      {
+        "record_day_1based": 7,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130313T063404Z.mat",
+        "timestamp_utc": "2013-03-13T06:34:04Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2438,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "93f0cdec7fda21aec2933ec1f483ab0697e35529b75318fa1ca28ef7933cdcb4"
+      },
+      {
+        "record_day_1based": 8,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130314T065041Z.mat",
+        "timestamp_utc": "2013-03-14T06:50:41Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2390,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "6bf9d61e5a0dfb24188898b66f8bff6ffce2103515cc118d4120c8fb6fa64c25"
+      },
+      {
+        "record_day_1based": 9,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130315T065003Z.mat",
+        "timestamp_utc": "2013-03-15T06:50:03Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2458,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "a493bf0af02e49ba24c321d448d446127eeb3642d28f4571f18c13692c8fb76f"
+      },
+      {
+        "record_day_1based": 10,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130316T065643Z.mat",
+        "timestamp_utc": "2013-03-16T06:56:43Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2447,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "60a0321ec9a326d27b167db2f3278bd53cd123965853e7ea2a214e0892307279"
+      },
+      {
+        "record_day_1based": 11,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130317T065604Z.mat",
+        "timestamp_utc": "2013-03-17T06:56:04Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2481,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "0d284a9474d98af4122b98c9842a2cdcd23bd11494468ce19e6eff7fce152caf"
+      },
+      {
+        "record_day_1based": 12,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130317T184756Z.mat",
+        "timestamp_utc": "2013-03-17T18:47:56Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2545,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "1d8448a580cc225e569fcdb06024b76b35e34b09102b9e97a45c7cc159cc1cd0"
+      },
+      {
+        "record_day_1based": 13,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130318T184715Z.mat",
+        "timestamp_utc": "2013-03-18T18:47:15Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2523,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "21707521a97c53ef8f4209ef1d1ffa1c60eb5441fbd88e1460fd6b2b4332ab23"
+      },
+      {
+        "record_day_1based": 14,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130320T003354Z.mat",
+        "timestamp_utc": "2013-03-20T00:33:54Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2420,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "929aafffbe0718a4a515b2c1818c6024722a02e53bc9153e5955ab813d5a61d0"
+      },
+      {
+        "record_day_1based": 15,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130321T003314Z.mat",
+        "timestamp_utc": "2013-03-21T00:33:14Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2538,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "cc651cd3079265a04a57018de73194d8b67dbdee3adc2486b67921ad5387416f"
+      },
+      {
+        "record_day_1based": 16,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130322T003950Z.mat",
+        "timestamp_utc": "2013-03-22T00:39:50Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2490,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "c40fd41b86d1bc90e7729b489f543035d966c02fe50014c3c76e758d20f1f923"
+      },
+      {
+        "record_day_1based": 17,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130323T003911Z.mat",
+        "timestamp_utc": "2013-03-23T00:39:11Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2472,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "9e481925471876536ee8f8b683ee4e0a2bfc3136afee7ad7e1c61b4f5ba32880"
+      },
+      {
+        "record_day_1based": 18,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130324T004549Z.mat",
+        "timestamp_utc": "2013-03-24T00:45:49Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2415,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "a4cf5c0fd0060fbed49251a205c9c935aa96a5c2f2756bf3949f3ef8b307dd14"
+      },
+      {
+        "record_day_1based": 19,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130325T004512Z.mat",
+        "timestamp_utc": "2013-03-25T00:45:12Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2440,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "00962c2835c5ea3ebf846d380343982ec5521777e93bf8cb42cbb3569fa1288c"
+      },
+      {
+        "record_day_1based": 20,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130326T014150Z.mat",
+        "timestamp_utc": "2013-03-26T01:41:50Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2403,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "5515bcd076494a1a7505f206e7cb528038d1cad898429ea0846d08ea52446f7a"
+      },
+      {
+        "record_day_1based": 21,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130327T035827Z.mat",
+        "timestamp_utc": "2013-03-27T03:58:27Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2359,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "d1488c32934719f11d2fe33d9cd0b2f040213a50a4c5d355d4a2de533dcfb6ec"
+      },
+      {
+        "record_day_1based": 22,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130328T095531Z.mat",
+        "timestamp_utc": "2013-03-28T09:55:31Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2403,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "113ff0fce359d27b571747e7b322a0945c3b658e7948cdcd93bc059540fcdf1e"
+      },
+      {
+        "record_day_1based": 23,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130329T095505Z.mat",
+        "timestamp_utc": "2013-03-29T09:55:05Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2431,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "88226ce32665d567c586b35c16a38ed246a1eaa844c9bd5ea1cdca3d3f1cd86d"
+      },
+      {
+        "record_day_1based": 24,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130330T100142Z.mat",
+        "timestamp_utc": "2013-03-30T10:01:42Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2444,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "6739d7f49d2ce95b908d78f1f430b1aa0eee3cf78f29d7fed46617b5d821c77e"
+      },
+      {
+        "record_day_1based": 25,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130331T193818Z.mat",
+        "timestamp_utc": "2013-03-31T19:38:18Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2408,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "a44c660f1890bdfb700fa7a44851a0639876de78632a6daac413a31664b90ac9"
+      },
+      {
+        "record_day_1based": 26,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130401T193739Z.mat",
+        "timestamp_utc": "2013-04-01T19:37:39Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2421,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "54153a2ecd26a50ffaa6bfda5dcfdfb3977d0c4cf123720eb2fbf8d7f2f97df5"
+      },
+      {
+        "record_day_1based": 27,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130402T194415Z.mat",
+        "timestamp_utc": "2013-04-02T19:44:15Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2476,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "c6abc3027052c7152b816f7da64524a15cf9240ffbf00d6e539f822930d4f26a"
+      },
+      {
+        "record_day_1based": 28,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130403T212942Z.mat",
+        "timestamp_utc": "2013-04-03T21:29:42Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2426,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "bdcceb2737d3189e6fdb9086ae8ed79bee7acdc86ee0fc3f2fb8920bdc7df677"
+      },
+      {
+        "record_day_1based": 29,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130404T212901Z.mat",
+        "timestamp_utc": "2013-04-04T21:29:01Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2433,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "21c5a1240e559241725160a8acb446f5392e579661f13c5f0eed892221c54c47"
+      },
+      {
+        "record_day_1based": 30,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130405T213537Z.mat",
+        "timestamp_utc": "2013-04-05T21:35:37Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2418,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "b354ca14d696c18fa4dbdf2743f1a93d4ac182a86414c3f52dbb91cc79570837"
+      },
+      {
+        "record_day_1based": 31,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130406T221209Z.mat",
+        "timestamp_utc": "2013-04-06T22:12:09Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2425,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "0a0883f5b85ca793d21c7741d618e6ddbede916f3c2ffbb17774c2b82e02890f"
+      },
+      {
+        "record_day_1based": 32,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130407T221131Z.mat",
+        "timestamp_utc": "2013-04-07T22:11:31Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2465,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "74763b52dde6bd966f046f52a93c6c1a400b7e661ebeb20f29398093ff3f48fe"
+      },
+      {
+        "record_day_1based": 33,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130408T221809Z.mat",
+        "timestamp_utc": "2013-04-08T22:18:09Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2523,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "b0c90115e132279a7aadfb244855422af75eb904dca5d76093d2aebe15174675"
+      },
+      {
+        "record_day_1based": 34,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130409T231445Z.mat",
+        "timestamp_utc": "2013-04-09T23:14:45Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2409,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "5beb1fcedb77c8d92e01a03ac1a36fba1214aed5872b086d02fbd059a35c7578"
+      },
+      {
+        "record_day_1based": 35,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130410T231407Z.mat",
+        "timestamp_utc": "2013-04-10T23:14:07Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2537,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "37964fb5e1d715864a7215c18d84c4f5f32e0a1d1200f3f6cf062fb1df7739af"
+      },
+      {
+        "record_day_1based": 36,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130411T231358Z.mat",
+        "timestamp_utc": "2013-04-11T23:13:58Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2509,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "9294d1e4642c15b6e4aa229f8ae804a0b6a2fb299a15af26233a8f1a82f34946"
+      },
+      {
+        "record_day_1based": 37,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130412T170231Z.mat",
+        "timestamp_utc": "2013-04-12T17:02:31Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2440,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "3683ea67ede4398e6ca6eeab8a027b34b36c9ace2fcbcdb5172059c63c536e7f"
+      },
+      {
+        "record_day_1based": 38,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130413T170210Z.mat",
+        "timestamp_utc": "2013-04-13T17:02:10Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2439,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "0949ccd5b3a32673c5088f89b828fe63cb582cf8bac777302ab65e1b9b532e36"
+      },
+      {
+        "record_day_1based": 39,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130414T170847Z.mat",
+        "timestamp_utc": "2013-04-14T17:08:47Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2443,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "9ffc8b3f7eb0ccd833250c21be52d61f206926f1ee520ecb0424667f77293736"
+      },
+      {
+        "record_day_1based": 40,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130415T225524Z.mat",
+        "timestamp_utc": "2013-04-15T22:55:24Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2369,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "019cf57bac71e289e07f3521827366a19e153bc69914399aae65077b492df9a1"
+      },
+      {
+        "record_day_1based": 41,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130416T230159Z.mat",
+        "timestamp_utc": "2013-04-16T23:01:59Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2448,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "04391a2f01701bf8342ea8f54f18b84f20a67502e13bca046a431c350bb9ebb9"
+      },
+      {
+        "record_day_1based": 42,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130417T230120Z.mat",
+        "timestamp_utc": "2013-04-17T23:01:20Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2453,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "7e8131b35d199210e27a8af756a16d00d41e66bb91731619b0aa0879ea14ce8b"
+      },
+      {
+        "record_day_1based": 43,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130418T230803Z.mat",
+        "timestamp_utc": "2013-04-18T23:08:03Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2505,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "da382568b056413b5cb06dd034e8a450546d06ea491311b48b5c9d1d9e58c23b"
+      },
+      {
+        "record_day_1based": 44,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130419T230747Z.mat",
+        "timestamp_utc": "2013-04-19T23:07:47Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2517,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "8b341177f58ea672c9e110f53296fd5fdf0977d147be90f1845ff4ccbfe7ea33"
+      },
+      {
+        "record_day_1based": 45,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130420T151307Z.mat",
+        "timestamp_utc": "2013-04-20T15:13:07Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2538,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "d6fb7d73a1b6c775d89bc06c1c14b43d37f2f6713ceca45d56b00bd215b947c9"
+      },
+      {
+        "record_day_1based": 46,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130421T151231Z.mat",
+        "timestamp_utc": "2013-04-21T15:12:31Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2457,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "3c33455badada7a9dc6e8ccc7ee5cd62370ccce17cd253adf1b39434db29a145"
+      },
+      {
+        "record_day_1based": 47,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130422T151908Z.mat",
+        "timestamp_utc": "2013-04-22T15:19:08Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2444,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "52d6910c2ab6055d28ea783c6ad95ef306601667c19e4b0d5b3ae3b31d2d1542"
+      },
+      {
+        "record_day_1based": 48,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130423T151830Z.mat",
+        "timestamp_utc": "2013-04-23T15:18:30Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2426,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "3fb4931d204a717b868e8438b07613b74f27c4fa157c41135859e5490e8c7283"
+      },
+      {
+        "record_day_1based": 49,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130424T215514Z.mat",
+        "timestamp_utc": "2013-04-24T21:55:14Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2430,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "e0d0b6b0c1eaba06d8fc38706dfd3806b886550786f186e3c468c68041d47679"
+      },
+      {
+        "record_day_1based": 50,
+        "path": "D:\\external_unseen\\mathworks_hss\\WindTurbineHighSpeedBearingPrognosis-Data-main\\data-20130425T232202Z.mat",
+        "timestamp_utc": "2013-04-25T23:22:02Z",
+        "vibration_shape": [
+          585936,
+          1
+        ],
+        "header": {
+          "tach": {
+            "shape": [
+              2559,
+              1
+            ],
+            "class": "double"
+          },
+          "vibration": {
+            "shape": [
+              585936,
+              1
+            ],
+            "class": "double"
+          }
+        },
+        "sha256": "4efb9be8e3c50e52cb4594ae928202e756701ca35bbaaa3c7c3417f9c1513d2d"
+      }
+    ],
+    "ordering": "lexical timestamp filename, all 50 records, including both March17 records; record-day not literal unique calendar date",
+    "train_days_inclusive": [
+      1,
+      15
+    ],
+    "calibration_days_inclusive": [
+      16,
+      20
+    ],
+    "test_days_inclusive": [
+      21,
+      50
+    ],
+    "commissioning": "fixed 30% training + next10% calibration, assumed healthy; no onset estimation or RMS operating filter",
+    "failure_proxy_day": 50,
+    "precedes_failure": "first alarm record-day <50; day50 alone is not advance warning; failure by last record is not exact failure timestamp",
+    "strict_score": null,
+    "threshold": "20-history scores <21 => twice q0.995 of calibration days16..20 only; keep causal 13/21 rule"
+  },
+  "outcomes": {
+    "hypothesis": "Frozen cohort-trained global H12 with local commissioning transfers to unseen turbines: Turbine5 has no healthy-test alarm and at least one fault-test alarm, and all five controls remain silent in their held-out tests.",
+    "primary": "SND per seed strict successes /6, per-unit healthy_alarm/fault_detected/strict_success, and total /18 unit-seed evaluations; all 6 machines shown",
+    "timing": "Turbine5 first post-commissioning alarm in years; alarm time minus1.2 years (negative=before replacement) and 1.2-alarm time; include premature alarms",
+    "secondary": "HSS first alarm day and whether day<50, per seed; no strict score, do not pool with SND",
+    "no_alarm": "null timing, false detection; never impute last record as alarm",
+    "no_significance_test_or_target_accuracy_gate": true,
+    "dependence": "6 machines from 1 farm; three seeds are repeated evaluations, not 18 independent machines"
+  },
+  "prohibited": [
+    "target vibration/statistics/features/scores/plots before seal",
+    "unseen units in FL or weight adaptation",
+    "post-result changes to k,m,alpha,features,preprocessing,model,rounds,inclusion,cutoff,partitions or onset rule",
+    "per-turbine tuning",
+    "speed stratification or tach-derived features",
+    "outcome-driven exclusions/remapping",
+    "best-seed reporting",
+    "silent reruns/rescues",
+    "committing in stage1"
+  ],
+  "execution_commands": [
+    "python -B D:\\external_unseen\\run_unseen.py --protocol D:\\external_unseen\\protocol.json --metadata-only",
+    "python -B D:\\external_unseen\\run_unseen.py --protocol D:\\external_unseen\\protocol.json --run"
+  ],
+  "outputs": [
+    "summary.json",
+    "per_unit.csv",
+    "REPORT.md",
+    "metadata_identity_check.json",
+    "partition_onset_audit.json",
+    "execution_environment.json",
+    "hss_record_days.csv",
+    "scores/*.csv",
+    "ANALYSIS_STARTED.json",
+    "COMPLETE.json or STOP.json"
+  ],
+  "deviations_log": "D:\\external_unseen\\DEVIATIONS.md",
+  "environment_at_freeze": {
+    "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "pandas": "3.0.5",
+      "scikit-learn": "1.6.1"
+    }
+  },
+  "stage1_delivery_limitation": "D: destination write denied by managed sandbox. Byte-identical staged bundle must be copied by Opus before stage2. No stage2 commands executed.",
+  "sources": [
+    "https://researchdata.se/en/catalogue/dataset/2024-248",
+    "https://doi.org/10.5878/bcmv-wq08",
+    "https://arxiv.org/abs/1902.01426",
+    "https://www.mathworks.com/help/predmaint/ug/wind-turbine-high-speed-bearing-prognosis.html",
+    "https://github.com/mathworks/WindTurbineHighSpeedBearingPrognosis-Data"
+  ],
+  "stage1_validation": "STAGE1_VALIDATION.md: syntax and frozen import checks only; runner never executed"
+}

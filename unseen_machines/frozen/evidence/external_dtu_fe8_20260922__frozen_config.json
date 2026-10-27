@@ -1,0 +1,158 @@
+{
+  "schema": "v110_external_validation_frozen_config_v2",
+  "protocol_id": "v110_dtu_fe8_frozen2",
+  "sealed_date_utc": "2026-09-22",
+  "status": "SEALED_BEFORE_ANY_DTU_FE8_SIGNAL_ACCESS",
+
+  "supersedes": {
+    "protocol_id": "v110_dtu_fe8_frozen1",
+    "location": "research/external_dtu_fe8_20260911/",
+    "seal_sha256": "8c317cd18b4422b8154b7b3202c4714f47ee20421b63ca9701b39332214df79e",
+    "was_it_executed": "NO. Protocol 1 was never run. No DTU FE8 file was ever downloaded, opened, or scored under it. Its directory is retained unmodified as the historical record.",
+    "why_resealed": "Protocol 1 froze a detector trained on the 70-client development cohort, which INCLUDED ldm_upb. On 2026-09-22 the development study was re-run with ldm_upb filtered before the first cache load, so the dataset is absent from local training, FedAdam aggregation, calibration, scoring and every reported denominator. That produced a different global model (state sha256 28e697d3..., 54 clients) which is now the configuration the thesis presents. Leaving protocol 1 sealed would have left a frozen external test pointing at a model the thesis no longer claims.",
+    "is_this_legitimate": "Re-sealing is legitimate here for one specific reason and no other: the seal exists to prevent tuning against the TARGET, and the target has still never been opened. Nothing in this protocol was informed by DTU FE8 data, because no DTU FE8 data has been read. It WAS informed by development-cohort results, which is exactly the selection bias recorded under known_limitation_carried_from_development below. If a third re-seal ever becomes necessary, it must be recorded here in the same way; a protocol that is re-sealed repeatedly until it succeeds is not a pre-registration."
+  },
+
+  "corrections_to_protocol_1": [
+    "Protocol 1 justified the single-route choice by stating that route conjunction 'never beat the best single route in any development experiment'. THAT STATEMENT WAS FALSE and is withdrawn. On the 70-client cohort PCA-AND-AE beat the best single route by exactly one device on every seed (51/50/48 against 50/49/47), and on the 49-device restricted cohort likewise (45/44/43 against 44/43/42). On the 2026-09-22 LDM-free cohort pca_and_global_h12 scores 45/44/45 against global_h12's 45/44/44. The single-route choice is retained, but on its true justification: it is the simplest configuration, it is the one already frozen on 2026-09-11 before this cohort existed, and the conjunction's advantage is one device and within seed-to-seed spread.",
+    "Protocol 1 described the triaxial channel collapse as 'the elementwise max across the device's channels'. THAT DESCRIPTION WAS WRONG. Elementwise max is applied across STREAMS (several physical bearings belonging to one logical device), not across channels within an acquisition. Channels inside a single acquisition are collapsed by the V12 feature function itself: mean across channels, standard deviation across channels, the per-feature value from the most extreme channel, and four cross-channel terms. The executable code was always correct; only protocol 1's prose was wrong. The corrected description is in features.channel_collapse below."
+  ],
+
+  "objective": "Single-use external validation of the frozen LDM-free V110 healthy-only detector on the five DTU FE8 run-to-failure bearing fatigue tests, which have never been opened by this project.",
+
+  "claim_unit": "independent machine lifecycle",
+
+  "target": {
+    "dataset": "Vibration Data from 81212 Bearing fatigue testing on FE8 Test Rig",
+    "authors": "Nikhil Sudhakaran, Faras Jamil",
+    "published": "2026-04-24",
+    "doi": "10.11583/DTU.31851214.v1",
+    "licence": "CC BY 4.0",
+    "figshare_api": "https://api.figshare.com/v2/articles/31851214",
+    "lifecycles": 5,
+    "format": "one zip per bearing test; triaxial accelerometer x/y/z; Parquet",
+    "total_bytes": 79997836289,
+    "files": {
+      "07.01.2025.zip": {"bytes": 3242506775, "url": "https://ndownloader.figshare.com/files/63932970"},
+      "18.08.2025.zip": {"bytes": 3205024961, "url": "https://ndownloader.figshare.com/files/63935271"},
+      "21.08.2024.zip": {"bytes": 11993621878, "url": "https://ndownloader.figshare.com/files/63936192"},
+      "01.07.2025.zip": {"bytes": 28266259891, "url": "https://ndownloader.figshare.com/files/63952809"},
+      "15.09.2025.zip": {"bytes": 33290281486, "url": "https://ndownloader.figshare.com/files/63935796"},
+      "Read me.pdf": {"bytes": 141298, "url": "https://ndownloader.figshare.com/files/63986482"}
+    },
+    "all_five_tests_required": "All five lifecycles enter the denominator. Selecting a subset after access, or dropping a lifecycle because it fails, invalidates the run. If only a subset is processed for resource reasons, that subset must be declared BEFORE access and the reduced denominator reported."
+  },
+
+  "detector": {
+    "retraining_on_target": false,
+    "tuning_on_target": false,
+    "target_rescue_rerun": false,
+    "target_exclusion_after_access": false,
+    "route": "global_h12 autoencoder reconstruction error, single route, dense decision cadence",
+    "rationale_single_route": "It is the configuration already sealed on 2026-09-11, before the LDM-free cohort existed, so it is pre-specified rather than selected on these results. It is also the simplest cell in the grid. Conjunction with the local PCA route scores one device higher on some seeds (see corrections_to_protocol_1), which is within seed spread and does not justify a more complex frozen configuration.",
+    "frozen_weights": {
+      "file": "results/healthy_only_causal_no_ldm_20260922/global_h12_seed17070.pkl",
+      "sha256": "28e697d32045c36d0497d5c967490f61d96cbe61bb38bed9ca0a77aa02896521",
+      "architecture": "22-tanh12-linear22, 562 float32 parameters",
+      "training": "12 FedAdam rounds, 2 local epochs, equal client weighting, server eta 0.01, beta1 0.9, beta2 0.99, tau 0.001; local SGD lr 0.03, L2 1e-4. Trained on 54 clients from 9 datasets (dlr, ferrara, hit, ims, kaist, paderborn, pronostia, unsw, xjtu). ldm_upb is filtered before the first cache load and contributes nothing. Never sees DTU FE8.",
+      "mean_training_reconstruction_mse": 0.2422974972410664,
+      "stopping_criterion": "Fixed budget of 12 rounds. There is no convergence test, no loss threshold and no early stopping. 12 was chosen as a communication budget, not from a convergence curve. This must be stated as a design decision and never described as convergence."
+    },
+    "supporting_code_hashes": {
+      "raw_online_federated_v12.py": "0e29e7109daaa12e59996526799901d3ed94661f4f9034b64012d4a85c6a0af6",
+      "research/healthy_only_causal_no_ldm_20260922/protocol.json": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd",
+      "research/healthy_only_causal_no_ldm_20260922/run_study.py": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc",
+      "research/healthy_only_causal_20260908/wider_models.py": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811",
+      "research/healthy_only_suite_20260907/fusion.py": "27336e8cc1f0c06380ec0da1ca01e107a2a235d9bd4034ad9f2ce9a0129d065d",
+      "research/healthy_only_suite_20260907/data_cache.py": "f0af03289aa0a4918c03c6780df9c79380f22fd9a17fad83538c373b36819ec4"
+    }
+  },
+
+  "development_result_this_protocol_is_testing": {
+    "cohort": "54 clients, 9 datasets, 49 scored (43 fault lifecycles, 6 healthy controls), 5 unknown-outcome clients unscored",
+    "route_and_cadence": "global_h12, dense",
+    "per_seed_strict": [45, 44, 44],
+    "scored": 49,
+    "mean_strict_percent": 90.48,
+    "range_strict_percent": [89.8, 91.84],
+    "faults_detected": "42/43 on every seed",
+    "control_alarms": "0/6 on every seed",
+    "predeclared_primary_of_that_study": "pca_and_personalized_h12 with history_phase cadence scored 40/49, 43/49 and 41/49 and FAILED its all-seed >90 percent gate. No fixed rule/cadence pair in that study clears 90 percent on all three seeds. The honest development headline is therefore 'mean 90.5 percent, range 89.8 to 91.8, no configuration above 90 percent on every seed', never a single best seed.",
+    "do_not_quote": "93.88 percent. That figure is seed 17072 of pca_and_svdd_h12 dense, whose three seeds are 45/44/46. Quoting it selects the best seed of the best cell."
+  },
+
+  "features": {
+    "count": 22,
+    "raw_feature_indices": [0, 1, 2, 3, 4, 5, 6, 7, 28, 29, 30, 64, 65, 66, 67, 68, 69, 70, 71, 92, 93, 94],
+    "source_representation": "locked V12 100-coordinate per-acquisition representation",
+    "channel_collapse": "Within ONE acquisition, each channel yields 32 features (12 time-domain, 20 spectral). Channels are then collapsed into the 100-coordinate vector as: [0:32] mean across channels, [32:64] standard deviation across channels, [64:96] the value from whichever channel is most extreme for that feature, [96:100] four cross-channel terms (mean and maximum absolute inter-channel correlation, log RMS ratio, log1p total RMS). DTU FE8's x/y/z therefore enters exactly as any multi-channel development device did. No channel is dropped and no channel is preferred.",
+    "stream_collapse": "SEPARATE from channel collapse, and the step protocol 1 confused with it. A logical device assembled from several physical streams takes the elementwise maximum across those streams AFTER standardisation. Each DTU FE8 lifecycle is a single stream, so this step is an identity operation here.",
+    "device_local_standardisation": "Per stream: centre by median and scale by max(1.4826*MAD, std, 1e-8) computed on the TRAINING partition rows ONLY; then abs(arcsinh(standardised)).",
+    "why_sensor_agnostic": "Standardisation is entirely self-referential per device, so differing sample rates, record lengths, channel counts and sensor scales across datasets never enter the comparison. This is why the frozen global model transfers without retraining."
+  },
+
+  "alarm_layer": {
+    "persistence": "causal rolling 13-of-21 trailing order statistic",
+    "window": 21,
+    "k": 13,
+    "reference": "maximum of the finite persistence statistic over the device's own commissioning history (train + calibration partitions)",
+    "fallback_reference": "if no finite statistic exists over the commissioning history, the 0.995 quantile of the raw score over the calibration partition",
+    "multiplier": 2.0,
+    "alarm": "statistic > multiplier * reference, suppressed through the final calibration index inclusive",
+    "state": "continuous; alarm state never resets"
+  },
+
+  "partition_rule_no_onset_available": {
+    "problem": "DTU FE8 is run-to-failure but this project has NOT verified that an independently locked onset/transition label is published. The final-20/Gate-A strict-success definition ('first alarm at or after the independently locked onset and before terminal failure') therefore may not be evaluable.",
+    "resolution_order": [
+      "1. On first access, read ONLY 'Read me.pdf' and any publisher metadata. If a per-test onset/transition index IS documented, use PRIMARY ENDPOINT A below.",
+      "2. If no onset is documented, use PRIMARY ENDPOINT B below. This choice is made by what the publisher documents, NOT by which gives a better result."
+    ],
+    "commissioning_definition": "First 30 percent of each lifecycle's acquisitions, in publisher chronological order. Within that: first 60 percent = training partition, remaining 40 percent = calibration partition. This is a FIXED FRACTION decided before access; transition-index-selected calibration is forbidden.",
+    "assumed_healthy_window": "30 to 50 percent of the lifecycle. An alarm here counts as a FALSE ALARM.",
+    "fault_window": "50 to 100 percent of the lifecycle, up to terminal failure. An alarm here counts as a DETECTION.",
+    "assumption_declared": "The 30 percent commissioning boundary and the 50 percent healthy/fault boundary are ASSUMPTIONS, not verified labels. They carry exactly the same epistemic status as the five 'unknown outcome' clients in the development cohort, and must be reported as assumptions in any result."
+  },
+
+  "endpoints": {
+    "PRIMARY_A_if_onset_published": "Strict success = first alarm at or after the published onset and before terminal failure, with no earlier alarm. Denominator 5.",
+    "PRIMARY_B_if_no_onset_published": "Strict success = no alarm anywhere in the assumed-healthy window (30-50 percent) AND at least one alarm in the fault window (50-100 percent). Denominator 5.",
+    "SECONDARY_always_reported": [
+      "Detection before terminal failure, yes/no per lifecycle (needs no boundary assumption)",
+      "Lead time in acquisitions and in wall-clock between first alarm and terminal failure",
+      "First alarm index as a fraction of lifecycle, per lifecycle",
+      "Whether any alarm occurs in the commissioning segment itself, which would indicate a calibration failure"
+    ],
+    "reporting_rule": "Every one of the five lifecycles is reported individually, including failures. No lifecycle is excluded, substituted, or re-run after access."
+  },
+
+  "statistical_gate": {
+    "denominator": 5,
+    "method": "exact one-sided 95 percent Clopper-Pearson lower bound",
+    "lower_bound_if_5_of_5": 0.5493,
+    "lower_bound_if_4_of_5": 0.3426,
+    "honest_reading": "Five lifecycles CANNOT establish a lower bound above 0.80. Even a perfect 5/5 only supports 'consistent with the development result' and a lower bound of 0.55. This run is a falsification test, not a confirmation of the development figure. Its main value is that a poor result would be decisive evidence against generalisation, whereas a good result is weak positive evidence.",
+    "family_clustering": "All five lifecycles come from ONE rig and one bearing type (81212 on an FE8 rig). They are not five independent domains. The binomial bound assumes exchangeability that a single rig does not provide."
+  },
+
+  "execution_order": [
+    "Verify this seal's own hash and every detector hash above",
+    "Import the figshare files to Kaggle by URL, verify byte sizes against this seal",
+    "Read only 'Read me.pdf' and publisher metadata; decide endpoint A or B and RECORD that decision",
+    "Extract the 22-feature representation causally; do not compute or inspect any outcome",
+    "Produce all five per-lifecycle alarm decisions and WRITE THEM TO DISK as the prediction barrier",
+    "Only then open terminal-failure and any onset references",
+    "Score all five once; publish every lifecycle including failures"
+  ],
+
+  "invalidation_conditions": [
+    "Any change to the detector, features, persistence, reference or multiplier after access",
+    "Any per-test tuning of the commissioning or window fractions",
+    "Dropping or substituting any of the five lifecycles after access",
+    "Scoring before the prediction barrier is written",
+    "Re-running a lifecycle after seeing its outcome",
+    "Re-sealing this protocol after any DTU FE8 byte has been read"
+  ],
+
+  "known_limitation_carried_from_development": "The frozen configuration (21/13 persistence, multiplier 2.0, H12 single route, dense cadence) was selected by searching roughly 35 mechanisms, and latterly 84 rule/cadence cells, on the development cohort. That selection bias is precisely what this external run exists to test. It is NOT removed by sealing, and it is not removed by re-sealing; sealing only prevents ADDITIONAL bias being introduced during the external run."
+}

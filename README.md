@@ -1,12 +1,12 @@
-# On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation
+# Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Code release for the paper
 
-> A. Darwish and T. Elshabrawy, "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation," submitted to *IEEE Internet of Things Journal*, 2026.
+> A. Darwish and T. Elshabrawy, "Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers," submitted to *IEEE Internet of Things Journal*, 2026.
 
-Remote bearing monitoring over LoRaWAN has to work without fault labels and without sending raw vibration recordings. This repository contains a complete federated learning (FL) pipeline in which LoRaWAN microcontrollers train a shared anomaly detector on their own data. Each node extracts 22 features from raw vibration, standardises them locally and runs two full-batch gradient steps per round on a 562-parameter autoencoder. A Python server aggregates the updates with FedAdam over a fixed 12-round budget. Updates and global models travel as int8 codes with per-tensor scales, so at EU868 data rate DR5 every exchange fits in three LoRaWAN fragments per direction (598 B and 624 B), with application-layer fragment repair and Class C multicast for the downlink. A causal persistence rule turns reconstruction scores into alarms. The release contains the ESP32 firmware, the LoRaWAN multicast companion library, the server, the chronological simulation and hardware twin used for the evaluation, the hardware-versus-twin comparison tool, and the power-measurement tooling.
+Remote bearing monitoring over LoRaWAN has to work without fault labels and without sending raw vibration recordings. This repository contains a complete federated learning (FL) pipeline in which LoRaWAN microcontrollers train a shared anomaly detector on their own data. Each node extracts 22 features from raw vibration, standardises them locally and runs two full-batch gradient steps per round on a 562-parameter autoencoder. A Python server aggregates the updates with FedAdam over a fixed 12-round budget. Updates and global models travel as int8 codes with per-tensor scales, so at EU868 data rate DR5 every exchange fits in three LoRaWAN fragments per direction (598 B and 624 B), with application-layer fragment repair and Class C multicast for the downlink. A causal persistence rule turns reconstruction scores into alarms. The release contains the ESP32 firmware, the LoRaWAN multicast companion library, the server, the chronological simulation and hardware twin used for the evaluation, the hardware-versus-twin comparison tool, the power-measurement tooling and the sealed unseen-machine test.
 
 ## Highlights
 
@@ -60,6 +60,7 @@ One federated round: the server multicasts the GLOBAL model (three fragments, re
 ├── analysis/                  hardware-versus-twin comparison of a server run
 ├── power/                     power-measurement firmware and analysis scripts
 ├── docs/PROTOCOL_V4.md        wire protocol and behaviour contract (rev 4.3)
+├── unseen_machines/           sealed unseen-machine test: protocol, runner, frozen models, results
 ├── LICENSE  CITATION.cff  .gitignore  README.md
 ```
 
@@ -204,6 +205,10 @@ The hardware twin and the study runners live in `simulation/research/`; the root
 
 The power scripts mention `phase_energy.py` of a separate lab folder; that script is not part of this release.
 
+### `unseen_machines/`
+
+The pre-registered test of the frozen models on machines outside the development cohort: six wind turbines of one wind farm and a wind-turbine high-speed-shaft bearing. It holds the sealed protocol and amendments, the runner, hash-sealed copies of the pipeline and the three frozen global models, and the results. See [`unseen_machines/README.md`](unseen_machines/README.md).
+
 ### `docs/`
 
 | File | Purpose |
@@ -336,6 +341,7 @@ Verified numbers from the paper:
 - Multicast used 58 to 78% fewer downlink fragments than a loss-free unicast bound.
 - All 65 GLOBAL int8 code vectors broadcast during the runs were identical to the software twin's.
 - In chronological replay, the complete federated system reached a 90.5% mean strict success rate (45, 44 and 44 of 49 over three seeds).
+- Without retraining, the frozen models met the strict criterion on 6 of 7 unseen field machines in every seed; all five healthy wind turbines stayed silent, and a gearbox failure was detected about 170 days before replacement.
 - One on-device local training costs 0.05 to 0.13 J.
 
 ## Path assumptions (read before running tests or analysis)
@@ -357,9 +363,9 @@ No credentials of any kind are in this repository. Real keys, `lab_credentials.h
 If you use this code, please cite the paper (see also `CITATION.cff`):
 
 ```bibtex
-@article{darwish2026ondevice,
+@article{darwish2026federated,
   author  = {Darwish, Abdelrahman and Elshabrawy, Tallal},
-  title   = {On-Device Federated Learning for Label-Free Bearing Fault Detection Over {LoRaWAN}: Design and Hardware Evaluation},
+  title   = {Federated {TinyML} over {LoRaWAN}: Label-Free Failure Detection on Microcontrollers},
   journal = {IEEE Internet of Things Journal},
   year    = {2026},
   note    = {submitted}

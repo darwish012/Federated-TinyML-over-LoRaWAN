@@ -1,0 +1,278 @@
+{
+  "frozen/pipeline/external_dual_axis_timing.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\external_dual_axis_timing.py",
+    "sha256": "e4eeb64d4ccb27b03b07b825857ed9a5087e98b60d99af01f4ca2f7b91fef0d3"
+  },
+  "frozen/pipeline/frozen_v19_analytic_onset.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\frozen_v19_analytic_onset.py",
+    "sha256": "49f623d7dcde108f24eca1adc3eb4f7f756f5909e3c655a899517515868b52b0"
+  },
+  "frozen/pipeline/frozen_v19_eda_features.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\frozen_v19_eda_features.py",
+    "sha256": "29e825031c5f951ad8a6fd0a5c826aeed12a6fc28cd6c8cddeb1ddff592e844d"
+  },
+  "frozen/pipeline/improved_comprehensive_experiment.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\improved_comprehensive_experiment.py",
+    "sha256": "1f3ee1ccc0c56dc7e3e3b134798a74232900c09e3babf9654d9852d3fb9fa106"
+  },
+  "frozen/pipeline/ldm_reserved_cohort_external.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\ldm_reserved_cohort_external.py",
+    "sha256": "f42438a400c35ca9e5ace8e614e9e3cad6c0ba104c6d4f21bff8c7df7c7c419b"
+  },
+  "frozen/pipeline/learning_failure_experiments.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\learning_failure_experiments.py",
+    "sha256": "2fc74e05ae951495cf4d88983c2063b7340e89307515ec7e69a0863ab0c7890c"
+  },
+  "frozen/pipeline/raw_online_federated_v12.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v12.py",
+    "sha256": "0e29e7109daaa12e59996526799901d3ed94661f4f9034b64012d4a85c6a0af6"
+  },
+  "frozen/pipeline/raw_online_federated_v25_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v25_policy.py",
+    "sha256": "34d2756836544a388d4e288f96352c3f1c453d8e482fd0c5b79244d6d080504d"
+  },
+  "frozen/pipeline/raw_online_federated_v27_detector.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v27_detector.py",
+    "sha256": "aa92cd574ad89dd95337f5c93be8937c5378f485874de2f56760d77800753b30"
+  },
+  "frozen/pipeline/raw_online_federated_v29_models.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v29_models.py",
+    "sha256": "c9b7893111aad2bceb7e12da02229039132c5171404dcd004273f0be62690a1a"
+  },
+  "frozen/pipeline/raw_online_federated_v30_data.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v30_data.py",
+    "sha256": "96d739aaf9c2e8fa4e6cc16d0534c237326c98dfd998fe86f6be499258617bac"
+  },
+  "frozen/pipeline/raw_online_federated_v39_comm.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v39_comm.py",
+    "sha256": "775c6859b87f9243fd2a69a9241cb1a038b484b3db73d5bbfd261917c105e8af"
+  },
+  "frozen/pipeline/raw_online_federated_v41.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v41.py",
+    "sha256": "378eb33dd6efd8d8c3fbf0468044aa0bef8805ebf1fff5219df1263267d5aef7"
+  },
+  "frozen/pipeline/raw_online_federated_v41_data.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v41_data.py",
+    "sha256": "2c5307d7064e23e440e5c10636c710eb3209fcd63fb9ff2d95c8f6d4f95d0fe5"
+  },
+  "frozen/pipeline/raw_online_federated_v41r1_data.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v41r1_data.py",
+    "sha256": "0257c7a75af4942bd9bc724d5f4fae38f59abde83e118629e396cb3fca38a83e"
+  },
+  "frozen/pipeline/raw_online_federated_v42.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v42.py",
+    "sha256": "530a56d53be40c778c9896b2f40bdb21ee3e4af0fe04fd4e8cc8569a71064fcc"
+  },
+  "frozen/pipeline/raw_online_federated_v42_calibration.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v42_calibration.py",
+    "sha256": "eb00f7cde284a4bbfca7c061dc59178c2274cd22a1294670dc8cbe9c4a42671f"
+  },
+  "frozen/pipeline/raw_online_federated_v42_design.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v42_design.py",
+    "sha256": "63e97bc4333e2d64b059a6c749d0525c20a3f756eefcaea7cb0946f7fc9cc641"
+  },
+  "frozen/pipeline/raw_online_federated_v42_score.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v42_score.py",
+    "sha256": "f53e7e2219735b6a9d25928bc20f5c60669f051cbb6c19c031c8c645ba6cace3"
+  },
+  "frozen/pipeline/raw_online_federated_v43.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v43.py",
+    "sha256": "abf7f82334f5e80f0b62738a19cc0f941452503ef7ced44938ebf267e455ac45"
+  },
+  "frozen/pipeline/raw_online_federated_v43_cohort.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v43_cohort.py",
+    "sha256": "d534f80554fbb20be4bc2c6d31a8625a3ffe510cc585ec5e13fae04a82878e82"
+  },
+  "frozen/pipeline/raw_online_federated_v43_comms.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v43_comms.py",
+    "sha256": "16fdf2ba3d07e4ad5af92dca3408973bc20aa5011ef85d0ce33accc8e25ceb7a"
+  },
+  "frozen/pipeline/raw_online_federated_v43_grid.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v43_grid.py",
+    "sha256": "cae79693cad38f092bcc7eb66199b0b2270583daa5402555e33c13b861dcef6e"
+  },
+  "frozen/pipeline/raw_online_federated_v43_stats.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v43_stats.py",
+    "sha256": "9e0e8467434db7c57ad6089403c96cc545c203bf52ebca04a0bab1142c6bb7a1"
+  },
+  "frozen/pipeline/raw_online_federated_v45_cohort.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v45_cohort.py",
+    "sha256": "a7bf514102fd19ac56898612bfe55c535d508ccb1c599faa5faafa6a51dc80bb"
+  },
+  "frozen/pipeline/raw_online_federated_v45_grid.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v45_grid.py",
+    "sha256": "714c9b50ab3dcbcfb86be268b1da527eb4f6f26561a8a8ffd3dfecbdaf9efb34"
+  },
+  "frozen/pipeline/raw_online_federated_v46_machine.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v46_machine.py",
+    "sha256": "d269d9ea58f155294ad27ecd7bd8383efc2658e1ba1a5282578256364a9edb55"
+  },
+  "frozen/pipeline/raw_online_federated_v46_stats.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v46_stats.py",
+    "sha256": "d89ae9c14ff5392c0133b2d4ad43071310c83b323d002ada09c592859d1f5e21"
+  },
+  "frozen/pipeline/raw_online_federated_v48_ablation.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v48_ablation.py",
+    "sha256": "f9fa8adacc655ee1247439af0db73adde22d656469e7ef7d05762e36c32c6fa7"
+  },
+  "frozen/pipeline/raw_online_federated_v51_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v51_policy.py",
+    "sha256": "735a234bb96ea737569584e9d7d274a7d5ddf819a08acedc1e5617a03db7e3ac"
+  },
+  "frozen/pipeline/raw_online_federated_v52.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v52.py",
+    "sha256": "9fe70a115b2fc182a122483e32bf42add2c7c5c387d404363025be00014ce12f"
+  },
+  "frozen/pipeline/raw_online_federated_v57_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v57_policy.py",
+    "sha256": "0353c28ce873ac0d2a7d0991fde84c2881499d359418b37b0445c2bb8d7f650e"
+  },
+  "frozen/pipeline/raw_online_federated_v60_analysis.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v60_analysis.py",
+    "sha256": "ec5b112529443cf9da24c8614b9dfc037ccb53cd79e1c12dcaf6f05e3293e3cf"
+  },
+  "frozen/pipeline/raw_online_federated_v62.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v62.py",
+    "sha256": "b278e56f1e381b42390f62fbdb93fc3edf2131be99a51a64e1af6c43f85df303"
+  },
+  "frozen/pipeline/raw_online_federated_v62_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v62_policy.py",
+    "sha256": "a07ff84dbf8445a30e38a0ca9df534ff3182b431fb5d909f29f43a0e8bdfcb34"
+  },
+  "frozen/pipeline/raw_online_federated_v63_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v63_policy.py",
+    "sha256": "26f3536b7ae4f25146e1daaa6990bdaecd263a424163c95fd2622efd8ffe0efc"
+  },
+  "frozen/pipeline/raw_online_federated_v64_baselines.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v64_baselines.py",
+    "sha256": "656f7fdf8469ca84595ae956283f524aa413dae8dafc00f62395e8a6fd2e9c6d"
+  },
+  "frozen/pipeline/raw_online_federated_v64_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v64_policy.py",
+    "sha256": "f67bc17688572d0cf3b3423806c936fc4600b5316789322885732d128b64dce2"
+  },
+  "frozen/pipeline/raw_online_federated_v65.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v65.py",
+    "sha256": "75b1b13b9c2b5f6194fa0485d23dfd91ec84ebb1510850c13f4a77cf3cd70446"
+  },
+  "frozen/pipeline/raw_online_federated_v65_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v65_policy.py",
+    "sha256": "356cb29d33c638e813dfc379ea41a2fe39442da0cc76e3a02e660a621d78eb40"
+  },
+  "frozen/pipeline/raw_online_federated_v67.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v67.py",
+    "sha256": "16ae41d36394ed3a8e57ffaea3edd3964e4a415423bdf7916b23dff3124acbbe"
+  },
+  "frozen/pipeline/raw_online_federated_v67_policy.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v67_policy.py",
+    "sha256": "24e380d00b19110757187b7e99cb4ff46745128577ff3e22268e940e43b0a0c1"
+  },
+  "frozen/pipeline/raw_online_federated_v92.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\raw_online_federated_v92.py",
+    "sha256": "dd159a71a56fb25c44be3a1893f2786cf3371432ae8b10515a74c8daa8e15b06"
+  },
+  "frozen/pipeline/realtime_federated_simulation.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\realtime_federated_simulation.py",
+    "sha256": "08ba76298c939635e63eb57d9e1f186b001aa42dfbe0e1c7a69b6cafeaea2fc5"
+  },
+  "frozen/pipeline/research/healthy_only_causal_20260908/cadence.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_20260908\\cadence.py",
+    "sha256": "ad3d1147af81daf0d17d588296998c8846836ba83e0ffd60a0c2086045c1ba2f"
+  },
+  "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_20260908\\wider_models.py",
+    "sha256": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811"
+  },
+  "frozen/pipeline/research/healthy_only_suite_20260907/data_cache.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_suite_20260907\\data_cache.py",
+    "sha256": "f0af03289aa0a4918c03c6780df9c79380f22fd9a17fad83538c373b36819ec4"
+  },
+  "frozen/pipeline/run_full_simulation.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\run_full_simulation.py",
+    "sha256": "27a898f8be637178bdad1bfecec0992880e65dac6d147f3410f74da9fb9afee3"
+  },
+  "frozen/pipeline/thesis_70_device_federated.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\thesis_70_device_federated.py",
+    "sha256": "e4a2e7f726af18bb741c8b92301f185b8111f685432a811866a2e056ec96360e"
+  },
+  "frozen/pipeline/thesis_70_improvement.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\thesis_70_improvement.py",
+    "sha256": "e771a0a50a953d8ea7ad111151011c7a87d3c0c6f3b719620d7982aa35cfd388"
+  },
+  "frozen/pipeline/thesis_70_improvement_protocol.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\thesis_70_improvement_protocol.json",
+    "sha256": "4274f8f5aee2fc67aea1adf432d693a9d80447eb0e7a966d34b91fea745f7f67"
+  },
+  "frozen/pipeline/thesis_70_node_scaling.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\thesis_70_node_scaling.py",
+    "sha256": "e76676caa269cdb5008465c8d097429c59f3a5bea15ffc4bc11860520f233f60"
+  },
+  "frozen/pipeline/thesis_participating_node_scaling.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\thesis_participating_node_scaling.py",
+    "sha256": "d28d238e2624c788948283db8957e3bac10d448dde38bde2797f2ad8be9aad0e"
+  },
+  "frozen/python_tools/compare_architectures.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\python_tools\\compare_architectures.py",
+    "sha256": "ef29093bc36ee38403b2882db84e27920965a77afecf8adf6318829b7100655f"
+  },
+  "frozen/python_tools/cwru_eval.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\python_tools\\cwru_eval.py",
+    "sha256": "7f3e799c1f306a8cedb879d3dfa9d6cf32e9901116b555f3bdc8d5b1c02a3865"
+  },
+  "frozen/python_tools/tiny_ae.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\python_tools\\tiny_ae.py",
+    "sha256": "70fe8fb17d8ffe7ae79ede06fba1663e23917931059e870ce78c87e2b0b45790"
+  },
+  "frozen/evidence/paper__main.tex": {
+    "source_path": "E:\\masters\\paper\\main.tex",
+    "sha256": "14e9911322c5911a8b638d32026571afe1ab509d8f71ae6dad29e205d256f024"
+  },
+  "frozen/evidence/paper__supplement.tex": {
+    "source_path": "E:\\masters\\paper\\supplement.tex",
+    "sha256": "55852a05758f89e913cb5796f50c7f1927c72f011448b9d5965d0f4d8189971f"
+  },
+  "frozen/evidence/paper__RESULTS_TRACEABILITY.md": {
+    "source_path": "E:\\masters\\paper\\RESULTS_TRACEABILITY.md",
+    "sha256": "e830fc95226e6f27f4b72d3ccf55342fd29fcde2e433a2a9f0f89610a4dc1b97"
+  },
+  "frozen/evidence/external_dtu_fe8_20260922__frozen_config.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\external_dtu_fe8_20260922\\frozen_config.json",
+    "sha256": "d4eaf5a3118b74cdba261c9dac860f5043bc7099dc225031bea26acff30c8ced"
+  },
+  "frozen/evidence/external_dtu_fe8_20260922__seal.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\external_dtu_fe8_20260922\\seal.json",
+    "sha256": "8e2a771bc83c56acd289c03c699d3efe059fec89f9d90d09598c51e7a85cf61b"
+  },
+  "frozen/evidence/healthy_only_causal_no_ldm_20260922__run_study.py": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_no_ldm_20260922\\run_study.py",
+    "sha256": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc"
+  },
+  "frozen/evidence/healthy_only_causal_no_ldm_20260922__protocol.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_no_ldm_20260922\\protocol.json",
+    "sha256": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd"
+  },
+  "frozen/models/global_h12_seed17070.pkl": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17070.pkl",
+    "sha256": "28e697d32045c36d0497d5c967490f61d96cbe61bb38bed9ca0a77aa02896521"
+  },
+  "frozen/models/global_h12_seed17070_checkpoint.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17070_checkpoint.json",
+    "sha256": "3eba133b28ca720fc60d246a0845bfcec0d3732dfd981817cdcf31c5e01f41f0"
+  },
+  "frozen/models/global_h12_seed17071.pkl": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17071.pkl",
+    "sha256": "43078d1006a30d157e165017f166059a305640680e78607fd6cfe0fc66cc8298"
+  },
+  "frozen/models/global_h12_seed17071_checkpoint.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17071_checkpoint.json",
+    "sha256": "a024bc8e9283a3b8fbf5e345dc408bf7e9c51d8a28d56564c78ece57e0808099"
+  },
+  "frozen/models/global_h12_seed17072.pkl": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17072.pkl",
+    "sha256": "5edf39760ec8c077a9b5aa59539dac3c645b8170d3f81a95b135ea4d9c123dac"
+  },
+  "frozen/models/global_h12_seed17072_checkpoint.json": {
+    "source_path": "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\results\\healthy_only_causal_no_ldm_20260922\\global_h12_seed17072_checkpoint.json",
+    "sha256": "3a181f75eb5c6358dff0fc5a3965146c9bcfdeba7c44dcf9f27fa6707b33a8b1"
+  }
+}

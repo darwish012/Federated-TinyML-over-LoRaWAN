@@ -1,0 +1,16 @@
+{
+  "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+  "utc": "2026-10-26T14:45:10.805131+00:00",
+  "packages": {
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.6.1"
+  },
+  "threads": {
+    "OPENBLAS_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OMP_NUM_THREADS": "1"
+  },
+  "protocol_json_sha256": "e882f4a343930e7bca30f5620a6c9a2b0fe021430dbe5a5161228b18fb853082"
+}

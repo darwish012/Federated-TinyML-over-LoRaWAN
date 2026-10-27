@@ -1,0 +1,295 @@
+{
+  "complete": false,
+  "protocol_id": "SND_HSS_FROZEN_H12_20261026",
+  "protocol_version": 2,
+  "primary": {
+    "17070": {
+      "strict_successes": 4,
+      "observed_units": 5,
+      "evaluable_units": 4,
+      "not_evaluable_units": 1,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": {
+        "dataset": "SND",
+        "arm": "authors_rms_gt_0p5g",
+        "turbine": 5,
+        "event": "event1",
+        "population": "primary",
+        "endpoint": "fault",
+        "seed": 17070,
+        "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+        "evaluation_status": "not evaluable",
+        "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+        "n_rows": 547,
+        "healthy_alarm": null,
+        "fault_detected": null,
+        "strict_success": null
+      }
+    },
+    "17071": {
+      "strict_successes": 4,
+      "observed_units": 5,
+      "evaluable_units": 4,
+      "not_evaluable_units": 1,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": {
+        "dataset": "SND",
+        "arm": "authors_rms_gt_0p5g",
+        "turbine": 5,
+        "event": "event1",
+        "population": "primary",
+        "endpoint": "fault",
+        "seed": 17071,
+        "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+        "evaluation_status": "not evaluable",
+        "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+        "n_rows": 547,
+        "healthy_alarm": null,
+        "fault_detected": null,
+        "strict_success": null
+      }
+    },
+    "17072": {
+      "strict_successes": 4,
+      "observed_units": 5,
+      "evaluable_units": 4,
+      "not_evaluable_units": 1,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": {
+        "dataset": "SND",
+        "arm": "authors_rms_gt_0p5g",
+        "turbine": 5,
+        "event": "event1",
+        "population": "primary",
+        "endpoint": "fault",
+        "seed": 17072,
+        "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+        "evaluation_status": "not evaluable",
+        "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+        "n_rows": 547,
+        "healthy_alarm": null,
+        "fault_detected": null,
+        "strict_success": null
+      }
+    },
+    "total": {
+      "strict_successes": 12,
+      "observed_unit_seed_evaluations": 15,
+      "evaluable_unit_seed_evaluations": 12,
+      "registered_unit_seed_evaluations": 18,
+      "independent_machines": 6,
+      "independent_farms": 1
+    }
+  },
+  "primary_arms": {
+    "authors_rms_gt_0p5g": {
+      "17070": {
+        "strict_successes": 4,
+        "observed_units": 5,
+        "evaluable_units": 4,
+        "not_evaluable_units": 1,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": {
+          "dataset": "SND",
+          "arm": "authors_rms_gt_0p5g",
+          "turbine": 5,
+          "event": "event1",
+          "population": "primary",
+          "endpoint": "fault",
+          "seed": 17070,
+          "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+          "evaluation_status": "not evaluable",
+          "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+          "n_rows": 547,
+          "healthy_alarm": null,
+          "fault_detected": null,
+          "strict_success": null
+        }
+      },
+      "17071": {
+        "strict_successes": 4,
+        "observed_units": 5,
+        "evaluable_units": 4,
+        "not_evaluable_units": 1,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": {
+          "dataset": "SND",
+          "arm": "authors_rms_gt_0p5g",
+          "turbine": 5,
+          "event": "event1",
+          "population": "primary",
+          "endpoint": "fault",
+          "seed": 17071,
+          "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+          "evaluation_status": "not evaluable",
+          "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+          "n_rows": 547,
+          "healthy_alarm": null,
+          "fault_detected": null,
+          "strict_success": null
+        }
+      },
+      "17072": {
+        "strict_successes": 4,
+        "observed_units": 5,
+        "evaluable_units": 4,
+        "not_evaluable_units": 1,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": {
+          "dataset": "SND",
+          "arm": "authors_rms_gt_0p5g",
+          "turbine": 5,
+          "event": "event1",
+          "population": "primary",
+          "endpoint": "fault",
+          "seed": 17072,
+          "unit": "SND::Turbine 5 event1::authors_rms_gt_0p5g",
+          "evaluation_status": "not evaluable",
+          "not_evaluable_reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+          "n_rows": 547,
+          "healthy_alarm": null,
+          "fault_detected": null,
+          "strict_success": null
+        }
+      },
+      "total": {
+        "strict_successes": 12,
+        "observed_unit_seed_evaluations": 15,
+        "evaluable_unit_seed_evaluations": 12,
+        "registered_unit_seed_evaluations": 18,
+        "independent_machines": 6,
+        "independent_farms": 1
+      }
+    },
+    "variable_speed_operating_window": {
+      "17070": {
+        "strict_successes": 4,
+        "observed_units": 4,
+        "evaluable_units": 4,
+        "not_evaluable_units": 0,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": null
+      },
+      "17071": {
+        "strict_successes": 4,
+        "observed_units": 4,
+        "evaluable_units": 4,
+        "not_evaluable_units": 0,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": null
+      },
+      "17072": {
+        "strict_successes": 4,
+        "observed_units": 4,
+        "evaluable_units": 4,
+        "not_evaluable_units": 0,
+        "registered_units": 6,
+        "complete": false,
+        "controls_silent": 4,
+        "registered_controls": 5,
+        "turbine5": null
+      },
+      "total": {
+        "strict_successes": 12,
+        "observed_unit_seed_evaluations": 12,
+        "evaluable_unit_seed_evaluations": 12,
+        "registered_unit_seed_evaluations": 18,
+        "independent_machines": 6,
+        "independent_farms": 1
+      }
+    }
+  },
+  "sensitivity_no_operating_filter": {
+    "17070": {
+      "strict_successes": 4,
+      "observed_units": 4,
+      "evaluable_units": 4,
+      "not_evaluable_units": 0,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": null
+    },
+    "17071": {
+      "strict_successes": 4,
+      "observed_units": 4,
+      "evaluable_units": 4,
+      "not_evaluable_units": 0,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": null
+    },
+    "17072": {
+      "strict_successes": 4,
+      "observed_units": 4,
+      "evaluable_units": 4,
+      "not_evaluable_units": 0,
+      "registered_units": 6,
+      "complete": false,
+      "controls_silent": 4,
+      "registered_controls": 5,
+      "turbine5": null
+    },
+    "total": {
+      "strict_successes": 12,
+      "observed_unit_seed_evaluations": 12,
+      "evaluable_unit_seed_evaluations": 12,
+      "registered_unit_seed_evaluations": 18,
+      "independent_machines": 6,
+      "independent_farms": 1
+    }
+  },
+  "secondary_event2": [],
+  "secondary_hss": [],
+  "environment": {
+    "python": "3.12.2 (tags/v3.12.2:6abddd9, Feb  6 2024, 21:26:36) [MSC v.1937 64 bit (AMD64)]",
+    "utc": "2026-10-26T14:24:07.947335+00:00",
+    "packages": {
+      "numpy": "1.26.4",
+      "scipy": "1.15.3",
+      "pandas": "3.0.5",
+      "scikit-learn": "1.6.1"
+    },
+    "threads": {
+      "OPENBLAS_NUM_THREADS": "1",
+      "MKL_NUM_THREADS": "1",
+      "OMP_NUM_THREADS": "1"
+    },
+    "protocol_json_sha256": "221bd1e462dabf46f5012a23eb7f38fbdd747e7fd156ae9a14353a1da65d489c"
+  },
+  "mapping_status": "ASSUMED_MAPPING_NOT_CONTRADICTED_NOT_VERIFIED",
+  "assumptions": {
+    "filename_mapping": "ASSUMED DATASET02..07 = Turbine1..6; Turbine5 = DATASET06; time-only check cannot positively verify identity",
+    "replacement_rule": "Event1: time <1.2 years; event2: 1.2 < time <2.0 years; exclude outside each segment before numeric vibration conversion; never move nominal cutoffs to gaps",
+    "onset": "retrospective feature departure, not independent damage truth",
+    "hss_failure": "day50 terminal proxy; exact failure time unknown"
+  },
+  "interpretation": "Seed repetitions and six turbines in one farm are correlated. SND onset is a retrospective vibration departure proxy; strict success is conditional on that partition. HSS has no strict score or fault partition. Not-evaluable units remain in registered denominators; their outcomes are null."
+}

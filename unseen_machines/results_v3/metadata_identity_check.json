@@ -1,0 +1,222 @@
+{
+  "schema": "unseen_time_identity_gate_v1",
+  "units": [
+    {
+      "turbine": 1,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET02.csv",
+      "rows": 2982,
+      "time_min_years": 0.0,
+      "time_max_years": 3.84375369966022,
+      "first_years": 0.0,
+      "last_years": 3.84375369966022,
+      "median_positive_gap_years": 0.0013674641327801051,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 1108,
+          "after_csv_row_1based": 1109,
+          "before_years": 1.10026963313821,
+          "after_years": 1.12200357626427,
+          "gap_years": 0.021733943126059918
+        },
+        {
+          "before_csv_row_1based": 2705,
+          "after_csv_row_1based": 2706,
+          "before_years": 3.42683184358236,
+          "after_years": 3.45633938284027,
+          "gap_years": 0.029507539257910054
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [
+          {
+            "before_csv_row_1based": 1108,
+            "after_csv_row_1based": 1109,
+            "before_years": 1.10026963313821,
+            "after_years": 1.12200357626427,
+            "gap_years": 0.021733943126059918
+          }
+        ],
+        "2.0": []
+      }
+    },
+    {
+      "turbine": 2,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET03.csv",
+      "rows": 3005,
+      "time_min_years": 0.0,
+      "time_max_years": 3.8468776388797,
+      "first_years": 0.0,
+      "last_years": 3.8468776388797,
+      "median_positive_gap_years": 0.0013675908877399667,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 2057,
+          "after_csv_row_1based": 2058,
+          "before_years": 2.4560682539936,
+          "after_years": 2.48646206389007,
+          "gap_years": 0.030393809896470003
+        },
+        {
+          "before_csv_row_1based": 2723,
+          "after_csv_row_1based": 2724,
+          "before_years": 3.42919053145564,
+          "after_years": 3.4606770324333,
+          "gap_years": 0.031486500977659926
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [],
+        "2.0": []
+      }
+    },
+    {
+      "turbine": 3,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET04.csv",
+      "rows": 2670,
+      "time_min_years": 0.0,
+      "time_max_years": 3.54444152274275,
+      "first_years": 0.0,
+      "last_years": 3.54444152274275,
+      "median_positive_gap_years": 0.001368161285030034,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 194,
+          "after_csv_row_1based": 195,
+          "before_years": 0.18742488184537,
+          "after_years": 0.23305641178527,
+          "gap_years": 0.045631529939899995
+        },
+        {
+          "before_csv_row_1based": 2399,
+          "after_csv_row_1based": 2400,
+          "before_years": 3.1255445392825,
+          "after_years": 3.15565929814768,
+          "gap_years": 0.03011475886517978
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [],
+        "2.0": []
+      }
+    },
+    {
+      "turbine": 4,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET05.csv",
+      "rows": 2667,
+      "time_min_years": 0.0,
+      "time_max_years": 3.5427975743665,
+      "first_years": 0.0,
+      "last_years": 3.5427975743665,
+      "median_positive_gap_years": 0.0013679711525999005,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 762,
+          "after_csv_row_1based": 763,
+          "before_years": 0.73752325636519,
+          "after_years": 0.766956073577702,
+          "gap_years": 0.029432817212512008
+        },
+        {
+          "before_csv_row_1based": 1213,
+          "after_csv_row_1based": 1214,
+          "before_years": 1.40443253201386,
+          "after_years": 1.45171970347453,
+          "gap_years": 0.04728717146066996
+        },
+        {
+          "before_csv_row_1based": 2397,
+          "after_csv_row_1based": 2398,
+          "before_years": 3.12521142726332,
+          "after_years": 3.15532628119471,
+          "gap_years": 0.030114853931389796
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [],
+        "2.0": []
+      }
+    },
+    {
+      "turbine": 5,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET06.csv",
+      "rows": 2976,
+      "time_min_years": 0.0,
+      "time_max_years": 4.16340953967924,
+      "first_years": 0.0,
+      "last_years": 4.16340953967924,
+      "median_positive_gap_years": 0.0013673373778297915,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 35,
+          "after_csv_row_1based": 36,
+          "before_years": 0.0149977095379807,
+          "after_years": 0.332834330768067,
+          "gap_years": 0.3178366212300863
+        },
+        {
+          "before_csv_row_1based": 1636,
+          "after_csv_row_1based": 1637,
+          "before_years": 2.16328833025446,
+          "after_years": 2.19614308758336,
+          "gap_years": 0.032854757328899975
+        },
+        {
+          "before_csv_row_1based": 1735,
+          "after_csv_row_1based": 1736,
+          "before_years": 2.33851536105261,
+          "after_years": 2.370764990231,
+          "gap_years": 0.03224962917839003
+        },
+        {
+          "before_csv_row_1based": 2698,
+          "after_csv_row_1based": 2699,
+          "before_years": 3.74579899224741,
+          "after_years": 3.77728650726471,
+          "gap_years": 0.03148751501729974
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [],
+        "2.0": []
+      }
+    },
+    {
+      "turbine": 6,
+      "file": "D:\\external_unseen\\snd_windfarm\\DATASET07.csv",
+      "rows": 2953,
+      "time_min_years": 0.0,
+      "time_max_years": 3.86372986846131,
+      "first_years": 0.0,
+      "last_years": 3.86372986846131,
+      "median_positive_gap_years": 0.0013675908877397447,
+      "gap_cutoff_years": 0.019164955509924708,
+      "large_gaps": [
+        {
+          "before_csv_row_1based": 2688,
+          "after_csv_row_1based": 2689,
+          "before_years": 3.4461982576771,
+          "after_years": 3.47631536150893,
+          "gap_years": 0.030117103831829972
+        }
+      ],
+      "nonincreasing_at_rows_1based": [],
+      "event_gap_signatures": {
+        "1.2": [],
+        "2.0": []
+      }
+    }
+  ],
+  "reasons": [],
+  "mapping_status": "ASSUMED_MAPPING_NOT_CONTRADICTED_NOT_VERIFIED",
+  "caveat": "Times and gaps cannot establish turbine identity. Absence of event gaps is not proof against the assumed mapping. No automatic permutation or cutoff adjustment is allowed."
+}

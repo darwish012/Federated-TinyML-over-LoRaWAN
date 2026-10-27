@@ -1,0 +1,8 @@
+{
+  "schema": "v110_external_validation_seal_v2",
+  "sealed_file": "frozen_config.json",
+  "sealed_file_sha256": "d4eaf5a3118b74cdba261c9dac860f5043bc7099dc225031bea26acff30c8ced",
+  "sealed_utc": "2026-09-22T15:15:56Z",
+  "supersedes_seal_sha256": "8c317cd18b4422b8154b7b3202c4714f47ee20421b63ca9701b39332214df79e",
+  "meaning": "This hash fixes the LDM-free detector configuration and evaluation rules BEFORE any DTU FE8 signal byte was accessed. If frozen_config.json changes, this seal no longer verifies and the external run is void. Protocol 1 (seal 8c317cd1...) was never executed; see supersedes in frozen_config.json."
+}

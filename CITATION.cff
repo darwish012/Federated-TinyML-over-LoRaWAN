@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite the associated paper."
-title: "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation"
+title: "Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers"
 type: software
 license: MIT
 authors:
@@ -30,7 +30,7 @@ preferred-citation:
     - family-names: Elshabrawy
       given-names: Tallal
       orcid: "https://orcid.org/0000-0003-2270-0713"
-  title: "On-Device Federated Learning for Label-Free Bearing Fault Detection Over LoRaWAN: Design and Hardware Evaluation"
+  title: "Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers"
   journal: "IEEE Internet of Things Journal"
   year: 2026
   notes: "Submitted"

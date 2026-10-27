@@ -1,0 +1,43 @@
+{
+  "schema": "thesis_70_healthy_improvement_v1",
+  "classification": "retrospective_healthy_only_development_on_previously_opened_70_devices",
+  "status": "fixed_before_corrected_outcomes",
+  "purpose": "Correct the replacement AE experiment without representing it as V108 replication.",
+  "primary_arm": "physical_event_guard_3of5",
+  "cohort": {"logical_clients": 70, "scored": 65, "known_faults": 59, "controls": 6, "unknown": 5, "new_downloads": false},
+  "features": {
+    "raw_feature_indices": [0, 1, 2, 3, 4, 5, 6, 7, 28, 29, 30, 64, 65, 66, 67, 68, 69, 70, 71, 92, 93, 94],
+    "meaning": "Channel mean and extreme summaries of eight time statistics and spectral entropy, centroid, spread from the V12 per-acquisition 100D cache.",
+    "fitting": "Device-local training partition only; median center, max(MAD, std, epsilon) scale; asinh standardized values; maximum absolute departure across a device's streams.",
+    "upstream_model_predictions_used": false,
+    "future_calibration_windows_used_in_training_transform": false
+  },
+  "partition": "Reuse exact original chronological 60/20/20 healthy indices and all fault test indices. Five unknown-onset devices retain assumed commissioning, explicitly unverified.",
+  "model": "Same 22-4-22 AE, 202 parameters, initialization and FedAdam settings as thesis_70_device_federated_protocol.json; 12 rounds; no fault rows.",
+  "arms": [
+    {"name": "physical_point_quantile_3of5", "threshold": "point_quantile", "k": 3, "window": 5},
+    {"name": "physical_event_guard_3of5", "threshold": "event_guard", "k": 3, "window": 5},
+    {"name": "physical_event_guard_6of7", "threshold": "event_guard", "k": 6, "window": 7}
+  ],
+  "threshold": {
+    "point_quantile": 0.995,
+    "event_guard": "Maximum calibration k-th largest rolling score plus three robust standard deviations of that calibration statistic. Only complete calibration windows; use individual calibration maximum if too short.",
+    "spread_multiplier": 3.0,
+    "test_data_used_to_select_threshold": false,
+    "statistical_guarantee": "Empirical guard; no guaranteed false alarm rate under drift or serial dependence."
+  },
+  "evaluation": {
+    "alarm_state": "Continuous over calibration and subsequent observations; do not reset at known fault onset.",
+    "primary_success": "Fault lifecycle: no alarm during held-out healthy data and at least one persistent fault alarm; healthy control: no held-out healthy alarm.",
+    "additional": ["window specificity", "window fault recall", "first alarm", "fault delay", "controls", "trained/untrained/all metrics"],
+    "primary_selection_after_test": false
+  },
+  "scaling": "Reuse all 3571 original client subsets at N=2,4,...,70 for the predesignated primary; all 2415 pairs at N=2.",
+  "claim_boundary": [
+    "V108 used supervised source heads and a different cohort/metric. This is a healthy-only AE research experiment.",
+    "Raw cached per-acquisition features are used; learned prediction caches do not enter the new feature matrix.",
+    "Labels define retrospective partitions and scoring; prediction and calibration receive no outcome values.",
+    "Five assumed commissioning devices do not have verified healthy training labels.",
+    "Communication remains an analytical payload screen, not RF or hardware validation."
+  ]
+}

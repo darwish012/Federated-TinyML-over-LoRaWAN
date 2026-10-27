@@ -1,0 +1,5 @@
+{
+  "exception": "NotEvaluableStop",
+  "reason": "Not evaluable; STOP: No historical onset for Turbine 5 event1 (authors_rms_gt_0p5g): no_sustained_departure; no substitute onset or strict denominator change allowed",
+  "completed_unit_seed_rows": 39
+}

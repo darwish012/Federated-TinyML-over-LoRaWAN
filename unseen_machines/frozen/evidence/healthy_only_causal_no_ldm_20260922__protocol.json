@@ -1,0 +1,22 @@
+{
+  "study": "Causal cadence and wider representation study without LDM-UPB, 2026-09-22",
+  "classification": "Exploratory healthy-only development on the previously opened non-LDM subset; not independent validation",
+  "excluded_dataset": "ldm_upb",
+  "exclusion_rule": "Filter manifest metadata by dataset before loading any device cache; LDM-UPB is excluded from training, calibration, scoring, and all reported denominators.",
+  "cohort": {"total": 54, "scored": 49, "faults": 43, "controls": 6, "unknown": 5, "downloads": false},
+  "data": "Reuse the fixed healthy-only cache and exact original partitions for selected non-LDM clients. No cache files are copied or rewritten.",
+  "seeds": [17070, 17071, 17072],
+  "new_models": ["global_h12", "personalized_h12", "svdd_h12"],
+  "reference_models": ["global_h4", "pca"],
+  "training": "Same 12 FedAdam rounds and 2 local epochs/round, equal clients, LR 0.03, server LR 0.01 beta .9/.99 tau .001 L2 .0001. Both H4 and H12 states are retrained on only the selected non-LDM client training rows.",
+  "calibration": "Fixed 21-window/13-required, multiplier 2.0 on max finite rolling statistic over training+calibration history; point .995 fallback if history too short. Feature-envelope route multiplier 1.25 is inherited and reported as selection-biased.",
+  "cadences": ["dense", "history_phase"],
+  "history_phase": "Stride chosen only from commissioning endpoint available before monitoring; phase states are held causally and no alarm state resets at known fault onset.",
+  "rules": ["global_h4", "global_h12", "personalized_h12", "svdd_h12", "pca", "feature_envelope", "pca_and_global_h4", "pca_and_global_h12", "pca_and_personalized_h12", "pca_and_svdd_h12", "pca_and_global_h4_and_envelope", "pca_and_global_h12_and_envelope", "pca_and_personalized_h12_and_envelope", "pca_and_svdd_h12_and_envelope"],
+  "primary": {"rule": "pca_and_personalized_h12", "cadence": "history_phase"},
+  "count": 84,
+  "evaluation": "Report all 54 selected identities, strict 49, detected faults 43, healthy alarms 49, controls 6, unknown devices 5, per-dataset results, latency acquisitions, and stride. Dense scoring uses the original timeline; skipped decisions hold the last known state.",
+  "goal": "At least 45/49 strict (>90%), at least 41/43 detected, and 0/6 controls on all three seeds for the fixed primary. Report every fixed cell; no winner selection.",
+  "safety": "No new downloads; no threshold/quorum/stride sweep; no exclusion after cache loading; preserve the original healthy_only_causal_20260908 study and all frozen artifacts; stop on cohort or provenance mismatch.",
+  "boundary": "This is a retrospective development rerun on an already opened cohort. Removing LDM-UPB changes the cohort and denominator, so results are not directly interchangeable with the original 70-client study without explicit labeling."
+}

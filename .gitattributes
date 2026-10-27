@@ -1,0 +1,2 @@
+# Keep the sealed unseen-machine record byte-exact so its SHA-256 seals verify after checkout.
+unseen_machines/** -text

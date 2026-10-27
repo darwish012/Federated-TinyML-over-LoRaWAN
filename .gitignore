@@ -73,3 +73,8 @@ cache/
 .idea/
 .DS_Store
 Thumbs.db
+
+# ------------------------------------------- unseen-machine test record
+# Frozen model weights and result tables are part of the sealed record.
+!unseen_machines/frozen/models/*.pkl
+!unseen_machines/**/*.csv

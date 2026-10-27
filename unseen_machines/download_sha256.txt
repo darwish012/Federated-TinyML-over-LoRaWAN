@@ -1,0 +1,7 @@
+cfaac3ebfe5665bfdacac9d4e6846afd57400f4367fe749c2b431dffa3954b8e *../snd_windfarm/DATASET02.csv
+1c1c4c4b066adcb7c15fdca3ce70773d1c0918e6c4bbc57e5b59afd2fab488dc *../snd_windfarm/DATASET03.csv
+ae47985afd8d06b0ed38a1f62c50b5129a360833af7c96654bec17cba23f5fe6 *../snd_windfarm/DATASET04.csv
+147a4012a6186f4986f49c05734ef3d99fef33f60521d5371ec4e0c14980a943 *../snd_windfarm/DATASET05.csv
+ec03d488542fbe6cc5abf1e0165c3b0fbf39e4607955ebfff0a531b809b5ef05 *../snd_windfarm/DATASET06.csv
+e3453ac2b3b3e15e23ca042ac527dc42a09ef65c003ec2d7e5b50bfeeeb72eb4 *../snd_windfarm/DATASET07.csv
+f662e951bb7de500ffaded14556907066d8310c039342850080e63bb55d2c9bd *../WindTurbineHighSpeedBearingPrognosis-Data-main.zip
