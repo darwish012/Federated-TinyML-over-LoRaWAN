@@ -1,10 +1,10 @@
-# Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers
+# Federated TinyML over LoRaWAN: Label-Free Early Failure Detection for Predictive Maintenance
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Code release for the paper
 
-> A. Darwish and T. Elshabrawy, "Federated TinyML over LoRaWAN: Label-Free Failure Detection on Microcontrollers," submitted to *IEEE Internet of Things Journal*, 2026.
+> A. Darwish and T. Elshabrawy, "Federated TinyML over LoRaWAN: Label-Free Early Failure Detection for Predictive Maintenance," submitted to *IEEE Internet of Things Journal*, 2026.
 
 Remote bearing monitoring over LoRaWAN has to work without fault labels and without sending raw vibration recordings. This repository contains a complete federated learning (FL) pipeline in which LoRaWAN microcontrollers train a shared anomaly detector on their own data. Each node extracts 22 features from raw vibration, standardises them locally and runs two full-batch gradient steps per round on a 562-parameter autoencoder. A Python server aggregates the updates with FedAdam over a fixed 12-round budget. Updates and global models travel as int8 codes with per-tensor scales, so at EU868 data rate DR5 every exchange fits in three LoRaWAN fragments per direction (598 B and 624 B), with application-layer fragment repair and Class C multicast for the downlink. A causal persistence rule turns reconstruction scores into alarms. The release contains the ESP32 firmware, the LoRaWAN multicast companion library, the server, the chronological simulation and hardware twin used for the evaluation, the hardware-versus-twin comparison tool, the power-measurement tooling and the sealed unseen-machine test.
 
@@ -365,7 +365,7 @@ If you use this code, please cite the paper (see also `CITATION.cff`):
 ```bibtex
 @article{darwish2026federated,
   author  = {Darwish, Abdelrahman and Elshabrawy, Tallal},
-  title   = {Federated {TinyML} over {LoRaWAN}: Label-Free Failure Detection on Microcontrollers},
+  title   = {Federated {TinyML} over {LoRaWAN}: Label-Free Early Failure Detection for Predictive Maintenance},
   journal = {IEEE Internet of Things Journal},
   year    = {2026},
   note    = {submitted}
