@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "synthetic_only": true,
+  "target_numeric_data_read": false,
+  "checks": [
+    "HSS yardstick boundary days 21,44,45,50; premature alarm remains failure; no-onset is null",
+    "HSS short-history calibration fallback and causal 13-of-21 first alarm at record-day 33",
+    "Exact six-primary/three-secondary roster; C1 rules match frozen pointwise/onset functions, never enable persistence; Wang/GEV fits ignore held-out scores",
+    "End-to-end synthetic baseline gate: score CSV schema, memberships, exact scores/alarms, v3 per-unit and public reference",
+    "Any reconstruction-score discrepancy, including 1e-12, stops before comparator evaluation",
+    "Alarm-vector mismatch stops before comparator evaluation",
+    "All 216 method/seed/unit outcomes (27 cells) aggregate with the common /7 denominator and render into exactly three result files without removed variants",
+    "Dry run parses successfully; actual analysis refuses staging before any target read",
+    "Runtime audit hook blocks writes outside the three registered result files"
+  ]
+}

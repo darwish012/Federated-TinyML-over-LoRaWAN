@@ -39,3 +39,7 @@ A speed-window variant (each turbine's commissioning P25–P75 speed range) and 
 - `DELIVER_TO_D.ps1`, `STAGING_NOTICE.txt`: delivery script and notice from the staging step.
 
 Paths inside the JSON files refer to the authors' machine.
+
+## Comparator test
+
+`comparators/` holds the sealed comparison with the published decision rules on the same seven machines: the proposed framework 6/7 per seed, the published rules 0/7 to 4/7. See [`comparators/README.md`](comparators/README.md).

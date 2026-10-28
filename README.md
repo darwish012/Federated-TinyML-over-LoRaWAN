@@ -60,7 +60,7 @@ One federated round: the server multicasts the GLOBAL model (three fragments, re
 ├── analysis/                  hardware-versus-twin comparison of a server run
 ├── power/                     power-measurement firmware and analysis scripts
 ├── docs/PROTOCOL_V4.md        wire protocol and behaviour contract (rev 4.3)
-├── unseen_machines/           sealed unseen-machine test: protocol, runner, frozen models, results
+├── unseen_machines/           sealed unseen-machine test and comparator test: protocols, runners, frozen models, results
 ├── LICENSE  CITATION.cff  .gitignore  README.md
 ```
 
@@ -207,7 +207,7 @@ The power scripts mention `phase_energy.py` of a separate lab folder; that scrip
 
 ### `unseen_machines/`
 
-The pre-registered test of the frozen models on machines outside the development cohort: six wind turbines of one wind farm and a wind-turbine high-speed-shaft bearing. It holds the sealed protocol and amendments, the runner, hash-sealed copies of the pipeline and the three frozen global models, and the results. See [`unseen_machines/README.md`](unseen_machines/README.md).
+The pre-registered test of the frozen models on machines outside the development cohort: six wind turbines of one wind farm and a wind-turbine high-speed-shaft bearing. It holds the sealed protocol and amendments, the runner, hash-sealed copies of the pipeline and the three frozen global models, and the results. `unseen_machines/comparators/` runs the published decision rules, unmodified, on the same machines (paper Table V). See [`unseen_machines/README.md`](unseen_machines/README.md).
 
 ### `docs/`
 

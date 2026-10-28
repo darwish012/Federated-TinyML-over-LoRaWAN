@@ -1,0 +1,694 @@
+{
+  "protocol_id": "SND_HSS_COMPARATOR_ADDENDUM_20261027_STAGE1",
+  "version": 1,
+  "created_utc": "2026-10-27T10:48:32.527991+00:00",
+  "status": "SEALED_STAGE1_COMPLETE",
+  "disclosure": "The proposed framework's unseen-machine results were already known to the author and to the addendum preparers when this addendum was written. The comparators' unseen-machine results were not known. This is a prospective specification of additional comparators after disclosure of the proposed method, not a claim that this addendum preceded the original unseen test. No target numeric data were read during stage 1.",
+  "staging_root": "C:\\Users\\Dell\\AppData\\Local\\Temp\\codex_unseen_comparators_20261027",
+  "delivery_root": "D:\\external_unseen\\comparators",
+  "stage2_working_directory": "D:\\external_unseen\\comparators",
+  "stage2_command": "python -I -B .\\run_comparators.py --protocol .\\comparators_protocol.json --run",
+  "seeds": [
+    17070,
+    17071,
+    17072
+  ],
+  "stage1_data_boundary": {
+    "no_SND_CSV_fields_read": true,
+    "no_HSS_MAT_signals_read": true,
+    "no_results_scores_files_opened_or_hashed": true,
+    "no_target_per_unit_values_read": true,
+    "development_only_training": true,
+    "target_numeric_data_read": false
+  },
+  "methods": {
+    "primary": [
+      "proposed_fedadam_h12",
+      "wang_3sigma",
+      "gev_regime2",
+      "javanmardi_2means",
+      "fedavg_h12",
+      "fedprox_h12"
+    ],
+    "all_applicable": [
+      "proposed_fedadam_h12",
+      "wang_3sigma",
+      "gev_regime2",
+      "javanmardi_2means",
+      "fedavg_h12",
+      "fedprox_h12",
+      "wang_4sigma",
+      "wang_6sigma",
+      "gev_no_clustering"
+    ],
+    "secondary": [
+      "wang_4sigma",
+      "wang_6sigma",
+      "gev_no_clustering"
+    ]
+  },
+  "C1": {
+    "implementation": "frozen/pipeline/research/published_methods_20261021/run_comparison.py",
+    "settings": {
+      "status": "Frozen reconstruction choices before execution; not recovered original scripts",
+      "classification": "Retrospective development-cohort comparison, not external validation or a full-paper replication",
+      "seeds": [
+        17070,
+        17071,
+        17072
+      ],
+      "headline": "Saved non-LDM dense global H12, equal-client FedAdam, 12 rounds, 2 local epochs; no H12 retraining",
+      "cohort": {
+        "scored": 49,
+        "faults": 43,
+        "controls": 6,
+        "loges_scored": 25,
+        "loges_faults": 25,
+        "loges_controls": 0
+      },
+      "wang": {
+        "baseline": "First 100 train+calibration acquisitions if at least 100 exist; otherwise first min(30, history length). Never use held-out healthy rows to fit a threshold.",
+        "sigma": [
+          3,
+          4,
+          6
+        ],
+        "std_ddof": 0,
+        "threshold": "mean + sigma * std",
+        "comparison": ">"
+      },
+      "persistence": {
+        "window": 21,
+        "required": 13,
+        "complete_window": true,
+        "carry_across_partitions": true,
+        "monitor_after": "last calibration acquisition"
+      },
+      "project": {
+        "reference": "max rolling 13th-largest score over 21 training+calibration acquisitions",
+        "multiplier": 2.0,
+        "short_history_fallback": "0.995 calibration-score quantile"
+      },
+      "gev": {
+        "regimes": [
+          2,
+          1
+        ],
+        "cluster_input": "22-feature x",
+        "fit_indices": "train+calibration",
+        "kmeans_n_init": 10,
+        "block_size": 10,
+        "block_order": "chronological within regime, include final partial block",
+        "tail_probability": 0.99,
+        "estimator": "scipy.stats.genextreme.fit MLE",
+        "short_or_invalid_fit": "0.995 empirical baseline quantile if fewer than 3 block maxima, degenerate maxima, or invalid fitted quantile; record every fallback",
+        "unrecovered": [
+          "block size",
+          "tail probability",
+          "regime count",
+          "cluster input",
+          "baseline extent",
+          "fallback policy"
+        ]
+      },
+      "javanmardi": {
+        "cluster_input": "full-trajectory scalar H12 reconstruction MSE",
+        "clusters": 2,
+        "kmeans_n_init": 10,
+        "tolerance": 10,
+        "healthy_label": "label of acquisition 0",
+        "onset": "first label unequal to healthy_label at index >= tolerance",
+        "alarm": "step held true from onset, masked through calibration; no reset at fault boundary",
+        "unrecovered": [
+          "default Tc",
+          "exact clustering input",
+          "whether transition is a held alarm"
+        ],
+        "causality": "retrospective full-trajectory clustering, unlike the frozen causal project detector"
+      },
+      "loges": {
+        "sample_rate_hz": 25600,
+        "band_hz": [
+          0,
+          5000
+        ],
+        "bins": 256,
+        "processing": "per channel: demean, Hilbert envelope, demean envelope, unnormalised rFFT magnitude, include 0..5000 Hz, mean-pool 256 equal index intervals, log1p; elementwise maximum across the two vibration channels",
+        "normalisation": "per-bin training mean and population std, replace std <= 1e-8 by 1",
+        "ae": {
+          "dimensions": [
+            256,
+            32,
+            256
+          ],
+          "hidden": "tanh",
+          "output": "linear",
+          "loss": "MSE",
+          "initialisation": "independent normal weights std sqrt(2/(256+32)), zero biases",
+          "optimizer": "Adam",
+          "learning_rate": 0.001,
+          "beta1": 0.9,
+          "beta2": 0.999,
+          "epsilon": 1e-08,
+          "epochs": 200,
+          "batch": "full device healthy training partition",
+          "weight_decay": 0,
+          "score": "mean squared reconstruction error in standardised logES space"
+        },
+        "unrecovered": [
+          "channel choice/aggregation",
+          "FFT scaling and exact rebin convention",
+          "normalisation",
+          "AE optimiser, training duration, initialisation, seed"
+        ],
+        "deviation_from_paper": "plain dense AE instead of VAE"
+      },
+      "selection_policy": "No tuning to recover logged counts. All fixed cells and seeds saved, including failures and GEV fallbacks."
+    },
+    "front_end": "same v3 frozen FedAdam H12 scores; x from exactly the v3 feature/scaling pipeline for regime clustering",
+    "call_only": [
+      "wang",
+      "gev",
+      "point_flags",
+      "onset"
+    ],
+    "never_call_source_runner": true,
+    "all_variants": "primary: Wang 3-sigma, regime-2 GEV, two-means; secondary: pointwise Wang 4/6-sigma and unclustered GEV; no persistence-augmented variants",
+    "author_reason": "Published comparators are evaluated unmodified.",
+    "healthy_test_rows_never_fit_thresholds": true,
+    "two_means_exception": "intentional full-trajectory retrospective clustering"
+  },
+  "deviations": [
+    "Amendment C-1 (2026-10-27, before any comparator result): persistence-augmented variants of published rules removed by author decision."
+  ],
+  "C2": {
+    "algorithms": [
+      "fedavg",
+      "fedprox"
+    ],
+    "mu": {
+      "fedavg": 0.0,
+      "fedprox": 0.01
+    },
+    "rounds": 12,
+    "architecture": [
+      22,
+      12,
+      22
+    ],
+    "parameters": 562,
+    "hidden": "tanh",
+    "output": "linear",
+    "dtype": "float64",
+    "initialisation": "fl.init, one default_rng(seed), sequential normal draws; zero biases",
+    "local_full_batch_steps": 2,
+    "local_learning_rate": 0.03,
+    "weight_matrix_L2": 0.0001,
+    "aggregation": "equal-client mean of local deltas; no FedAdam server step",
+    "clients": 54,
+    "cohort": "exact selected non-LDM development cache; 43 fault units, 6 controls, 5 unscored",
+    "expected_strict_counts": [
+      46,
+      44,
+      43
+    ],
+    "observed_fedavg": [
+      46,
+      44,
+      43
+    ],
+    "observed_fedprox": [
+      46,
+      44,
+      43
+    ],
+    "gate": "all three frozen FedAdam weights identical (max difference zero), strict counts 45/44/44; then C2 exact reproduction or stop",
+    "no_unseen_weight_updates": true,
+    "models": [
+      {
+        "algorithm": "fedavg",
+        "seed": 17070,
+        "model": "frozen/models/fedavg_h12_seed17070.pkl",
+        "sha256": "64b4f05f57dba6d354463509a89988d6dafa137cd021d0d668f37a09ac7aabb9",
+        "checkpoint": "frozen/models/fedavg_h12_seed17070_checkpoint.json",
+        "checkpoint_sha256": "2e25c6ee2a3e56200158700b19e56fc87aacafb7e44dbc11f6b9b59eae6edaae",
+        "development_strict_successes": 46,
+        "scored_units": 49
+      },
+      {
+        "algorithm": "fedavg",
+        "seed": 17071,
+        "model": "frozen/models/fedavg_h12_seed17071.pkl",
+        "sha256": "26a3003065a37b2c3cbde5ec582d94de99ef779c9fa2e111453514b00d4963cc",
+        "checkpoint": "frozen/models/fedavg_h12_seed17071_checkpoint.json",
+        "checkpoint_sha256": "c5e075e24b54b7fc3b29a6f0a2aecc773611053f5007d0d51f5d203d9532b55e",
+        "development_strict_successes": 44,
+        "scored_units": 49
+      },
+      {
+        "algorithm": "fedavg",
+        "seed": 17072,
+        "model": "frozen/models/fedavg_h12_seed17072.pkl",
+        "sha256": "17f0794ea95e1b5283dd3a22e283bbda938e9e8a34fee99b4c71831f32f159e6",
+        "checkpoint": "frozen/models/fedavg_h12_seed17072_checkpoint.json",
+        "checkpoint_sha256": "86a4a6a864ec2328c3ff670ab183d95c99f1ae0f5b3467db6cc35c89affec074",
+        "development_strict_successes": 43,
+        "scored_units": 49
+      },
+      {
+        "algorithm": "fedprox",
+        "seed": 17070,
+        "model": "frozen/models/fedprox_h12_seed17070.pkl",
+        "sha256": "f59bbfb6e476a47ef70099fa6c6f6c4c227676bd3b76a6d72a1dae7c32a14db4",
+        "checkpoint": "frozen/models/fedprox_h12_seed17070_checkpoint.json",
+        "checkpoint_sha256": "a100e4e559026e06f00d0ef3c3e5e88407fb0307e847d6e37b06e0806c2fc2a5",
+        "development_strict_successes": 46,
+        "scored_units": 49
+      },
+      {
+        "algorithm": "fedprox",
+        "seed": 17071,
+        "model": "frozen/models/fedprox_h12_seed17071.pkl",
+        "sha256": "a129255b2fc34ee309aa49bf89aa4e7c8d991b77c9676433c6e88ad89da314dd",
+        "checkpoint": "frozen/models/fedprox_h12_seed17071_checkpoint.json",
+        "checkpoint_sha256": "9947bc9278439f32cfe7a80418c778508d04a14841e04a6354aae3414e5d57eb",
+        "development_strict_successes": 44,
+        "scored_units": 49
+      },
+      {
+        "algorithm": "fedprox",
+        "seed": 17072,
+        "model": "frozen/models/fedprox_h12_seed17072.pkl",
+        "sha256": "192c99f98b454609958e36c3dcea06533bbcc5232b63861a3ed19986d4a2dcb3",
+        "checkpoint": "frozen/models/fedprox_h12_seed17072_checkpoint.json",
+        "checkpoint_sha256": "cde9afd420cdb364628e8b5f8df74673c8e7c9323545098b38a6f70aefda4d29",
+        "development_strict_successes": 43,
+        "scored_units": 49
+      }
+    ],
+    "unseen_scoring": "v3 local training-only physical_matrix; calibration + training H; unchanged cadence.dense_flags(21,13,2)"
+  },
+  "applicability": {
+    "C1": "applicable: fixed decision rules on frozen H12 scores",
+    "C2": "applicable: development reproduction gate passed exactly for both optimizers",
+    "C3": {
+      "status": "not applicable",
+      "declared_rule": "pca_and_personalized_h12",
+      "cadence": "history_phase",
+      "historical_development_strict_counts": [
+        40,
+        43,
+        41
+      ],
+      "independently_retrained_in_stage1": false,
+      "reason": "wider_models.fit keeps a client decoder across 12 federated rounds and scores development IDs with private decoders. _model falls back to the global decoder for unseen IDs. No frozen new-device decoder commissioning routine exists. Replaying federation, fitting a new decoder, choosing epochs/initialization, or using the global fallback would change the declared method. PCA and cadence alone do not resolve this. No such design was invented.",
+      "evidence": [
+        "frozen/evidence/no_ldm_run_study.py",
+        "frozen/evidence/original_causal_run_study.py",
+        "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py"
+      ]
+    },
+    "C4": {
+      "status": "optional comparator not included",
+      "reason": "Frozen loges(channels) hard-codes rfftfreq(...,1/25600) and development two-channel PRONOSTIA/XJTU raw loaders. It has no supplied sampling-rate parameter for 12800 Hz SND or 97656 Hz HSS. A new adapter/sample-rate implementation would be required; the optional arm is omitted before target access.",
+      "new_choices_introduced": false
+    }
+  },
+  "partitions": {
+    "arm": "A: RMS strictly >0.5 g for SND; no filter for HSS",
+    "v3_version": 3,
+    "v3_amendment": 2,
+    "SND": {
+      "function": "thesis_70_device_federated._three_way",
+      "minimum_each_healthy_partition": 5,
+      "rule": "healthy sequence length h>=15; train_end=max(5,floor(.60*h)); cal_end=min(max(train_end+5,floor(.80*h)),h-5); remainder healthy test",
+      "fault": "Turbine5 rows [0,t*) assumed healthy; [t*,replacement) fault test",
+      "controls": "full record after arm inclusion split 60/20/20; last20% healthy test only; commissioning is train+cal, not scored test"
+    },
+    "SND_onset": {
+      "function": "frozen_v19_analytic_onset.estimate",
+      "features_function": "frozen_v19_eda_features.acquisition_features",
+      "unit": "Turbine5 event1 documented t*=1.0 for A/B/no-filter; event2 has no documented onset and uses unchanged proxy on its own included segment; B inherits same-event A; no control or HSS onset",
+      "five_features": [
+        "rms_mean",
+        "kurtosis_mean",
+        "crest_factor_mean",
+        "spectral_entropy_mean",
+        "band_4_relative_power_mean"
+      ],
+      "fit_count": 40,
+      "reference_count": 100,
+      "minimum_required": 105,
+      "scale_fallbacks": [
+        "1.4826*MAD",
+        "IQR/1.349",
+        "population std",
+        "one"
+      ],
+      "clip_z": [
+        -20,
+        20
+      ],
+      "departure": "root mean square of five standardized descriptors",
+      "smoother": "trailing median, w=clip(ceil(n*0.01),3,21), min_periods=1",
+      "reference": "max(q0.99(first100 smoothed),median+6*max(scaledMAD,1e-12))",
+      "confirmation": "first 3-of-5 exceedance with window end index >=100; backdate to first exceedance in that five-record window (zero-based indices)",
+      "no_onset": "Proxy returns no onset or insufficient data: no substitute boundary or scoring. Default STOP and report not evaluable. Exception: event2 records both A/B, all seeds as not evaluable (no proxy onset), null outcomes/timing and continues remaining units; primary denominator unchanged. Other data/partition guards remain stops.",
+      "limitations": "Event1 nominal documented defect period with assumed healthy pre-1.0 commissioning, not exact physical damage timestamp; event2 retrospective feature-departure proxy with shared descriptor families, not prospective onset validation",
+      "precedence": "For every fault unit/event, use owner/author documented defect onset when available; only otherwise use the unchanged historical proxy and its stop rule, with the explicit event-2 nonfatal exception. HSS timing-only design unchanged.",
+      "documented_onsets": [
+        {
+          "dataset": "SND",
+          "turbine": 5,
+          "event": "event1",
+          "years": 1.0,
+          "source": "Martin-del-Campo et al., arXiv:1902.01426v2 (2019), supplied snd_paper.txt, failure descriptions and model-fidelity discussion",
+          "source_text": "in the beginning of year one corresponds to the period of time when the bearing was defective",
+          "interpretation": "Author-authorized nominal onset 1.0 year since recording start; replacement at 1.2 years; not an exact independently observed damage timestamp"
+        }
+      ]
+    },
+    "event1": "T5 time <1.2; documented onset 1.0; unchanged 60/20/20 split of included pre-onset rows",
+    "event2": "separate T5 1.2<time<2.0 unit; original V19 proxy and stop/nonfatal no-onset rules, separate commissioning",
+    "controls": "full RMS-filtered record, 60/20/20; evaluate last 20%",
+    "HSS": {
+      "training_days": [
+        1,
+        15
+      ],
+      "calibration_days": [
+        16,
+        20
+      ],
+      "test_days": [
+        21,
+        50
+      ],
+      "all_50_record_days": true,
+      "two_March17_records_preserved": true,
+      "tach_loaded": false
+    }
+  },
+  "alarm": {
+    "function": "cadence.dense_flags",
+    "m": 21,
+    "k": 13,
+    "alpha": 2.0,
+    "reference": "max finite 13th-largest score in full 21-score windows of concatenated training+calibration history",
+    "fallback_quantile": 0.995,
+    "fallback_rows": "calibration only, linear NumPy quantile interpolation",
+    "comparison": "strict > threshold",
+    "commissioning_suppression": true,
+    "state": "trailing full 21 scores; continuous through commissioning, healthy/fault boundary and calendar gaps; no reset or latch; no alarm until full window"
+  },
+  "outcomes": {
+    "primary_denominator": 7,
+    "primary_units": [
+      "Turbine1",
+      "Turbine2",
+      "Turbine3",
+      "Turbine4",
+      "Turbine6",
+      "Turbine5_event1",
+      "HSS"
+    ],
+    "SND_control_strict": "no alarm anywhere in held-out healthy test",
+    "SND_fault_strict": "no alarm anywhere in held-out healthy test AND >=1 alarm in assigned fault period",
+    "HSS_strict": "no alarm on record-days 21-44 inclusive AND >=1 alarm on record-days 45-50 inclusive",
+    "HSS_yardstick_provenance": "Author-specified paper yardstick in this request; original v3 protocol reported HSS timing without strict success. Apply identically to all methods, including proposed.",
+    "HSS_alarm_on_day50": "counts for strict detection; does not count for v3 advance warning (first alarm <50)",
+    "event2": "secondary; strict, healthy alarm, fault detected, first alarm, lead days; excluded from /7",
+    "SND_lead_days": "(nominal replacement year - first post-commissioning alarm year)*365.25; include premature alarms",
+    "HSS_lead": "50-first alarm record-day; record-days, not calendar-days",
+    "no_alarm_timing": null,
+    "controls": "silent count out of 5 for each method/seed",
+    "not_evaluable": "null outcomes, keep registered denominators; do not rescue"
+  },
+  "HSS_historical_onset_sensitivity": {
+    "estimator": "same frozen_v19_eda_features.acquisition_features and frozen_v19_analytic_onset.estimate",
+    "original_minimum_acquisitions": 105,
+    "available_record_days": 50,
+    "expected_status_from_guard": "insufficient_post_commission_data; onset null",
+    "no_guard_adjustment": true,
+    "no_repartition_or_model_refit": true,
+    "if_onset_found": "assess fixed alarm vectors on test days 21-50: pre-onset is healthy, onset onwards fault; empty evaluation interval gives null; original commissioning retained",
+    "methods": "all applicable methods including proposed; never substitute a fixed onset for this sensitivity"
+  },
+  "public_v3_reference": {
+    "17070": {
+      "snd_strict_successes": 5,
+      "controls_silent": 5,
+      "primary_with_hss_strict_successes": 6,
+      "event1_fault_detected": false,
+      "event1_first_alarm_years": null,
+      "hss_first_alarm_day": 49,
+      "event2_first_alarm_years": 1.523988818692,
+      "event2_lead_days": 173.86308397274698
+    },
+    "17071": {
+      "snd_strict_successes": 5,
+      "controls_silent": 5,
+      "primary_with_hss_strict_successes": 6,
+      "event1_fault_detected": false,
+      "event1_first_alarm_years": null,
+      "hss_first_alarm_day": 47,
+      "event2_first_alarm_years": 1.523988818692,
+      "event2_lead_days": 173.86308397274698
+    },
+    "17072": {
+      "snd_strict_successes": 5,
+      "controls_silent": 5,
+      "primary_with_hss_strict_successes": 6,
+      "event1_fault_detected": false,
+      "event1_first_alarm_years": null,
+      "hss_first_alarm_day": 45,
+      "event2_first_alarm_years": 1.52672542646071,
+      "event2_lead_days": 172.8635379852257
+    }
+  },
+  "baseline_gate": {
+    "before_comparator_outcomes": true,
+    "cached_scores": "results_v3/scores Arm A only",
+    "checks": [
+      "exact reconstructed score arrays",
+      "exact alarm vectors",
+      "source rows",
+      "coordinates",
+      "partition labels",
+      "per-unit strict/healthy/fault outcomes and timing",
+      "threshold references and fallback methods",
+      "public REPORT primary/secondary reference numbers"
+    ],
+    "difference_policy": "stop, no numeric tolerance, no tuning or rescue"
+  },
+  "source_files_sha256": {
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\published_methods_20261021\\run_comparison.py": {
+      "sha256": "cbc6b462de4a51ae668d49d27a1b2fb48b7a6eaf5f9b2887eca3a8d67df453df",
+      "snapshot": "frozen/pipeline/research/published_methods_20261021/run_comparison.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\published_methods_20261021\\protocol.json": {
+      "sha256": "57b9a383a88076296c5d20621a3c4771438bdde706352098f3600fb1abaf803d",
+      "snapshot": "frozen/pipeline/research/published_methods_20261021/protocol.json"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_20260908\\cadence.py": {
+      "sha256": "ad3d1147af81daf0d17d588296998c8846836ba83e0ffd60a0c2086045c1ba2f",
+      "snapshot": "frozen/pipeline/research/healthy_only_causal_20260908/cadence.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_20260908\\wider_models.py": {
+      "sha256": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811",
+      "snapshot": "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\fl_algorithm_comparison_20260929\\fl.py": {
+      "sha256": "240bc1d1fc106e84fc8a192f1157a8273c505d1d330ceffdbb6ccd7592d1f773",
+      "snapshot": "frozen/evidence/fl.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\fl_algorithm_comparison_20260929\\run_study.py": {
+      "sha256": "b210229d9ab4b3bf36a2943fbbb550f4793bb7cc003d6688834e92a7b467cd5f",
+      "snapshot": "frozen/evidence/run_study.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\fl_algorithm_comparison_20260929\\protocol.json": {
+      "sha256": "092d82a635ae516486c4e3fb1e93d69064071578fdc3d75662c0e7e42050f199",
+      "snapshot": "frozen/evidence/protocol.json"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_no_ldm_20260922\\run_study.py": {
+      "sha256": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc",
+      "snapshot": "frozen/evidence/no_ldm_run_study.py"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_no_ldm_20260922\\protocol.json": {
+      "sha256": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd",
+      "snapshot": "frozen/evidence/no_ldm_protocol.json"
+    },
+    "E:\\masters\\autoencoder_cwru_release\\full_pipeline_simulation\\research\\healthy_only_causal_20260908\\run_study.py": {
+      "sha256": "a8381a1db8419f86e4b06a4ac236e3cb996e3bb57628ca2777cc95ced726842b",
+      "snapshot": "frozen/evidence/original_causal_run_study.py"
+    },
+    "E:\\masters\\paper\\main.tex": {
+      "sha256": "510a3f1aab6e135d3c45515c47838e2ce06948f6711ac4d05e3aa715d4b17661",
+      "snapshot": "frozen/evidence/paper_main.tex"
+    },
+    "D:\\external_unseen\\protocol.json": {
+      "sha256": "e882f4a343930e7bca30f5620a6c9a2b0fe021430dbe5a5161228b18fb853082",
+      "snapshot": "frozen/evidence/V3_PROTOCOL.json"
+    },
+    "D:\\external_unseen\\PROTOCOL.md": {
+      "sha256": "ed736a70ab32cf9fade10417ee3e3e26dae424abe565c37e3fe74cf5b07f4c09",
+      "snapshot": "frozen/evidence/V3_PROTOCOL.md"
+    },
+    "D:\\external_unseen\\results_v3\\REPORT.md": {
+      "sha256": "793f06b6c85b836ca085e3282753e7918fd6c1a26497941f25c68a92acd5dec8",
+      "snapshot": "frozen/evidence/V3_PUBLIC_REPORT.md"
+    },
+    "D:\\external_unseen\\run_unseen.py": {
+      "sha256": "9d68aa48948d94177c0ef27e224165ca9d4415929f6608b534613d2fae3d4efd",
+      "runtime_import": true
+    }
+  },
+  "external_files_sha256": {
+    "D:\\external_unseen\\protocol.json": "e882f4a343930e7bca30f5620a6c9a2b0fe021430dbe5a5161228b18fb853082",
+    "D:\\external_unseen\\run_unseen.py": "9d68aa48948d94177c0ef27e224165ca9d4415929f6608b534613d2fae3d4efd",
+    "D:\\external_unseen\\PROTOCOL.md": "ed736a70ab32cf9fade10417ee3e3e26dae424abe565c37e3fe74cf5b07f4c09",
+    "D:\\external_unseen\\results_v3\\REPORT.md": "793f06b6c85b836ca085e3282753e7918fd6c1a26497941f25c68a92acd5dec8"
+  },
+  "v3_frozen_files_sha256": {
+    "frozen/pipeline/external_dual_axis_timing.py": "e4eeb64d4ccb27b03b07b825857ed9a5087e98b60d99af01f4ca2f7b91fef0d3",
+    "frozen/pipeline/frozen_v19_analytic_onset.py": "49f623d7dcde108f24eca1adc3eb4f7f756f5909e3c655a899517515868b52b0",
+    "frozen/pipeline/frozen_v19_eda_features.py": "29e825031c5f951ad8a6fd0a5c826aeed12a6fc28cd6c8cddeb1ddff592e844d",
+    "frozen/pipeline/improved_comprehensive_experiment.py": "1f3ee1ccc0c56dc7e3e3b134798a74232900c09e3babf9654d9852d3fb9fa106",
+    "frozen/pipeline/ldm_reserved_cohort_external.py": "f42438a400c35ca9e5ace8e614e9e3cad6c0ba104c6d4f21bff8c7df7c7c419b",
+    "frozen/pipeline/learning_failure_experiments.py": "2fc74e05ae951495cf4d88983c2063b7340e89307515ec7e69a0863ab0c7890c",
+    "frozen/pipeline/raw_online_federated_v12.py": "0e29e7109daaa12e59996526799901d3ed94661f4f9034b64012d4a85c6a0af6",
+    "frozen/pipeline/raw_online_federated_v25_policy.py": "34d2756836544a388d4e288f96352c3f1c453d8e482fd0c5b79244d6d080504d",
+    "frozen/pipeline/raw_online_federated_v27_detector.py": "aa92cd574ad89dd95337f5c93be8937c5378f485874de2f56760d77800753b30",
+    "frozen/pipeline/raw_online_federated_v29_models.py": "c9b7893111aad2bceb7e12da02229039132c5171404dcd004273f0be62690a1a",
+    "frozen/pipeline/raw_online_federated_v30_data.py": "96d739aaf9c2e8fa4e6cc16d0534c237326c98dfd998fe86f6be499258617bac",
+    "frozen/pipeline/raw_online_federated_v39_comm.py": "775c6859b87f9243fd2a69a9241cb1a038b484b3db73d5bbfd261917c105e8af",
+    "frozen/pipeline/raw_online_federated_v41.py": "378eb33dd6efd8d8c3fbf0468044aa0bef8805ebf1fff5219df1263267d5aef7",
+    "frozen/pipeline/raw_online_federated_v41_data.py": "2c5307d7064e23e440e5c10636c710eb3209fcd63fb9ff2d95c8f6d4f95d0fe5",
+    "frozen/pipeline/raw_online_federated_v41r1_data.py": "0257c7a75af4942bd9bc724d5f4fae38f59abde83e118629e396cb3fca38a83e",
+    "frozen/pipeline/raw_online_federated_v42.py": "530a56d53be40c778c9896b2f40bdb21ee3e4af0fe04fd4e8cc8569a71064fcc",
+    "frozen/pipeline/raw_online_federated_v42_calibration.py": "eb00f7cde284a4bbfca7c061dc59178c2274cd22a1294670dc8cbe9c4a42671f",
+    "frozen/pipeline/raw_online_federated_v42_design.py": "63e97bc4333e2d64b059a6c749d0525c20a3f756eefcaea7cb0946f7fc9cc641",
+    "frozen/pipeline/raw_online_federated_v42_score.py": "f53e7e2219735b6a9d25928bc20f5c60669f051cbb6c19c031c8c645ba6cace3",
+    "frozen/pipeline/raw_online_federated_v43.py": "abf7f82334f5e80f0b62738a19cc0f941452503ef7ced44938ebf267e455ac45",
+    "frozen/pipeline/raw_online_federated_v43_cohort.py": "d534f80554fbb20be4bc2c6d31a8625a3ffe510cc585ec5e13fae04a82878e82",
+    "frozen/pipeline/raw_online_federated_v43_comms.py": "16fdf2ba3d07e4ad5af92dca3408973bc20aa5011ef85d0ce33accc8e25ceb7a",
+    "frozen/pipeline/raw_online_federated_v43_grid.py": "cae79693cad38f092bcc7eb66199b0b2270583daa5402555e33c13b861dcef6e",
+    "frozen/pipeline/raw_online_federated_v43_stats.py": "9e0e8467434db7c57ad6089403c96cc545c203bf52ebca04a0bab1142c6bb7a1",
+    "frozen/pipeline/raw_online_federated_v45_cohort.py": "a7bf514102fd19ac56898612bfe55c535d508ccb1c599faa5faafa6a51dc80bb",
+    "frozen/pipeline/raw_online_federated_v45_grid.py": "714c9b50ab3dcbcfb86be268b1da527eb4f6f26561a8a8ffd3dfecbdaf9efb34",
+    "frozen/pipeline/raw_online_federated_v46_machine.py": "d269d9ea58f155294ad27ecd7bd8383efc2658e1ba1a5282578256364a9edb55",
+    "frozen/pipeline/raw_online_federated_v46_stats.py": "d89ae9c14ff5392c0133b2d4ad43071310c83b323d002ada09c592859d1f5e21",
+    "frozen/pipeline/raw_online_federated_v48_ablation.py": "f9fa8adacc655ee1247439af0db73adde22d656469e7ef7d05762e36c32c6fa7",
+    "frozen/pipeline/raw_online_federated_v51_policy.py": "735a234bb96ea737569584e9d7d274a7d5ddf819a08acedc1e5617a03db7e3ac",
+    "frozen/pipeline/raw_online_federated_v52.py": "9fe70a115b2fc182a122483e32bf42add2c7c5c387d404363025be00014ce12f",
+    "frozen/pipeline/raw_online_federated_v57_policy.py": "0353c28ce873ac0d2a7d0991fde84c2881499d359418b37b0445c2bb8d7f650e",
+    "frozen/pipeline/raw_online_federated_v60_analysis.py": "ec5b112529443cf9da24c8614b9dfc037ccb53cd79e1c12dcaf6f05e3293e3cf",
+    "frozen/pipeline/raw_online_federated_v62.py": "b278e56f1e381b42390f62fbdb93fc3edf2131be99a51a64e1af6c43f85df303",
+    "frozen/pipeline/raw_online_federated_v62_policy.py": "a07ff84dbf8445a30e38a0ca9df534ff3182b431fb5d909f29f43a0e8bdfcb34",
+    "frozen/pipeline/raw_online_federated_v63_policy.py": "26f3536b7ae4f25146e1daaa6990bdaecd263a424163c95fd2622efd8ffe0efc",
+    "frozen/pipeline/raw_online_federated_v64_baselines.py": "656f7fdf8469ca84595ae956283f524aa413dae8dafc00f62395e8a6fd2e9c6d",
+    "frozen/pipeline/raw_online_federated_v64_policy.py": "f67bc17688572d0cf3b3423806c936fc4600b5316789322885732d128b64dce2",
+    "frozen/pipeline/raw_online_federated_v65.py": "75b1b13b9c2b5f6194fa0485d23dfd91ec84ebb1510850c13f4a77cf3cd70446",
+    "frozen/pipeline/raw_online_federated_v65_policy.py": "356cb29d33c638e813dfc379ea41a2fe39442da0cc76e3a02e660a621d78eb40",
+    "frozen/pipeline/raw_online_federated_v67.py": "16ae41d36394ed3a8e57ffaea3edd3964e4a415423bdf7916b23dff3124acbbe",
+    "frozen/pipeline/raw_online_federated_v67_policy.py": "24e380d00b19110757187b7e99cb4ff46745128577ff3e22268e940e43b0a0c1",
+    "frozen/pipeline/raw_online_federated_v92.py": "dd159a71a56fb25c44be3a1893f2786cf3371432ae8b10515a74c8daa8e15b06",
+    "frozen/pipeline/realtime_federated_simulation.py": "08ba76298c939635e63eb57d9e1f186b001aa42dfbe0e1c7a69b6cafeaea2fc5",
+    "frozen/pipeline/research/healthy_only_causal_20260908/cadence.py": "ad3d1147af81daf0d17d588296998c8846836ba83e0ffd60a0c2086045c1ba2f",
+    "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811",
+    "frozen/pipeline/research/healthy_only_suite_20260907/data_cache.py": "f0af03289aa0a4918c03c6780df9c79380f22fd9a17fad83538c373b36819ec4",
+    "frozen/pipeline/run_full_simulation.py": "27a898f8be637178bdad1bfecec0992880e65dac6d147f3410f74da9fb9afee3",
+    "frozen/pipeline/thesis_70_device_federated.py": "e4a2e7f726af18bb741c8b92301f185b8111f685432a811866a2e056ec96360e",
+    "frozen/pipeline/thesis_70_improvement.py": "e771a0a50a953d8ea7ad111151011c7a87d3c0c6f3b719620d7982aa35cfd388",
+    "frozen/pipeline/thesis_70_improvement_protocol.json": "4274f8f5aee2fc67aea1adf432d693a9d80447eb0e7a966d34b91fea745f7f67",
+    "frozen/pipeline/thesis_70_node_scaling.py": "e76676caa269cdb5008465c8d097429c59f3a5bea15ffc4bc11860520f233f60",
+    "frozen/pipeline/thesis_participating_node_scaling.py": "d28d238e2624c788948283db8957e3bac10d448dde38bde2797f2ad8be9aad0e",
+    "frozen/python_tools/compare_architectures.py": "ef29093bc36ee38403b2882db84e27920965a77afecf8adf6318829b7100655f",
+    "frozen/python_tools/cwru_eval.py": "7f3e799c1f306a8cedb879d3dfa9d6cf32e9901116b555f3bdc8d5b1c02a3865",
+    "frozen/python_tools/tiny_ae.py": "70fe8fb17d8ffe7ae79ede06fba1663e23917931059e870ce78c87e2b0b45790",
+    "frozen/evidence/paper__main.tex": "14e9911322c5911a8b638d32026571afe1ab509d8f71ae6dad29e205d256f024",
+    "frozen/evidence/paper__supplement.tex": "55852a05758f89e913cb5796f50c7f1927c72f011448b9d5965d0f4d8189971f",
+    "frozen/evidence/paper__RESULTS_TRACEABILITY.md": "e830fc95226e6f27f4b72d3ccf55342fd29fcde2e433a2a9f0f89610a4dc1b97",
+    "frozen/evidence/external_dtu_fe8_20260922__frozen_config.json": "d4eaf5a3118b74cdba261c9dac860f5043bc7099dc225031bea26acff30c8ced",
+    "frozen/evidence/external_dtu_fe8_20260922__seal.json": "8e2a771bc83c56acd289c03c699d3efe059fec89f9d90d09598c51e7a85cf61b",
+    "frozen/evidence/healthy_only_causal_no_ldm_20260922__run_study.py": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc",
+    "frozen/evidence/healthy_only_causal_no_ldm_20260922__protocol.json": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd",
+    "frozen/models/global_h12_seed17070.pkl": "28e697d32045c36d0497d5c967490f61d96cbe61bb38bed9ca0a77aa02896521",
+    "frozen/models/global_h12_seed17070_checkpoint.json": "3eba133b28ca720fc60d246a0845bfcec0d3732dfd981817cdcf31c5e01f41f0",
+    "frozen/models/global_h12_seed17071.pkl": "43078d1006a30d157e165017f166059a305640680e78607fd6cfe0fc66cc8298",
+    "frozen/models/global_h12_seed17071_checkpoint.json": "a024bc8e9283a3b8fbf5e345dc408bf7e9c51d8a28d56564c78ece57e0808099",
+    "frozen/models/global_h12_seed17072.pkl": "5edf39760ec8c077a9b5aa59539dac3c645b8170d3f81a95b135ea4d9c123dac",
+    "frozen/models/global_h12_seed17072_checkpoint.json": "3a181f75eb5c6358dff0fc5a3965146c9bcfdeba7c44dcf9f27fa6707b33a8b1",
+    "source_snapshot_manifest.json": "43c28fe638f90fa995538b4f9dbea8d10985a395a94d6af20fbc7f579acd3799",
+    "run_unseen.py": "9d68aa48948d94177c0ef27e224165ca9d4415929f6608b534613d2fae3d4efd",
+    "STAGE1_VALIDATION.md": "63b8282a59e4bad127f74e1180199cffd3241786e95a05457b5ceb5f2518590a",
+    "DELIVER_TO_D.ps1": "b72a03b0171d8372d80011a2bc73a30a79d067d2be428d1316e17d37828d5176",
+    "PROTOCOL_v1.md": "b34745734954a655680afc37c575a905fd4cd7a7906a961c90985d5ea27206a6",
+    "protocol_v1.json": "5b4ce87ac9c87e95df754267c79544293bfbef31477469e2880705355f05539a",
+    "PROTOCOL_SHA256_v1.txt": "ba0b7fa9863deec0f87f6dc7c7c9ab10b1bf14b9ab8ae9053b6a9c532807ed1c",
+    "run_unseen_v1.py": "7c2bd1fffde464726697aee5ee7ac779cef46f75c58e85e13cbaf9ca3464c667",
+    "validate_stage1.py": "3c2c54384d001900ab83772749d3dc06e632212ac11b24bd617cebfd98983491",
+    "STAGING_NOTICE.txt": "3fc248d59110db4bb6b59f1b045b358d84730d3a850c1d50a0e489d5823bace2",
+    "PROTOCOL_v2.md": "c6cbae027aabdabb0090031f8d51bdc2260b111a80ee4dfd94e11916387cda21",
+    "protocol_v2.json": "221bd1e462dabf46f5012a23eb7f38fbdd747e7fd156ae9a14353a1da65d489c",
+    "PROTOCOL_SHA256_v2.txt": "d4c86801c53bf57f3dd7312566e04825f59c277d1593f0360c1401ab66222908",
+    "run_unseen_v2.py": "1fc2cd568ce458e8f8a7487641f8d2d19e2b34d6257906358b54c8bd4d4cf685",
+    "STAGE1_VALIDATION_v2.md": "3dba5f694c02fb6efbb3f2067ca178c49921fa6e8ae60fd5c403c562285cc250",
+    "validate_stage1_v2.py": "82ea6a1f890c709aac5482a1de505cedd74b4b235b3a69eba4864efce9d5d364"
+  },
+  "stage1_package_versions": {
+    "numpy": "1.26.4",
+    "scipy": "1.15.3",
+    "pandas": "3.0.5",
+    "scikit-learn": "1.6.1",
+    "threadpoolctl": "3.6.0"
+  },
+  "outputs": {
+    "only_write_directory": "D:\\external_unseen\\comparators\\results",
+    "files": [
+      "summary.json",
+      "per_unit.csv",
+      "REPORT.md"
+    ],
+    "existing_results": "refuse rerun/overwrite/resume",
+    "facts_only": true
+  },
+  "bundle_files_sha256": {
+    "DELIVER.ps1": "affa95493385d9b531f1c329872c3265930671fa8ec907e9a3ee41f22ce9aa01",
+    "STAGE1_VALIDATION.md": "372c78d8766bf44a5b6b6b92f934fc51989c0782d5af2e8a37c74f6df41e79bf",
+    "development_training.log": "b1f14327cec171d9cd7c509124777339a44cb83998fffd9ae82248ba1870416c",
+    "development_validation.json": "6e2020dec2e4a85dc1ef8d2b545ff77f8a6ad6415ff42c9ebbf2f080dcd60752",
+    "frozen/evidence/V3_PROTOCOL.json": "e882f4a343930e7bca30f5620a6c9a2b0fe021430dbe5a5161228b18fb853082",
+    "frozen/evidence/V3_PROTOCOL.md": "ed736a70ab32cf9fade10417ee3e3e26dae424abe565c37e3fe74cf5b07f4c09",
+    "frozen/evidence/V3_PUBLIC_REPORT.md": "793f06b6c85b836ca085e3282753e7918fd6c1a26497941f25c68a92acd5dec8",
+    "frozen/evidence/fl.py": "240bc1d1fc106e84fc8a192f1157a8273c505d1d330ceffdbb6ccd7592d1f773",
+    "frozen/evidence/no_ldm_protocol.json": "d0f3d33c2db15804b32c6ae2d284de6a26724a9d727e7bc9f60ffc509e2427fd",
+    "frozen/evidence/no_ldm_run_study.py": "9a4bd7874fa31ae0e6d277c95eadafcd64a847455ff318886596beb41bef0bfc",
+    "frozen/evidence/original_causal_run_study.py": "a8381a1db8419f86e4b06a4ac236e3cb996e3bb57628ca2777cc95ced726842b",
+    "frozen/evidence/paper_main.tex": "510a3f1aab6e135d3c45515c47838e2ce06948f6711ac4d05e3aa715d4b17661",
+    "frozen/evidence/protocol.json": "092d82a635ae516486c4e3fb1e93d69064071578fdc3d75662c0e7e42050f199",
+    "frozen/evidence/run_study.py": "b210229d9ab4b3bf36a2943fbbb550f4793bb7cc003d6688834e92a7b467cd5f",
+    "frozen/models/fedavg_h12_seed17070.pkl": "64b4f05f57dba6d354463509a89988d6dafa137cd021d0d668f37a09ac7aabb9",
+    "frozen/models/fedavg_h12_seed17070_checkpoint.json": "2e25c6ee2a3e56200158700b19e56fc87aacafb7e44dbc11f6b9b59eae6edaae",
+    "frozen/models/fedavg_h12_seed17071.pkl": "26a3003065a37b2c3cbde5ec582d94de99ef779c9fa2e111453514b00d4963cc",
+    "frozen/models/fedavg_h12_seed17071_checkpoint.json": "c5e075e24b54b7fc3b29a6f0a2aecc773611053f5007d0d51f5d203d9532b55e",
+    "frozen/models/fedavg_h12_seed17072.pkl": "17f0794ea95e1b5283dd3a22e283bbda938e9e8a34fee99b4c71831f32f159e6",
+    "frozen/models/fedavg_h12_seed17072_checkpoint.json": "86a4a6a864ec2328c3ff670ab183d95c99f1ae0f5b3467db6cc35c89affec074",
+    "frozen/models/fedprox_h12_seed17070.pkl": "f59bbfb6e476a47ef70099fa6c6f6c4c227676bd3b76a6d72a1dae7c32a14db4",
+    "frozen/models/fedprox_h12_seed17070_checkpoint.json": "a100e4e559026e06f00d0ef3c3e5e88407fb0307e847d6e37b06e0806c2fc2a5",
+    "frozen/models/fedprox_h12_seed17071.pkl": "a129255b2fc34ee309aa49bf89aa4e7c8d991b77c9676433c6e88ad89da314dd",
+    "frozen/models/fedprox_h12_seed17071_checkpoint.json": "9947bc9278439f32cfe7a80418c778508d04a14841e04a6354aae3414e5d57eb",
+    "frozen/models/fedprox_h12_seed17072.pkl": "192c99f98b454609958e36c3dcea06533bbcc5232b63861a3ed19986d4a2dcb3",
+    "frozen/models/fedprox_h12_seed17072_checkpoint.json": "cde9afd420cdb364628e8b5f8df74673c8e7c9323545098b38a6f70aefda4d29",
+    "frozen/pipeline/research/healthy_only_causal_20260908/cadence.py": "ad3d1147af81daf0d17d588296998c8846836ba83e0ffd60a0c2086045c1ba2f",
+    "frozen/pipeline/research/healthy_only_causal_20260908/wider_models.py": "ed414fe439f3e885e5d9ad8a96bc6e80fa36db1cf98af9156db764f95c51f811",
+    "frozen/pipeline/research/published_methods_20261021/protocol.json": "57b9a383a88076296c5d20621a3c4771438bdde706352098f3600fb1abaf803d",
+    "frozen/pipeline/research/published_methods_20261021/run_comparison.py": "cbc6b462de4a51ae668d49d27a1b2fb48b7a6eaf5f9b2887eca3a8d67df453df",
+    "run_comparators.py": "880b08dab418c7409d55617607763ace3dc5ed4a45bbbf6b16b76194c5f59f39",
+    "seal_stage1.py": "f586641fb489840cb9733631a26b76032b0864c9b9720399febe646173a68891",
+    "synthetic_test_results.json": "eacdf9f53d7a31fa8328b3c34e7bbc9cfd5ebba4a77a1e9d714a9120829eccfa",
+    "synthetic_validation.log": "a9c2d100166d5af83e702032879e3fa51e4a6a3d0270902f2d04ca344530942b",
+    "test_stage1.py": "c056263dbbd7edb8d083c871c844c18f306d470feee3e4076c060a90d11b43d1",
+    "train_development.py": "38360f86169f04d34d26bb1597d9a60b52bee10dd755e45bf35aa689447bed3f"
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "status": "Frozen reconstruction choices before execution; not recovered original scripts",
+  "classification": "Retrospective development-cohort comparison, not external validation or a full-paper replication",
+  "seeds": [17070, 17071, 17072],
+  "headline": "Saved non-LDM dense global H12, equal-client FedAdam, 12 rounds, 2 local epochs; no H12 retraining",
+  "cohort": {"scored": 49, "faults": 43, "controls": 6, "loges_scored": 25, "loges_faults": 25, "loges_controls": 0},
+  "wang": {
+    "baseline": "First 100 train+calibration acquisitions if at least 100 exist; otherwise first min(30, history length). Never use held-out healthy rows to fit a threshold.",
+    "sigma": [3, 4, 6], "std_ddof": 0, "threshold": "mean + sigma * std", "comparison": ">"
+  },
+  "persistence": {"window": 21, "required": 13, "complete_window": true, "carry_across_partitions": true, "monitor_after": "last calibration acquisition"},
+  "project": {"reference": "max rolling 13th-largest score over 21 training+calibration acquisitions", "multiplier": 2.0, "short_history_fallback": "0.995 calibration-score quantile"},
+  "gev": {
+    "regimes": [2, 1], "cluster_input": "22-feature x", "fit_indices": "train+calibration", "kmeans_n_init": 10,
+    "block_size": 10, "block_order": "chronological within regime, include final partial block",
+    "tail_probability": 0.99, "estimator": "scipy.stats.genextreme.fit MLE",
+    "short_or_invalid_fit": "0.995 empirical baseline quantile if fewer than 3 block maxima, degenerate maxima, or invalid fitted quantile; record every fallback",
+    "unrecovered": ["block size", "tail probability", "regime count", "cluster input", "baseline extent", "fallback policy"]
+  },
+  "javanmardi": {
+    "cluster_input": "full-trajectory scalar H12 reconstruction MSE", "clusters": 2, "kmeans_n_init": 10,
+    "tolerance": 10, "healthy_label": "label of acquisition 0", "onset": "first label unequal to healthy_label at index >= tolerance",
+    "alarm": "step held true from onset, masked through calibration; no reset at fault boundary",
+    "unrecovered": ["default Tc", "exact clustering input", "whether transition is a held alarm"],
+    "causality": "retrospective full-trajectory clustering, unlike the frozen causal project detector"
+  },
+  "loges": {
+    "sample_rate_hz": 25600, "band_hz": [0, 5000], "bins": 256,
+    "processing": "per channel: demean, Hilbert envelope, demean envelope, unnormalised rFFT magnitude, include 0..5000 Hz, mean-pool 256 equal index intervals, log1p; elementwise maximum across the two vibration channels",
+    "normalisation": "per-bin training mean and population std, replace std <= 1e-8 by 1",
+    "ae": {"dimensions": [256, 32, 256], "hidden": "tanh", "output": "linear", "loss": "MSE", "initialisation": "independent normal weights std sqrt(2/(256+32)), zero biases", "optimizer": "Adam", "learning_rate": 0.001, "beta1": 0.9, "beta2": 0.999, "epsilon": 1e-8, "epochs": 200, "batch": "full device healthy training partition", "weight_decay": 0, "score": "mean squared reconstruction error in standardised logES space"},
+    "unrecovered": ["channel choice/aggregation", "FFT scaling and exact rebin convention", "normalisation", "AE optimiser, training duration, initialisation, seed"],
+    "deviation_from_paper": "plain dense AE instead of VAE"
+  },
+  "selection_policy": "No tuning to recover logged counts. All fixed cells and seeds saved, including failures and GEV fallbacks."
+}
